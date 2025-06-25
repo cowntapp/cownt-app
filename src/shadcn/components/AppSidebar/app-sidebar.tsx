@@ -13,10 +13,10 @@ import {
 } from 'lucide-react';
 import { useLocation } from 'react-router';
 
-import { NavMain } from '@/components/AppSidebar/components/nav-main';
-import { NavProjects } from '@/components/AppSidebar/components/nav-projects';
-import { NavUser } from '@/components/AppSidebar/components/nav-user';
-import { TeamSwitcher } from '@/components/AppSidebar/components/team-switcher';
+import { NavMain } from '@/shadcn/components/AppSidebar/components/nav-main';
+import { NavProjects } from '@/shadcn/components/AppSidebar/components/nav-projects';
+import { NavUser } from '@/shadcn/components/AppSidebar/components/nav-user';
+import { TeamSwitcher } from '@/shadcn/components/AppSidebar/components/team-switcher';
 import {
   Sidebar,
   SidebarContent,
@@ -24,7 +24,7 @@ import {
   SidebarHeader,
   SidebarRail,
   useSidebar,
-} from '@/components/ui/sidebar';
+} from '@/shadcn/components/ui/sidebar';
 import { useAuth } from '@/features/auth/hooks/useAuth';
 import { useLogout } from '@/features/auth/hooks/useLogout';
 

@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { cn } from '@/shadcn/lib/utils';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Link } from 'react-router';

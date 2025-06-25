@@ -1,7 +1,7 @@
 import { ChevronsUpDown, User as UserIcon } from 'lucide-react';
 import { Link } from 'react-router';
 
-import { Avatar } from '@/components/ui/avatar';
+import { Avatar } from '@/shadcn/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,13 +10,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from '@/shadcn/components/ui/dropdown-menu';
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from '@/components/ui/sidebar';
+} from '@/shadcn/components/ui/sidebar';
 import { userMenuOptions, type UserMenuOption } from '@/config/appConfig';
 import type { User } from '@/features/auth/interfaces/Auth';
 
