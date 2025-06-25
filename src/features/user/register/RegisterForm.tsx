@@ -1,8 +1,8 @@
 import { cn } from '@/shadcn/lib/utils';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { RegisterHeader } from '@/features/auth/register/components/RegisterHeader';
-import type { RegisterUserRequest } from '@/features/auth/interfaces/Auth';
+import { Button } from '@/shadcn/components/ui/button';
+import { Input } from '@/shadcn/components/ui/input';
+import { RegisterHeader } from '@/features/user/register/components/RegisterHeader';
+import type { RegisterUserRequest } from '@/features/user/interfaces/Auth';
 import { useForm } from 'react-hook-form';
 import registerFormSchema, {
   type RegisterFormSchema,
@@ -15,8 +15,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Loader } from '@/components/Loader/Loader';
+} from '@/shadcn/components/ui/form';
+import { Loader } from '@/shadcn/components/Loader/Loader';
 
 interface RegisterFormProps {
   isPending: boolean;

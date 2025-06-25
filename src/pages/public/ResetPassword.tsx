@@ -1,7 +1,7 @@
 import type { ApiError } from '@/api/lib/ApiError';
-import { resetPassword } from '@/features/auth/resetPassword/actions/resetPassword';
-import { ResetPasswordForm } from '@/features/auth/resetPassword/ResetPasswordForm';
-import type { ResetPasswordFormSchema } from '@/features/auth/resetPassword/schema/resetPasswordFormSchema';
+import { resetPassword } from '@/features/user/resetPassword/actions/resetPassword';
+import { ResetPasswordForm } from '@/features/user/resetPassword/ResetPasswordForm';
+import type { ResetPasswordFormSchema } from '@/features/user/resetPassword/schema/resetPasswordFormSchema';
 import { AppMessage } from '@/shared/components/AppMessage';
 import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';

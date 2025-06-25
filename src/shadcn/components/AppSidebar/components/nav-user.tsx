@@ -18,7 +18,7 @@ import {
   useSidebar,
 } from '@/shadcn/components/ui/sidebar';
 import { userMenuOptions, type UserMenuOption } from '@/config/appConfig';
-import type { User } from '@/features/auth/interfaces/Auth';
+import type { User } from '@/features/user/interfaces/Auth';
 
 // Helper to render user menu options grouped by 'group'
 function renderUserMenuOptions(

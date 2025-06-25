@@ -1,9 +1,9 @@
 import { cn } from '@/shadcn/lib/utils';
-import { Button, buttonVariants } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button, buttonVariants } from '@/shadcn/components/ui/button';
+import { Input } from '@/shadcn/components/ui/input';
 import { Link } from 'react-router';
-import type { LoginUserRequest } from '@/features/auth/interfaces/Auth';
-import { LoginHeader } from '@/features/auth/login/components/LoginHeader';
+import type { LoginUserRequest } from '@/features/user/interfaces/Auth';
+import { LoginHeader } from '@/features/user/login/components/LoginHeader';
 import { useForm } from 'react-hook-form';
 import loginFormSchema, {
   type LoginFormSchema,
@@ -16,8 +16,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Loader } from '@/components/Loader/Loader';
+} from '@/shadcn/components/ui/form';
+import { Loader } from '@/shadcn/components/Loader/Loader';
 
 interface LoginFormProps {
   isPending: boolean;

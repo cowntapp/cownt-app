@@ -1,6 +1,6 @@
 import { cn } from '@/shadcn/lib/utils';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/shadcn/components/ui/button';
+import { Input } from '@/shadcn/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -10,8 +10,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Loader } from '@/components/Loader/Loader';
+} from '@/shadcn/components/ui/form';
+import { Loader } from '@/shadcn/components/Loader/Loader';
 import {
   forgotPasswordFormSchema,
   type ForgotPasswordFormSchema,

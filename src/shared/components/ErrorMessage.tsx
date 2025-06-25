@@ -1,6 +1,6 @@
-import { TypoLead } from '@/components/typography/TypoLead';
-import { TypoMuted } from '@/components/typography/TypoMuted';
-import { Button } from '@/components/ui/button';
+import { TypoLead } from '@/shadcn/components/typography/TypoLead';
+import { TypoMuted } from '@/shadcn/components/typography/TypoMuted';
+import { Button } from '@/shadcn/components/ui/button';
 import { Link } from 'react-router';
 
 interface ErrorMessageProps {

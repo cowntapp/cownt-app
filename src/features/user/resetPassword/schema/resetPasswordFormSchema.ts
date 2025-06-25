@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { passwordSchema } from '../../schemas/schemas';
+import { passwordSchema } from '../../schemas/userFormSchemas';
 
 export type ResetPasswordFormSchema = z.infer<typeof resetPasswordFormSchema>;
 export const resetPasswordFormSchema = z

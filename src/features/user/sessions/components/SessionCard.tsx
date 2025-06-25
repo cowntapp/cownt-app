@@ -4,13 +4,13 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from '@/shadcn/components/ui/card';
 import type { Session } from '../../interfaces/Auth';
 import { parseUserAgent } from '@/shared/utils/parseUserAgent';
 import { CheckCircle2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/shadcn/components/ui/button';
 import { LOCALE } from '@/config/appConfig';
-import { Loader } from '@/components/Loader/Loader';
+import { Loader } from '@/shadcn/components/Loader/Loader';
 import { useDeleteSession } from '../hooks/useDeleteSession';
 
 interface SessionCardProps {

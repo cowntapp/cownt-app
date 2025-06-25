@@ -1,5 +1,5 @@
-import { Loader } from '@/components/Loader/Loader';
-import { useAuth } from '@/features/auth/hooks/useAuth';
+import { Loader } from '@/shadcn/components/Loader/Loader';
+import { useAuth } from '@/features/user/auth/hooks/useAuth';
 import { Navigate, Outlet } from 'react-router';
 
 export const AuthGuard = () => {

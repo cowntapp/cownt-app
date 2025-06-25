@@ -1,4 +1,4 @@
-import { Toaster } from '@/components/ui/sonner';
+import { Toaster } from '@/shadcn/components/ui/sonner';
 import { Outlet } from 'react-router';
 
 export const RootLayout = () => {

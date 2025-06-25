@@ -1,7 +1,7 @@
-import { LoginForm } from '@/features/auth/login/LoginForm';
-import type { LoginUserRequest } from '@/features/auth/interfaces/Auth';
-import { useLogin } from '@/features/auth/login/hooks/useLogin';
-import { useAuth } from '@/features/auth/hooks/useAuth';
+import { LoginForm } from '@/features/user/login/LoginForm';
+import type { LoginUserRequest } from '@/features/user/interfaces/Auth';
+import { useLogin } from '@/features/user/login/hooks/useLogin';
+import { useAuth } from '@/features/user/auth/hooks/useAuth';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 

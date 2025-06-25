@@ -1,7 +1,7 @@
-import { Loader } from '@/components/Loader/Loader';
-import { TypoH1 } from '@/components/typography/TypoH1';
-import { SessionCard } from '@/features/auth/sessions/components/SessionCard';
-import { useSessions } from '@/features/auth/sessions/hooks/useSessions';
+import { Loader } from '@/shadcn/components/Loader/Loader';
+import { TypoH1 } from '@/shadcn/components/typography/TypoH1';
+import { SessionCard } from '@/features/user/sessions/components/SessionCard';
+import { useSessions } from '@/features/user/sessions/hooks/useSessions';
 import { ErrorMessage } from '@/shared/components/ErrorMessage';
 
 export const Sessions = () => {

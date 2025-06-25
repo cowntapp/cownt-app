@@ -1,7 +1,7 @@
 import type { ApiError } from '@/api/lib/ApiError';
-import { sendPasswordResetEmail } from '@/features/auth/forgotPassword/actions/sendPasswordResetEmail';
-import { ForgotPasswordForm } from '@/features/auth/forgotPassword/components/ForgotPasswordForm';
-import type { ForgotPasswordRequest } from '@/features/auth/interfaces/Auth';
+import { sendPasswordResetEmail } from '@/features/user/forgotPassword/actions/sendPasswordResetEmail';
+import { ForgotPasswordForm } from '@/features/user/forgotPassword/components/ForgotPasswordForm';
+import type { ForgotPasswordRequest } from '@/features/user/interfaces/Auth';
 import { AppMessage } from '@/shared/components/AppMessage';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';

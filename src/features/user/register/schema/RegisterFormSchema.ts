@@ -1,5 +1,5 @@
 import z from 'zod';
-import { emailSchema, passwordSchema } from '../../schemas/schemas';
+import { emailSchema, passwordSchema } from '../../schemas/userFormSchemas';
 
 export type RegisterFormSchema = z.infer<typeof registerFormSchema>;
 const registerFormSchema = z

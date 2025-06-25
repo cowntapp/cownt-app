@@ -1,5 +1,5 @@
-import { TypoMuted } from '@/components/typography/TypoMuted';
-import { Button } from '@/components/ui/button';
+import { TypoMuted } from '@/shadcn/components/typography/TypoMuted';
+import { Button } from '@/shadcn/components/ui/button';
 import { Link } from 'react-router';
 
 export const GoBackSection = () => {

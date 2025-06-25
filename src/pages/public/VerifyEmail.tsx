@@ -1,6 +1,6 @@
-import { Loader } from '@/components/Loader/Loader';
-import { Button } from '@/components/ui/button';
-import { verifyEmail } from '@/features/auth/verifyEmail/actions/verifyEmail';
+import { Loader } from '@/shadcn/components/Loader/Loader';
+import { Button } from '@/shadcn/components/ui/button';
+import { verifyEmail } from '@/features/user/verifyEmail/actions/verifyEmail';
 import { AppMessage } from '@/shared/components/AppMessage';
 import { ErrorMessage } from '@/shared/components/ErrorMessage';
 import { useRouterParams } from '@/shared/hooks/useRouterParams';

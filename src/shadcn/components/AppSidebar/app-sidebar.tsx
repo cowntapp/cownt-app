@@ -25,8 +25,8 @@ import {
   SidebarRail,
   useSidebar,
 } from '@/shadcn/components/ui/sidebar';
-import { useAuth } from '@/features/auth/hooks/useAuth';
-import { useLogout } from '@/features/auth/hooks/useLogout';
+import { useAuth } from '@/features/user/auth/hooks/useAuth';
+import { useLogout } from '@/features/user/logout/hooks/useLogout';
 
 // This is sample data.
 const data = {
