@@ -1,3 +1,4 @@
+import { ALLOW_REGISTER } from '@/config/consts/configConsts';
 import { TypoMuted } from '@/shadcn/components/typography/TypoMuted';
 import { Button } from '@/shadcn/components/ui/button';
 import { Link } from 'react-router';
@@ -17,18 +18,22 @@ export const GoBackSection = () => {
           Login
         </Link>
       </Button>
-      or
-      <Button
-        asChild
-        variant={'link'}
-      >
-        <Link
-          to={'/register'}
-          replace
-        >
-          Register
-        </Link>
-      </Button>
+      {ALLOW_REGISTER && (
+        <>
+          or
+          <Button
+            asChild
+            variant={'link'}
+          >
+            <Link
+              to={'/register'}
+              replace
+            >
+              Register
+            </Link>
+          </Button>
+        </>
+      )}
     </TypoMuted>
   );
 };

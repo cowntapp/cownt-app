@@ -1,4 +1,8 @@
-import { HAS_LANDING, HAS_WORKSPACES } from '@/config/consts/configConsts';
+import {
+  ALLOW_REGISTER,
+  HAS_LANDING,
+  HAS_WORKSPACES,
+} from '@/config/consts/configConsts';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { PublicLayout } from '@/layouts/PublicLayout';
 import { RootLayout } from '@/layouts/RootLayout';
@@ -44,10 +48,12 @@ const AppRoutes = () => {
             path="login"
             element={<Login />}
           />
-          <Route
-            path="register"
-            element={<Register />}
-          />
+          {ALLOW_REGISTER && (
+            <Route
+              path="register"
+              element={<Register />}
+            />
+          )}
           <Route
             path="email/verify"
             element={<VerifyEmailInfo />}

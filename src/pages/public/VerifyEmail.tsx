@@ -6,6 +6,7 @@ import { ErrorMessage } from '@/shared/components/ErrorMessage';
 import { useRouterParams } from '@/shared/hooks/useRouterParams';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router';
+import { ALLOW_REGISTER } from '@/config/consts/configConsts';
 
 export const VerifyEmail = () => {
   const { code } = useRouterParams('code');
@@ -23,8 +24,8 @@ export const VerifyEmail = () => {
         <ErrorMessage
           title="Invalid link"
           description="The link is either invalid or expired."
-          linkLabel="Register again"
-          linkPath="/register"
+          linkLabel={ALLOW_REGISTER ? 'Register again' : undefined}
+          linkPath={ALLOW_REGISTER ? '/register' : undefined}
         />
       )}
 
