@@ -4,7 +4,7 @@ import { useLocation } from 'react-router';
 import { NavMain } from '@/shadcn/components/AppSidebar/components/nav-main';
 import { NavProjects } from '@/shadcn/components/AppSidebar/components/nav-projects';
 import { NavUser } from '@/shadcn/components/AppSidebar/components/nav-user';
-import { TeamSwitcher } from '@/shadcn/components/AppSidebar/components/team-switcher';
+import { WorkspaceSwitcher } from '@/shadcn/components/AppSidebar/components/workspace-switcher';
 import {
   Sidebar,
   SidebarContent,
@@ -16,6 +16,7 @@ import {
 import { useAuth } from '@/features/user/auth/hooks/useAuth';
 import { useLogout } from '@/features/user/logout/hooks/useLogout';
 import { menuData } from '@/config/data/appConfigData';
+import { HAS_WORKSPACES } from '@/config/consts/configConsts';
 
 // This is sample data.
 
@@ -49,7 +50,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       {...props}
     >
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        {HAS_WORKSPACES ? (
+          <WorkspaceSwitcher workspaces={menuData.workspaces!} />
+        ) : (
+          <div>hola</div>
+        )}
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={menuData.navMain} />

@@ -13,6 +13,9 @@ import { AuthGuard } from './AuthGuard';
 import { VerifyEmailInfo } from '@/pages/public/VerifyEmailInfo';
 import { Sessions } from '@/pages/private/Sessions';
 import { setNavigate } from '@/shared/utils/navigation';
+import { Dashboard } from '@/pages/private/Dashboard';
+import { SettingsLayout } from '@/layouts/SettingsLayout';
+import { WorkspaceDashboard } from '@/pages/private/WorkspaceDashboard';
 
 const Landing = () =>
   HAS_LANDING ? (
@@ -66,10 +69,21 @@ const AppRoutes = () => {
         {/* PRIVATE ROUTES */}
         <Route element={<AuthGuard />}>
           <Route element={<DashboardLayout />}>
-            <Route
-              path="dashboard"
-              element={<div>Here is the dashboard</div>}
-            />
+            {HAS_WORKSPACES ? (
+              <Route path=":workspace">
+                <Route
+                  index
+                  element={<WorkspaceDashboard />}
+                />
+              </Route>
+            ) : (
+              <Route
+                path="dashboard"
+                element={<Dashboard />}
+              />
+            )}
+          </Route>
+          <Route element={<SettingsLayout />}>
             <Route
               path="sessions"
               element={<Sessions />}
