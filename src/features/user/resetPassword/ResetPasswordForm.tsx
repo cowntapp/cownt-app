@@ -17,7 +17,7 @@ import {
   type ResetPasswordFormSchema,
 } from './schema/resetPasswordFormSchema';
 import { ResetPasswordHeader } from './components/ResetPasswordHeader';
-import { GoBackSection } from '../forgotPassword/components/GoBackSection';
+import { ForgotPasswordFooter } from '../forgotPassword/components/ForgotPasswordFooter';
 
 interface ResetPasswordFormProps {
   isPending: boolean;
@@ -100,7 +100,7 @@ export const ResetPasswordForm = ({
               </Button>
             </div>
 
-            <GoBackSection />
+            <ForgotPasswordFooter />
           </div>
         </form>
       </Form>

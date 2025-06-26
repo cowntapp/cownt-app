@@ -18,6 +18,7 @@ import {
 } from '@/shadcn/components/ui/sidebar';
 import { Link, Navigate } from 'react-router';
 import { useRouterParams } from '@/shared/hooks/useRouterParams';
+import { APP_NAME } from '@/config/consts/configConsts';
 
 export function WorkspaceSwitcher({
   workspaces,
@@ -55,7 +56,7 @@ export function WorkspaceSwitcher({
                 <span className="truncate font-medium">
                   {activeWorkspace.name}
                 </span>
-                <span className="truncate text-xs">App Name</span>
+                <span className="truncate text-xs">{APP_NAME}</span>
               </div>
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>

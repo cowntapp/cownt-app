@@ -1,5 +1,6 @@
 import { menuData } from '../data/appConfigData';
 
+export const APP_NAME = 'Acme Inc.';
 export const HAS_LANDING = true;
 export const HAS_WORKSPACES = !!menuData.workspaces?.length;
 export const ALLOW_REGISTER = true;

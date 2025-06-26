@@ -1,7 +1,6 @@
 import { cn } from '@/shadcn/lib/utils';
-import { Button, buttonVariants } from '@/shadcn/components/ui/button';
+import { Button } from '@/shadcn/components/ui/button';
 import { Input } from '@/shadcn/components/ui/input';
-import { Link } from 'react-router';
 import type { LoginUserRequest } from '@/features/user/interfaces/Auth';
 import { LoginHeader } from '@/features/user/login/components/LoginHeader';
 import { useForm } from 'react-hook-form';
@@ -18,6 +17,7 @@ import {
   FormMessage,
 } from '@/shadcn/components/ui/form';
 import { Loader } from '@/shadcn/components/Loader/Loader';
+import { LoginFooter } from './components/LoginFooter';
 
 interface LoginFormProps {
   isPending: boolean;
@@ -98,12 +98,8 @@ export const LoginForm = ({
               >
                 Log in
               </Button>
-              <Link
-                to={'/password/forgot'}
-                className={buttonVariants({ variant: 'link', size: 'default' })}
-              >
-                Forgot password?
-              </Link>
+
+              <LoginFooter />
             </div>
           </div>
         </form>

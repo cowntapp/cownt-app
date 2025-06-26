@@ -17,7 +17,7 @@ import {
   type ForgotPasswordFormSchema,
 } from '../schema/ForgotPasswordFormSchema';
 import { ForgotPasswordHeader } from './ForgotPasswordHeader';
-import { GoBackSection } from './GoBackSection';
+import { ForgotPasswordFooter } from './ForgotPasswordFooter';
 
 interface ForgotPasswordFormProps {
   isPending: boolean;
@@ -82,7 +82,7 @@ export const ForgotPasswordForm = ({
               </Button>
             </div>
 
-            <GoBackSection />
+            <ForgotPasswordFooter />
           </div>
         </form>
       </Form>

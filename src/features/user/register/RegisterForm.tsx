@@ -17,6 +17,7 @@ import {
   FormMessage,
 } from '@/shadcn/components/ui/form';
 import { Loader } from '@/shadcn/components/Loader/Loader';
+import { RegisterFooter } from './components/RegisterFooter';
 
 interface RegisterFormProps {
   isPending: boolean;
@@ -121,6 +122,7 @@ export const RegisterForm = ({
                 Register
               </Button>
             </div>
+            <RegisterFooter />
           </div>
         </form>
       </Form>

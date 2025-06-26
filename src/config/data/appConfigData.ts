@@ -16,6 +16,8 @@ import {
 } from 'lucide-react';
 import type { MenuData, UserMenuItem } from '../interfaces/configInterfaces';
 
+export const AppLogo = GalleryVerticalEnd;
+
 export const menuData: MenuData = {
   workspaces: [
     {

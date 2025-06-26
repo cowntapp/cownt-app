@@ -3,7 +3,7 @@ import { TypoMuted } from '@/shadcn/components/typography/TypoMuted';
 import { Button } from '@/shadcn/components/ui/button';
 import { Link } from 'react-router';
 
-export const GoBackSection = () => {
+export const ForgotPasswordFooter = () => {
   return (
     <TypoMuted className="text-center">
       Go back to

@@ -1,7 +1,7 @@
-import { ALLOW_REGISTER } from '@/config/consts/configConsts';
+import { APP_NAME } from '@/config/consts/configConsts';
+import { AppLogo } from '@/config/data/appConfigData';
 import { TypoH1 } from '@/shadcn/components/typography/TypoH1';
-import { buttonVariants } from '@/shadcn/components/ui/button';
-import { GalleryVerticalEnd } from 'lucide-react';
+import { TypoMuted } from '@/shadcn/components/typography/TypoMuted';
 import { Link } from 'react-router';
 
 export const LoginHeader = () => {
@@ -12,26 +12,16 @@ export const LoginHeader = () => {
         className="flex items-center gap-2 font-medium"
       >
         <div className="flex size-8 items-center justify-center rounded-md">
-          <GalleryVerticalEnd className="size-6" />
+          <AppLogo className="size-6" />
         </div>
-        <span>Acme Inc.</span>
+        <span>{APP_NAME}</span>
       </Link>
       <TypoH1 className="py-4">
         {/* TODO: delete or abstract */}
         {/* Inicia sessió / Accedeix */}
         Log in
       </TypoH1>
-      {ALLOW_REGISTER && (
-        <div className="text-center text-sm">
-          Don&apos;t have an account?{' '}
-          <Link
-            to="/register"
-            className={buttonVariants({ variant: 'link' })}
-          >
-            Register
-          </Link>
-        </div>
-      )}
+      <TypoMuted>Sign in into your account.</TypoMuted>
     </div>
   );
 };

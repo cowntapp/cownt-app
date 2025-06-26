@@ -1,6 +1,7 @@
+import { APP_NAME } from '@/config/consts/configConsts';
+import { AppLogo } from '@/config/data/appConfigData';
 import { TypoH1 } from '@/shadcn/components/typography/TypoH1';
-import { buttonVariants } from '@/shadcn/components/ui/button';
-import { GalleryVerticalEnd } from 'lucide-react';
+import { TypoMuted } from '@/shadcn/components/typography/TypoMuted';
 import { Link } from 'react-router';
 
 export const RegisterHeader = () => {
@@ -11,20 +12,12 @@ export const RegisterHeader = () => {
         className="flex items-center gap-2 font-medium"
       >
         <div className="flex size-8 items-center justify-center rounded-md">
-          <GalleryVerticalEnd className="size-6" />
+          <AppLogo className="size-6" />
         </div>
-        <span>Acme Inc.</span>
+        <span>{APP_NAME}</span>
       </Link>
       <TypoH1 className="py-4">Register</TypoH1>
-      <div className="text-center text-sm">
-        Already have an account?{' '}
-        <Link
-          to="/login"
-          className={buttonVariants({ variant: 'link' })}
-        >
-          Login
-        </Link>
-      </div>
+      <TypoMuted>Sign up for {APP_NAME}</TypoMuted>
     </div>
   );
 };

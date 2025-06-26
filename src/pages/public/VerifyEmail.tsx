@@ -17,7 +17,7 @@ export const VerifyEmail = () => {
   });
 
   return (
-    <div className="w-full max-w-sm mx-auto my-16 flex flex-col gap-y-8">
+    <div className="w-full max-w-sm mx-auto my-auto flex flex-col gap-y-8">
       {isPending && <Loader />}
       {isSuccess && <AppMessage title="Email verified!" />}
       {isError && (
