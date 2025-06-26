@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronRight, type LucideIcon } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 import {
   Collapsible,
@@ -17,30 +17,23 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from '@/shadcn/components/ui/sidebar';
+import type { MenuItem } from '@/config/interfaces/configInterfaces';
 
-export function NavMain({
-  items,
-}: {
-  items: {
-    title: string;
-    url: string;
-    icon?: LucideIcon;
-    isActive?: boolean;
-    items?: {
-      title: string;
-      url: string;
-    }[];
-  }[];
-}) {
+interface NavMainProps {
+  items: MenuItem[];
+}
+
+export function NavMain({ items }: NavMainProps) {
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>
       <SidebarMenu>
-        {items.map((item) => (
+        {items.map((item, idx) => (
           <Collapsible
             key={item.title}
             asChild
-            defaultOpen={item.isActive}
+            // TODO: Check how to make it default open depending on the route
+            defaultOpen={idx === 0}
             className="group/collapsible"
           >
             <SidebarMenuItem>

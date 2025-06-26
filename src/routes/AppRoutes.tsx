@@ -1,4 +1,4 @@
-import { HAS_LANDING } from '@/config/appConfig';
+import { HAS_LANDING, HAS_WORKSPACES } from '@/config/consts/configConsts';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { PublicLayout } from '@/layouts/PublicLayout';
 import { RootLayout } from '@/layouts/RootLayout';

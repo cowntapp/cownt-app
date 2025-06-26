@@ -9,9 +9,9 @@ import type { Session } from '../../interfaces/Auth';
 import { parseUserAgent } from '@/shared/utils/parseUserAgent';
 import { CheckCircle2 } from 'lucide-react';
 import { Button } from '@/shadcn/components/ui/button';
-import { LOCALE } from '@/config/appConfig';
 import { Loader } from '@/shadcn/components/Loader/Loader';
 import { useDeleteSession } from '../hooks/useDeleteSession';
+import { LOCALE } from '@/config/consts/configConsts';
 
 interface SessionCardProps {
   session: Session;

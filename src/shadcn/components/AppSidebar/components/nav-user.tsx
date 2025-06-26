@@ -1,5 +1,5 @@
 import { ChevronsUpDown, User as UserIcon } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link, useLocation, type Location } from 'react-router';
 
 import { Avatar } from '@/shadcn/components/ui/avatar';
 import {
@@ -17,16 +17,22 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/shadcn/components/ui/sidebar';
-import { userMenuOptions, type UserMenuOption } from '@/config/appConfig';
+import { userMenuItems } from '@/config/data/appConfigData';
 import type { User } from '@/features/user/interfaces/Auth';
+import type { UserMenuItem } from '@/config/interfaces/configInterfaces';
 
 // Helper to render user menu options grouped by 'group'
-function renderUserMenuOptions(
-  options: UserMenuOption[],
-  logoutAction: () => void
-) {
+function renderUserMenuOptions({
+  location,
+  options,
+  logoutAction,
+}: {
+  location: Location;
+  options: UserMenuItem[];
+  logoutAction: () => void;
+}) {
   // Agrupar por grupo
-  const groups = options.reduce<Record<string, typeof userMenuOptions>>(
+  const groups = options.reduce<Record<string, typeof userMenuItems>>(
     (acc, opt) => {
       if (!acc[opt.group]) acc[opt.group] = [];
       acc[opt.group].push(opt);
@@ -40,19 +46,22 @@ function renderUserMenuOptions(
       <DropdownMenuGroup>
         {groups[group].map((opt) => (
           <DropdownMenuItem
-            key={opt.label}
-            asChild={!!opt.route}
+            key={opt.title}
+            asChild={!!opt.url}
             onClick={opt.group === 'logout' ? () => logoutAction() : undefined}
           >
-            {opt.route ? (
-              <Link to={opt.route}>
-                <opt.icon />
-                {opt.label}
+            {opt.url ? (
+              <Link
+                to={opt.url}
+                state={{ from: location.pathname }}
+              >
+                {opt.icon && <opt.icon />}
+                {opt.title}
               </Link>
             ) : (
               <>
-                <opt.icon />
-                {opt.label}
+                {opt.icon && <opt.icon />}
+                {opt.title}
               </>
             )}
           </DropdownMenuItem>
@@ -73,6 +82,7 @@ export function NavUser({
   logoutAction: () => void;
 }) {
   const { isMobile } = useSidebar();
+  const location = useLocation();
 
   return (
     <SidebarMenu>
@@ -115,7 +125,11 @@ export function NavUser({
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            {renderUserMenuOptions(userMenuOptions, logoutAction)}
+            {renderUserMenuOptions({
+              location,
+              options: userMenuItems,
+              logoutAction,
+            })}
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>

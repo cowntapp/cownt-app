@@ -1,10 +1,4 @@
-import {
-  Folder,
-  Forward,
-  MoreHorizontal,
-  Trash2,
-  type LucideIcon,
-} from 'lucide-react';
+import { Folder, Forward, MoreHorizontal, Trash2 } from 'lucide-react';
 
 import {
   DropdownMenu,
@@ -22,16 +16,13 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/shadcn/components/ui/sidebar';
+import type { MenuItem } from '@/config/interfaces/configInterfaces';
 
-export function NavProjects({
-  projects,
-}: {
-  projects: {
-    name: string;
-    url: string;
-    icon: LucideIcon;
-  }[];
-}) {
+interface NavProjectsProps {
+  projects: MenuItem[];
+}
+
+export function NavProjects({ projects }: NavProjectsProps) {
   const { isMobile } = useSidebar();
 
   return (
@@ -39,11 +30,11 @@ export function NavProjects({
       <SidebarGroupLabel>Projects</SidebarGroupLabel>
       <SidebarMenu>
         {projects.map((item) => (
-          <SidebarMenuItem key={item.name}>
+          <SidebarMenuItem key={item.title}>
             <SidebarMenuButton asChild>
               <a href={item.url}>
-                <item.icon />
-                <span>{item.name}</span>
+                {item.icon && <item.icon />}
+                <span>{item.title}</span>
               </a>
             </SidebarMenuButton>
             <DropdownMenu>
