@@ -2,6 +2,7 @@
 import axios, { type CreateAxiosDefaults } from 'axios';
 import { queryClient } from '@/providers/query/config/queryClient';
 import { navigate } from '@/shared/utils/navigation';
+import { ALLOW_REGISTER } from '@/config/consts/configConsts';
 
 // --- Axios Configuration ---
 const options: CreateAxiosDefaults = {
@@ -47,7 +48,7 @@ API.interceptors.response.use(
         queryClient.clear();
         if (
           window.location.pathname !== '/login' &&
-          window.location.pathname !== '/register'
+          (ALLOW_REGISTER ? window.location.pathname !== '/register' : true)
         ) {
           navigate('/login', {
             state: { from: window.location.pathname },
