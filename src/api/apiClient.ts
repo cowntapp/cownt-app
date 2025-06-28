@@ -15,6 +15,45 @@ const options: CreateAxiosDefaults = {
 const API = axios.create(options);
 // Separate client for refresh token requests to avoid interceptor loops
 const REFRESH_API_CLIENT = axios.create(options);
+const ANIMAL_API = axios.create(options);
+
+// --- Api Error Handling ---
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const errorHandling = async (error: any) => {
+  if (!error) {
+    // Unknown error, reject with status 500
+    return Promise.reject({ status: 500 });
+  }
+
+  const status: number = (error.response && error.response.status) ?? 500;
+  const data: Record<string, string> =
+    (error.response && error.response.data) ?? {};
+
+  // If access token is invalid, try to refresh it
+  if (status === 401 && data?.errorCode === 'InvalidAccessToken') {
+    try {
+      // Attempt to refresh the access token
+      await REFRESH_API_CLIENT.get('/auth/refresh');
+      // Retry the original request with the new token
+      return REFRESH_API_CLIENT(error.config);
+    } catch (refreshError) {
+      // Refresh failed: clear cache and redirect to login (unless already there)
+      console.error(refreshError);
+      queryClient.clear();
+      if (
+        window.location.pathname !== '/login' &&
+        (ALLOW_REGISTER ? window.location.pathname !== '/register' : true)
+      ) {
+        navigate('/login', {
+          state: { from: window.location.pathname },
+        });
+      }
+    }
+  }
+
+  // For all other errors, reject with status and error data
+  return Promise.reject({ status, ...data });
+};
 
 // --- Interceptors ---
 // REFRESH_API_CLIENT: Only unwraps the response data
@@ -25,42 +64,16 @@ API.interceptors.response.use(
   // On success, unwrap the response data
   (response) => response.data,
   // On error, handle authentication and refresh logic
-  async (error) => {
-    if (!error) {
-      // Unknown error, reject with status 500
-      return Promise.reject({ status: 500 });
-    }
-
-    const status: number = (error.response && error.response.status) ?? 500;
-    const data: Record<string, string> =
-      (error.response && error.response.data) ?? {};
-
-    // If access token is invalid, try to refresh it
-    if (status === 401 && data?.errorCode === 'InvalidAccessToken') {
-      try {
-        // Attempt to refresh the access token
-        await REFRESH_API_CLIENT.get('/auth/refresh');
-        // Retry the original request with the new token
-        return REFRESH_API_CLIENT(error.config);
-      } catch (refreshError) {
-        // Refresh failed: clear cache and redirect to login (unless already there)
-        console.error(refreshError);
-        queryClient.clear();
-        if (
-          window.location.pathname !== '/login' &&
-          (ALLOW_REGISTER ? window.location.pathname !== '/register' : true)
-        ) {
-          navigate('/login', {
-            state: { from: window.location.pathname },
-          });
-        }
-      }
-    }
-
-    // For all other errors, reject with status and error data
-    return Promise.reject({ status, ...data });
-  }
+  errorHandling
 );
+
+ANIMAL_API.interceptors.response.use(
+  (response) => response,
+  // On error, handle authentication and refresh logic
+  errorHandling
+);
+
+export { ANIMAL_API };
 
 // --- Exported API Client ---
 export default API;
