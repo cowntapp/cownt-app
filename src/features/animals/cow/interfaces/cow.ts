@@ -1,6 +1,6 @@
 import type { SEX, ORIGIN, ABSENCE } from '../../consts/animal.consts';
-import type { Breed } from '../../interfaces/breed';
-import type { Characteristic } from '../../interfaces/characteristic';
+import type { Breed } from '../../breeds/interface/breed';
+import type { Characteristic } from '../../characteristics/interface/characteristic';
 
 export interface CowRaw {
   id: string;
