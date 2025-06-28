@@ -7,7 +7,6 @@ export const useAuth = (opts = {}) => {
   const userAuthQuery = useQuery({
     queryKey: [AUTH],
     queryFn: getUser,
-    staleTime: Infinity,
     ...opts,
   });
 
