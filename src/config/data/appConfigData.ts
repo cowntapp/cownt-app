@@ -2,7 +2,6 @@ import {
   AudioWaveform,
   BookOpen,
   Bot,
-  Command,
   Frame,
   GalleryVerticalEnd,
   Map,
@@ -21,103 +20,38 @@ export const AppLogo = GalleryVerticalEnd;
 export const menuData: MenuData = {
   workspaces: [
     {
-      name: 'Acme Inc',
+      name: 'Vaques',
       logo: GalleryVerticalEnd,
-      url: '/acme-inc',
+      url: '/cows',
     },
     {
-      name: 'Acme Corp.',
+      name: 'Ovelles',
       logo: AudioWaveform,
-      url: '/acme-corp',
-    },
-    {
-      name: 'Evil Corp.',
-      logo: Command,
-      url: '/evil-corp',
+      url: '/sheeps',
     },
   ],
   navMain: [
     {
-      title: 'Playground',
-      url: '#',
+      title: 'Estadístiques',
+      url: '/:animal/statistics',
       icon: SquareTerminal,
-      items: [
-        {
-          title: 'History',
-          url: '#',
-        },
-        {
-          title: 'Starred',
-          url: '#',
-        },
-        {
-          title: 'Settings',
-          url: '#',
-        },
-      ],
     },
     {
-      title: 'Models',
-      url: '#',
+      title: 'Llista',
+      url: '/:animal',
       icon: Bot,
-      items: [
-        {
-          title: 'Genesis',
-          url: '#',
-        },
-        {
-          title: 'Explorer',
-          url: '#',
-        },
-        {
-          title: 'Quantum',
-          url: '#',
-        },
-      ],
     },
     {
-      title: 'Documentation',
-      url: '#',
+      title: 'Opcions',
       icon: BookOpen,
       items: [
         {
-          title: 'Introduction',
-          url: '#',
+          title: 'Races',
+          url: '/:animal/breeds',
         },
         {
-          title: 'Get Started',
-          url: '#',
-        },
-        {
-          title: 'Tutorials',
-          url: '#',
-        },
-        {
-          title: 'Changelog',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Settings',
-      url: '#',
-      icon: Settings2,
-      items: [
-        {
-          title: 'General',
-          url: '#',
-        },
-        {
-          title: 'Team',
-          url: '#',
-        },
-        {
-          title: 'Billing',
-          url: '#',
-        },
-        {
-          title: 'Limits',
-          url: '#',
+          title: 'Característiques',
+          url: '/:animal/characteristics',
         },
       ],
     },

@@ -78,8 +78,20 @@ const AppRoutes = () => {
             {HAS_WORKSPACES ? (
               <Route path=":workspace">
                 <Route
-                  index
+                  path="statistics"
                   element={<WorkspaceDashboard />}
+                />
+                <Route
+                  index
+                  element={<div>Here goes animal list</div>}
+                />
+                <Route
+                  path="breeds"
+                  element={<div>Here goes breed options</div>}
+                />
+                <Route
+                  path="characteristics"
+                  element={<div>Here goes chars options</div>}
                 />
               </Route>
             ) : (
