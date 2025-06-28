@@ -1,8 +1,4 @@
-import {
-  ALLOW_REGISTER,
-  HAS_LANDING,
-  HAS_WORKSPACES,
-} from '@/config/consts/configConsts';
+import { ALLOW_REGISTER, HAS_LANDING } from '@/config/consts/configConsts';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { PublicLayout } from '@/layouts/PublicLayout';
 import { RootLayout } from '@/layouts/RootLayout';
@@ -17,7 +13,6 @@ import { AuthGuard } from './AuthGuard';
 import { VerifyEmailInfo } from '@/pages/public/VerifyEmailInfo';
 import { Sessions } from '@/pages/private/Sessions';
 import { setNavigate } from '@/shared/utils/navigation';
-import { Dashboard } from '@/pages/private/Dashboard';
 import { SettingsLayout } from '@/layouts/SettingsLayout';
 import { WorkspaceDashboard } from '@/pages/private/WorkspaceDashboard';
 
@@ -75,31 +70,24 @@ const AppRoutes = () => {
         {/* PRIVATE ROUTES */}
         <Route element={<AuthGuard />}>
           <Route element={<DashboardLayout />}>
-            {HAS_WORKSPACES ? (
-              <Route path=":workspace">
-                <Route
-                  path="statistics"
-                  element={<WorkspaceDashboard />}
-                />
-                <Route
-                  index
-                  element={<div>Here goes animal list</div>}
-                />
-                <Route
-                  path="breeds"
-                  element={<div>Here goes breed options</div>}
-                />
-                <Route
-                  path="characteristics"
-                  element={<div>Here goes chars options</div>}
-                />
-              </Route>
-            ) : (
+            <Route path=":workspace">
               <Route
-                path="dashboard"
-                element={<Dashboard />}
+                path="statistics"
+                element={<WorkspaceDashboard />}
               />
-            )}
+              <Route
+                index
+                element={<div>Here goes animal list</div>}
+              />
+              <Route
+                path="breeds"
+                element={<div>Here goes breed options</div>}
+              />
+              <Route
+                path="characteristics"
+                element={<div>Here goes chars options</div>}
+              />
+            </Route>
           </Route>
           <Route element={<SettingsLayout />}>
             <Route
@@ -116,12 +104,7 @@ const AppRoutes = () => {
         {/* NOT_FOUND REDIRECT */}
         <Route
           path="*"
-          element={
-            <Navigate
-              to={'/dashboard'}
-              replace
-            />
-          }
+          element={<div>Not found</div>}
         />
       </Route>
     </Routes>
