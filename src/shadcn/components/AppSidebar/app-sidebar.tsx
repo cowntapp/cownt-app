@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useLocation } from 'react-router';
 
 import { NavMain } from '@/shadcn/components/AppSidebar/components/nav-main';
-import { NavProjects } from '@/shadcn/components/AppSidebar/components/nav-projects';
 import { NavUser } from '@/shadcn/components/AppSidebar/components/nav-user';
 import { WorkspaceSwitcher } from '@/shadcn/components/AppSidebar/components/workspace-switcher';
 import {
@@ -58,7 +57,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={menuData.navMain} />
-        <NavProjects projects={menuData.projects} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser

@@ -1,1 +1,1 @@
-export type Animal = 'cow' | 'sheep';
+export type AnimalPath = 'cows' | 'sheeps';

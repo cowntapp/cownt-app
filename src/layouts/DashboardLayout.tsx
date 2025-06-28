@@ -1,3 +1,4 @@
+import type { EntityKey } from '@/config/interfaces/configInterfaces';
 import { AppSidebar } from '@/shadcn/components/AppSidebar/app-sidebar';
 import {
   Breadcrumb,
@@ -13,6 +14,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/shadcn/components/ui/sidebar';
+import { entities } from '@/shared/translations/translations';
 import { Outlet, useLocation, Link } from 'react-router';
 import { Fragment } from 'react/jsx-runtime';
 
@@ -31,35 +33,7 @@ export default function DashboardLayout() {
               orientation="vertical"
               className="mr-2 data-[orientation=vertical]:h-4"
             />
-            <Breadcrumb>
-              <BreadcrumbList>
-                {pathnames.map((segment, idx) => {
-                  const to = '/' + pathnames.slice(0, idx + 1).join('/');
-                  const isLast = idx === pathnames.length - 1;
-                  return (
-                    <Fragment key={to}>
-                      {idx !== 0 && (
-                        <BreadcrumbSeparator className="hidden md:block" />
-                      )}
-                      <BreadcrumbItem>
-                        {isLast ? (
-                          <BreadcrumbPage>
-                            {segment.charAt(0).toUpperCase() + segment.slice(1)}
-                          </BreadcrumbPage>
-                        ) : (
-                          <BreadcrumbLink asChild>
-                            <Link to={to}>
-                              {segment.charAt(0).toUpperCase() +
-                                segment.slice(1)}
-                            </Link>
-                          </BreadcrumbLink>
-                        )}
-                      </BreadcrumbItem>
-                    </Fragment>
-                  );
-                })}
-              </BreadcrumbList>
-            </Breadcrumb>
+            <BreadcrumbComponent pathnames={pathnames} />
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
@@ -67,5 +41,34 @@ export default function DashboardLayout() {
         </div>
       </SidebarInset>
     </SidebarProvider>
+  );
+}
+
+function BreadcrumbComponent({ pathnames }: { pathnames: string[] }) {
+  return (
+    <Breadcrumb>
+      <BreadcrumbList>
+        {pathnames.map((segment, idx) => {
+          const to = '/' + pathnames.slice(0, idx + 1).join('/');
+          const isLast = idx === pathnames.length - 1;
+          return (
+            <Fragment key={to}>
+              {idx !== 0 && <BreadcrumbSeparator className="hidden md:block" />}
+              <BreadcrumbItem>
+                {isLast ? (
+                  <BreadcrumbPage>
+                    {entities[segment as EntityKey]}
+                  </BreadcrumbPage>
+                ) : (
+                  <BreadcrumbLink asChild>
+                    <Link to={to}>{entities[segment as EntityKey]}</Link>
+                  </BreadcrumbLink>
+                )}
+              </BreadcrumbItem>
+            </Fragment>
+          );
+        })}
+      </BreadcrumbList>
+    </Breadcrumb>
   );
 }

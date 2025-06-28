@@ -14,9 +14,22 @@ export interface MenuItem {
 export interface MenuData {
   workspaces?: Workspace[];
   navMain: MenuItem[];
-  projects: MenuItem[];
 }
 
 export interface UserMenuItem extends MenuItem {
   group: string;
 }
+
+export const entityKeys = [
+  'statistics',
+  'cows',
+  'cow',
+  'sheeps',
+  'sheep',
+  'breeds',
+  'breed',
+  'characteristics',
+  'characteristic',
+] as const;
+
+export type EntityKey = (typeof entityKeys)[number];

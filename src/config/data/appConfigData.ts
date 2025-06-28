@@ -2,10 +2,7 @@ import {
   AudioWaveform,
   BookOpen,
   Bot,
-  Frame,
   GalleryVerticalEnd,
-  Map,
-  PieChart,
   SquareTerminal,
   BadgeCheck,
   // Bell,
@@ -14,25 +11,26 @@ import {
   Settings2,
 } from 'lucide-react';
 import type { MenuData, UserMenuItem } from '../interfaces/configInterfaces';
+import { entities } from '@/shared/translations/translations';
 
 export const AppLogo = GalleryVerticalEnd;
 
 export const menuData: MenuData = {
   workspaces: [
     {
-      name: 'Vaques',
+      name: entities.cows,
       logo: GalleryVerticalEnd,
       url: '/cows',
     },
     {
-      name: 'Ovelles',
+      name: entities.sheeps,
       logo: AudioWaveform,
       url: '/sheeps',
     },
   ],
   navMain: [
     {
-      title: 'Estadístiques',
+      title: entities.statistics,
       url: '/:animal/statistics',
       icon: SquareTerminal,
     },
@@ -46,31 +44,14 @@ export const menuData: MenuData = {
       icon: BookOpen,
       items: [
         {
-          title: 'Races',
+          title: entities.breeds,
           url: '/:animal/breeds',
         },
         {
-          title: 'Característiques',
+          title: entities.characteristics,
           url: '/:animal/characteristics',
         },
       ],
-    },
-  ],
-  projects: [
-    {
-      title: 'Design Engineering',
-      url: '#',
-      icon: Frame,
-    },
-    {
-      title: 'Sales & Marketing',
-      url: '#',
-      icon: PieChart,
-    },
-    {
-      title: 'Travel',
-      url: '#',
-      icon: Map,
     },
   ],
 };
@@ -81,36 +62,12 @@ export const userMenuItems: UserMenuItem[] = [
     url: '/settings',
     group: 'main',
   },
-  // {
-  //   title: 'Upgrade to Pro',
-  //   icon: Sparkles,
-  //   url: undefined,
-  //   group: 'main',
-  // },
   {
     title: 'Sessions',
     icon: BadgeCheck,
     url: '/sessions',
     group: 'secondary',
   },
-  // {
-  //   title: 'Account',
-  //   icon: BadgeCheck,
-  //   url: '/account',
-  //   group: 'secondary',
-  // },
-  // {
-  //   title: 'Billing',
-  //   icon: CreditCard,
-  //   url: '/billing',
-  //   group: 'secondary',
-  // },
-  // {
-  //   title: 'Notifications',
-  //   icon: Bell,
-  //   url: '/notifications',
-  //   group: 'secondary',
-  // },
   // DO NOT EDIT (only title or icon)
   {
     title: 'Log out',
