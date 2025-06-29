@@ -11,26 +11,26 @@ import {
   Settings2,
 } from 'lucide-react';
 import type { MenuData, UserMenuItem } from '../interfaces/configInterfaces';
-import { entities } from '@/shared/translations/translations';
+import { i18n_entities } from '@/shared/translations/translations';
 
 export const AppLogo = GalleryVerticalEnd;
 
 export const menuData: MenuData = {
   workspaces: [
     {
-      name: entities.cows,
+      name: i18n_entities.cows,
       logo: GalleryVerticalEnd,
       url: '/cows',
     },
     {
-      name: entities.sheeps,
+      name: i18n_entities.sheeps,
       logo: AudioWaveform,
       url: '/sheeps',
     },
   ],
   navMain: [
     {
-      title: entities.statistics,
+      title: i18n_entities.statistics,
       url: '/:animal/statistics',
       icon: SquareTerminal,
     },
@@ -44,11 +44,11 @@ export const menuData: MenuData = {
       icon: BookOpen,
       items: [
         {
-          title: entities.breeds,
+          title: i18n_entities.breeds,
           url: '/:animal/breeds',
         },
         {
-          title: entities.characteristics,
+          title: i18n_entities.characteristics,
           url: '/:animal/characteristics',
         },
       ],

@@ -1,4 +1,4 @@
-import type { EntityKey } from '@/config/interfaces/configInterfaces';
+import { type EntityKey } from '@/config/interfaces/configInterfaces';
 import { AppSidebar } from '@/shadcn/components/AppSidebar/app-sidebar';
 import {
   Breadcrumb,
@@ -14,7 +14,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/shadcn/components/ui/sidebar';
-import { entities } from '@/shared/translations/translations';
+import { i18n_entities } from '@/shared/translations/translations';
 import { Outlet, useLocation, Link } from 'react-router';
 import { Fragment } from 'react/jsx-runtime';
 
@@ -57,11 +57,15 @@ function BreadcrumbComponent({ pathnames }: { pathnames: string[] }) {
               <BreadcrumbItem>
                 {isLast ? (
                   <BreadcrumbPage>
-                    {entities[segment as EntityKey]}
+                    {i18n_entities[segment as EntityKey] ??
+                      formatStringSegment(segment)}
                   </BreadcrumbPage>
                 ) : (
                   <BreadcrumbLink asChild>
-                    <Link to={to}>{entities[segment as EntityKey]}</Link>
+                    <Link to={to}>
+                      {i18n_entities[segment as EntityKey] ??
+                        formatStringSegment(segment)}
+                    </Link>
                   </BreadcrumbLink>
                 )}
               </BreadcrumbItem>
@@ -71,4 +75,8 @@ function BreadcrumbComponent({ pathnames }: { pathnames: string[] }) {
       </BreadcrumbList>
     </Breadcrumb>
   );
+}
+
+function formatStringSegment(segment: string) {
+  return segment.charAt(0).toUpperCase() + segment.slice(1);
 }
