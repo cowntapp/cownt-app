@@ -40,6 +40,7 @@ type SidebarContextProps = {
   setOpenMobile: (open: boolean) => void;
   isMobile: boolean;
   toggleSidebar: () => void;
+  sidebarWidth: string;
 };
 
 const SidebarContext = React.createContext<SidebarContextProps | null>(null);
@@ -113,6 +114,14 @@ function SidebarProvider({
   // This makes it easier to style the sidebar with Tailwind classes.
   const state = open ? 'expanded' : 'collapsed';
 
+  // Calculate sidebar width based on state and mobile
+  let sidebarWidth = SIDEBAR_WIDTH;
+  if (isMobile) {
+    sidebarWidth = '0px';
+  } else if (!open) {
+    sidebarWidth = SIDEBAR_WIDTH_ICON;
+  }
+
   const contextValue = React.useMemo<SidebarContextProps>(
     () => ({
       state,
@@ -122,8 +131,18 @@ function SidebarProvider({
       openMobile,
       setOpenMobile,
       toggleSidebar,
+      sidebarWidth,
     }),
-    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
+    [
+      state,
+      open,
+      setOpen,
+      isMobile,
+      openMobile,
+      setOpenMobile,
+      toggleSidebar,
+      sidebarWidth,
+    ]
   );
 
   return (
