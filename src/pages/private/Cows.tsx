@@ -1,0 +1,31 @@
+import { useBreeds } from '@/features/animals/breeds/hooks/useBreeds';
+import { useCharacteristics } from '@/features/animals/characteristics/hooks/useCharacteristics';
+import { cowCowlumns } from '@/features/animals/cow/components/columns';
+import { useCows } from '@/features/animals/cow/hooks/useCows';
+import { TypoH1 } from '@/shadcn/components/typography/TypoH1';
+import { DataTable } from '@/shadcn/components/ui/data-table';
+import { QueryBoundary } from '@/shared/components/QueryBoundary';
+
+export const Cows = () => {
+  const { cowsQuery } = useCows();
+  const { breedsQuery } = useBreeds('cows');
+  const { characteristicsQuery } = useCharacteristics('cows');
+
+  const { breeds = [] } = breedsQuery;
+  const { characteristics = [] } = characteristicsQuery;
+
+  return (
+    <div className="w-full overflow-x-auto">
+      <TypoH1>Vaques</TypoH1>
+
+      <QueryBoundary query={cowsQuery}>
+        {({ cows }) => (
+          <DataTable
+            columns={cowCowlumns({ breeds, characteristics })}
+            data={cows}
+          />
+        )}
+      </QueryBoundary>
+    </div>
+  );
+};
