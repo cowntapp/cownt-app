@@ -10,6 +10,7 @@ interface ErrorMessageProps {
   linkPath?: string;
   linkReplace?: boolean;
   className?: string;
+  alignText?: 'left' | 'center' | 'right';
 }
 
 export const ErrorMessage = ({
@@ -19,9 +20,15 @@ export const ErrorMessage = ({
   linkPath,
   linkReplace = true,
   className,
+  alignText = 'center',
 }: ErrorMessageProps) => {
+  const textAlign = {
+    left: 'items-start',
+    center: 'items-center',
+    right: 'items-end',
+  };
   return (
-    <div className={`flex flex-col gap-4 ${className}`}>
+    <div className={`flex flex-col ${textAlign[alignText]} gap-4 ${className}`}>
       <TypoLead
         className="text-center"
         variant="destructive"
