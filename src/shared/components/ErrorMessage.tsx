@@ -9,6 +9,7 @@ interface ErrorMessageProps {
   linkLabel?: string;
   linkPath?: string;
   linkReplace?: boolean;
+  className?: string;
 }
 
 export const ErrorMessage = ({
@@ -17,9 +18,10 @@ export const ErrorMessage = ({
   linkLabel,
   linkPath,
   linkReplace = true,
+  className,
 }: ErrorMessageProps) => {
   return (
-    <div className="flex flex-col gap-4">
+    <div className={`flex flex-col gap-4 ${className}`}>
       <TypoLead
         className="text-center"
         variant="destructive"
