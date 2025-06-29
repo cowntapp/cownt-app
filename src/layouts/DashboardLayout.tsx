@@ -13,6 +13,7 @@ import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
+  useSidebar,
 } from '@/shadcn/components/ui/sidebar';
 import {
   i18n_actions,
@@ -40,11 +41,30 @@ export default function DashboardLayout() {
             <BreadcrumbComponent pathnames={pathnames} />
           </div>
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <Outlet />
-        </div>
+        <MainContent />
       </SidebarInset>
     </SidebarProvider>
+  );
+}
+
+// Workaround to fix table overflowing viewport
+function MainContent() {
+  const { isMobile, sidebarWidth } = useSidebar();
+
+  return (
+    <div
+      className="flex flex-1 flex-col gap-4 p-4 pt-0"
+      style={
+        !isMobile
+          ? {
+              maxWidth: `calc(100vw - ${sidebarWidth} - 16px)`,
+              // marginLeft: sidebarWidth,
+            }
+          : {}
+      }
+    >
+      <Outlet />
+    </div>
   );
 }
 
