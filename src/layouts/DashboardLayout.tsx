@@ -14,7 +14,11 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/shadcn/components/ui/sidebar';
-import { i18n_entities } from '@/shared/translations/translations';
+import {
+  i18n_actions,
+  i18n_entities,
+  type AppAction,
+} from '@/shared/translations/translations';
 import { Outlet, useLocation, Link } from 'react-router';
 import { Fragment } from 'react/jsx-runtime';
 
@@ -53,17 +57,20 @@ function BreadcrumbComponent({ pathnames }: { pathnames: string[] }) {
           const isLast = idx === pathnames.length - 1;
           return (
             <Fragment key={to}>
+              {/* TODO: fix buggy view in small viewport width */}
               {idx !== 0 && <BreadcrumbSeparator className="hidden md:block" />}
               <BreadcrumbItem>
                 {isLast ? (
                   <BreadcrumbPage>
                     {i18n_entities[segment as EntityKey] ??
+                      i18n_actions[segment as AppAction] ??
                       formatStringSegment(segment)}
                   </BreadcrumbPage>
                 ) : (
                   <BreadcrumbLink asChild>
                     <Link to={to}>
                       {i18n_entities[segment as EntityKey] ??
+                        i18n_actions[segment as AppAction] ??
                         formatStringSegment(segment)}
                     </Link>
                   </BreadcrumbLink>
