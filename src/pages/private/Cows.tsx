@@ -3,7 +3,7 @@ import { useCharacteristics } from '@/features/animals/characteristics/hooks/use
 import { cowCowlumns } from '@/features/animals/cow/components/columns';
 import { useCows } from '@/features/animals/cow/hooks/useCows';
 import { TypoH1 } from '@/shadcn/components/typography/TypoH1';
-import { DataTable } from '@/shadcn/components/ui/data-table';
+import { DataTableScrollable } from '@/shadcn/components/ui/data-table';
 import { QueryBoundary } from '@/shared/components/QueryBoundary';
 
 export const Cows = () => {
@@ -20,7 +20,7 @@ export const Cows = () => {
 
       <QueryBoundary query={cowsQuery}>
         {({ cows }) => (
-          <DataTable
+          <DataTableScrollable
             columns={cowCowlumns({ breeds, characteristics })}
             data={cows}
           />
