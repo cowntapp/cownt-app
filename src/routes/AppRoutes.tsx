@@ -15,6 +15,7 @@ import { Sessions } from '@/pages/private/Sessions';
 import { setNavigate } from '@/shared/utils/navigation';
 import { SettingsLayout } from '@/layouts/SettingsLayout';
 import { WorkspaceDashboard } from '@/pages/private/WorkspaceDashboard';
+import { Breeds } from '@/pages/private/Breeds';
 
 const Landing = () =>
   HAS_LANDING ? (
@@ -81,7 +82,7 @@ const AppRoutes = () => {
               />
               <Route
                 path="breeds"
-                element={<div>Here goes breed options</div>}
+                element={<Breeds />}
               />
               <Route
                 path="characteristics"
