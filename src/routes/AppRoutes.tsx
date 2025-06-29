@@ -80,10 +80,29 @@ const AppRoutes = () => {
                 index
                 element={<div>Here goes animal list</div>}
               />
-              <Route
-                path="breeds"
-                element={<Breeds />}
-              />
+              <Route path="breeds">
+                <Route
+                  index
+                  element={<Breeds />}
+                />
+                <Route
+                  path="new"
+                  element={<div>Here you can add a new breed</div>}
+                />
+                <Route
+                  path=":id/edit"
+                  element={<div>Here you will update the breed</div>}
+                />
+                <Route
+                  path="*"
+                  element={
+                    <Navigate
+                      to={'..'}
+                      replace
+                    />
+                  }
+                />
+              </Route>
               <Route
                 path="characteristics"
                 element={<div>Here goes chars options</div>}

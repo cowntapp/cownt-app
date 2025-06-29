@@ -1,26 +1,17 @@
 import { BreedsHeader } from '@/features/animals/breeds/components/BreedsHeader';
+import {
+  breedColumns,
+  loadingBreedColumns,
+} from '@/features/animals/breeds/components/columns';
 import { useBreeds } from '@/features/animals/breeds/hooks/useBreeds';
 import type { AnimalPath } from '@/features/animals/interfaces/animalType';
-import { Loader } from '@/shadcn/components/Loader/Loader';
-import { ErrorMessage } from '@/shared/components/ErrorMessage';
+import { DataTable } from '@/shadcn/components/ui/data-table';
+import { QueryBoundary } from '@/shared/components/QueryBoundary';
 import { useRouterParams } from '@/shared/hooks/useRouterParams';
 
 export const Breeds = () => {
   const { workspace } = useRouterParams('workspace');
   const { breedsQuery } = useBreeds(workspace as AnimalPath);
-
-  if (breedsQuery.isLoading) {
-    return <Loader />;
-  }
-  if (breedsQuery.isError) {
-    return (
-      <ErrorMessage
-        className="mt-12"
-        title="Error al carregar Races"
-        description="Intenta-ho més tard"
-      />
-    );
-  }
 
   const onRefetch = () => breedsQuery.refetch();
 
@@ -31,11 +22,22 @@ export const Breeds = () => {
         isFetching={breedsQuery.isFetching}
       />
 
-      {breedsQuery.breeds?.map((breed) => (
-        <div key={breed.id}>
-          <div>{breed.value}</div>
-        </div>
-      ))}
+      <QueryBoundary
+        query={breedsQuery}
+        loaderComponent={
+          <DataTable
+            columns={loadingBreedColumns}
+            data={new Array(3)}
+          />
+        }
+      >
+        {({ breeds }) => (
+          <DataTable
+            columns={breedColumns}
+            data={breeds}
+          />
+        )}
+      </QueryBoundary>
     </div>
   );
 };
