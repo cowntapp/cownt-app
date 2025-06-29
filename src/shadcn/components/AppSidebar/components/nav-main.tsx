@@ -14,7 +14,7 @@ interface NavMainProps {
 export function NavMain({ items }: NavMainProps) {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
+      <SidebarGroupLabel>Menú</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item, idx) =>
           item.items?.length ? (
