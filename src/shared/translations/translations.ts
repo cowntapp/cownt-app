@@ -28,6 +28,14 @@ export const i18n_entities: Record<EntityKey, string> = {
   characteristic: 'Característica',
 };
 
+export type AppAction = 'new' | 'edit' | 'delete';
+
+export const i18n_actions: Record<AppAction, string> = {
+  new: 'Nova',
+  edit: 'Edita',
+  delete: 'Elimina',
+};
+
 export const i18n_errors: Record<number | string, string> = {
   500: 'Alguna cosa ha fallat',
 };
