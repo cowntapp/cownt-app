@@ -16,6 +16,7 @@ import { setNavigate } from '@/shared/utils/navigation';
 import { SettingsLayout } from '@/layouts/SettingsLayout';
 import { WorkspaceDashboard } from '@/pages/private/WorkspaceDashboard';
 import { Breeds } from '@/pages/private/Breeds';
+import { Characteristics } from '@/pages/private/Characteristics';
 
 const Landing = () =>
   HAS_LANDING ? (
@@ -103,10 +104,29 @@ const AppRoutes = () => {
                   }
                 />
               </Route>
-              <Route
-                path="characteristics"
-                element={<div>Here goes chars options</div>}
-              />
+              <Route path="characteristics">
+                <Route
+                  index
+                  element={<Characteristics />}
+                />
+                <Route
+                  path="new"
+                  element={<div>Here you can add a new char</div>}
+                />
+                <Route
+                  path=":id/edit"
+                  element={<div>Here you will update the char</div>}
+                />
+                <Route
+                  path="*"
+                  element={
+                    <Navigate
+                      to={'..'}
+                      replace
+                    />
+                  }
+                />
+              </Route>
             </Route>
           </Route>
           <Route element={<SettingsLayout />}>

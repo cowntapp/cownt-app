@@ -1,9 +1,9 @@
-import API from '@/api/apiClient';
+import { ANIMAL_API } from '@/api/apiClient';
 import type { Characteristic } from '../interface/characteristic';
 import type { AnimalPath } from '../../interfaces/animalType';
 
 export const getCharacteristics = async (animalPath: AnimalPath) => {
-  const { data } = await API.get<Characteristic[]>(
+  const { data } = await ANIMAL_API.get<Characteristic[]>(
     `/${animalPath}/characteristics`
   );
 
