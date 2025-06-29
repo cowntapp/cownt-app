@@ -15,7 +15,6 @@ import {
 import { useAuth } from '@/features/user/auth/hooks/useAuth';
 import { useLogout } from '@/features/user/logout/hooks/useLogout';
 import { menuData } from '@/config/data/appConfigData';
-import { HAS_WORKSPACES } from '@/config/consts/configConsts';
 
 // This is sample data.
 
@@ -49,11 +48,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       {...props}
     >
       <SidebarHeader>
-        {HAS_WORKSPACES ? (
-          <WorkspaceSwitcher workspaces={menuData.workspaces!} />
-        ) : (
-          <div>hola</div>
-        )}
+        <WorkspaceSwitcher workspaces={menuData.workspaces!} />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={menuData.navMain} />

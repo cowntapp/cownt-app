@@ -12,7 +12,7 @@ export interface MenuItem {
 }
 
 export interface MenuData {
-  workspaces?: Workspace[];
+  workspaces: Workspace[];
   navMain: MenuItem[];
 }
 

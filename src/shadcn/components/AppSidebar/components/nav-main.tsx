@@ -27,7 +27,6 @@ export function NavMain({ items }: NavMainProps) {
             <SimpleSidebarItem
               key={item.title}
               item={item}
-              isMobile={false}
             />
           )
         )}
