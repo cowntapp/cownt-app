@@ -17,6 +17,9 @@ import { SettingsLayout } from '@/layouts/SettingsLayout';
 import { WorkspaceDashboard } from '@/pages/private/WorkspaceDashboard';
 import { Breeds } from '@/pages/private/Breeds';
 import { Characteristics } from '@/pages/private/Characteristics';
+import { Cows } from '@/pages/private/Cows';
+import { Sheeps } from '@/pages/private/Sheeps';
+import { useRouterParams } from '@/shared/hooks/useRouterParams';
 
 const Landing = () =>
   HAS_LANDING ? (
@@ -27,6 +30,18 @@ const Landing = () =>
       replace
     />
   );
+
+const WorkspaceAnimalsIndex = () => {
+  const { workspace } = useRouterParams('workspace');
+  if (workspace === 'cows') return <Cows />;
+  if (workspace === 'sheeps') return <Sheeps />;
+  return (
+    <Navigate
+      to={'/not-found'}
+      replace
+    />
+  );
+};
 
 const AppRoutes = () => {
   const navigate = useNavigate();
@@ -79,7 +94,11 @@ const AppRoutes = () => {
               />
               <Route
                 index
-                element={<div>Here goes animal list</div>}
+                element={<WorkspaceAnimalsIndex />}
+              />
+              <Route
+                path=":id"
+                element={<div>This is the animal page</div>}
               />
               <Route path="breeds">
                 <Route
