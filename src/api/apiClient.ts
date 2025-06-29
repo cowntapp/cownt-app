@@ -26,8 +26,7 @@ const errorHandling = async (error: any) => {
   }
 
   const status: number = (error.response && error.response.status) ?? 500;
-  const data: Record<string, string> =
-    (error.response && error.response.data) ?? {};
+  const data: Record<string, string> = error.response?.data ?? {};
 
   // If access token is invalid, try to refresh it
   if (status === 401 && data?.errorCode === 'InvalidAccessToken') {
