@@ -1,5 +1,6 @@
 import type { EntityKey } from '@/config/interfaces/configInterfaces';
 import { ABSENCE, ORIGIN, SEX } from '@/features/animals/consts/animal.consts';
+import type { CowRaw } from '@/features/animals/cow/interfaces/cow';
 
 export const i18n_originLabels: Record<ORIGIN, string> = {
   [ORIGIN.BOUGHT]: 'Comprada',
@@ -38,4 +39,19 @@ export const i18n_actions: Record<AppAction, string> = {
 
 export const i18n_errors: Record<number | string, string> = {
   500: 'Alguna cosa ha fallat',
+};
+
+export type CowRawKeys = keyof CowRaw;
+
+export const i18n_cowProps: Partial<Record<CowRawKeys, string>> = {
+  sex: 'Sexe',
+  shortCode: 'Codi curt',
+  origin: 'Origen',
+  children: 'Parts',
+  breed: 'Raça',
+  characteristics: 'Característiques',
+  birthDate: 'Naixament',
+  buyPrice: '€ Compra',
+  salePrice: '€ Venta',
+  absence: 'Present',
 };

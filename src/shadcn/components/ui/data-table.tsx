@@ -8,6 +8,7 @@ import {
   type SortingState,
   type Table as TableType,
   useReactTable,
+  type VisibilityState,
 } from '@tanstack/react-table';
 
 import {
@@ -21,6 +22,17 @@ import {
 import { ScrollArea } from './scroll-area';
 import { useState } from 'react';
 import { Input } from './input';
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from './dropdown-menu';
+import { Button } from './button';
+import {
+  i18n_cowProps,
+  type CowRawKeys,
+} from '@/shared/translations/translations';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -65,6 +77,7 @@ export function DataTableScrollable<TData, TValue>({
 }: DataTableScrollableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
   const table = useReactTable({
     data,
@@ -74,9 +87,11 @@ export function DataTableScrollable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
     state: {
       sorting,
       columnFilters,
+      columnVisibility,
     },
   });
 
@@ -93,6 +108,35 @@ export function DataTableScrollable<TData, TValue>({
             table.getColumn(filterColumnId)?.setFilterValue(e.target.value)
           }
         />
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="outline"
+              className="ml-auto"
+            >
+              Columnes
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {table
+              .getAllColumns()
+              .filter((column) => column.getCanHide())
+              .map((column) => {
+                return (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className="capitalize"
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
+                  >
+                    {i18n_cowProps[column.id as CowRawKeys]}
+                  </DropdownMenuCheckboxItem>
+                );
+              })}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       <div className={`rounded-md border my-2 overflow-hidden ${className}`}>
         <Table>
