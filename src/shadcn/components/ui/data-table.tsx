@@ -94,6 +94,9 @@ export function DataTableScrollable<TData, TValue>({
       columnVisibility,
     },
   });
+  const isTableFilteredOrSorted =
+    table.getState().columnFilters.length > 0 ||
+    table.getState().sorting.length > 0;
 
   return (
     <>
@@ -108,6 +111,17 @@ export function DataTableScrollable<TData, TValue>({
             table.getColumn(filterColumnId)?.setFilterValue(e.target.value)
           }
         />
+        {isTableFilteredOrSorted && (
+          <Button
+            className="ml-auto"
+            onClick={() => {
+              table.resetSorting();
+              table.resetColumnFilters();
+            }}
+          >
+            Esborra Filtres
+          </Button>
+        )}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
