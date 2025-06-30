@@ -11,7 +11,6 @@ import {
 } from '@/shadcn/components/ui/dropdown-menu';
 import { Button } from '@/shadcn/components/ui/button';
 import { MoreHorizontal } from 'lucide-react';
-import { toast } from 'sonner';
 import { Link } from 'react-router';
 import { Skeleton } from '@/shadcn/components/ui/skeleton';
 
@@ -75,21 +74,13 @@ export const breedColumns: ColumnDef<Breed>[] = [
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem
-                onClick={() => {
-                  navigator.clipboard.writeText(breed.value);
-                  toast.success(`${breed.value} copied to clipboard`);
-                }}
-              >
-                Copy breed value
-              </DropdownMenuItem>
+              <DropdownMenuLabel>Accions</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
-                <Link to={`./${breed.id}/edit`}>Edit breed</Link>
+                <Link to={`./${breed.id}/edit`}>Edita raça</Link>
               </DropdownMenuItem>
               <DropdownMenuItem variant="destructive">
-                Delete breed
+                Elimina raça
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
