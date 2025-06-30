@@ -2,6 +2,8 @@ import {
   type ColumnDef,
   flexRender,
   getCoreRowModel,
+  getSortedRowModel,
+  type SortingState,
   type Table as TableType,
   useReactTable,
 } from '@tanstack/react-table';
@@ -15,6 +17,7 @@ import {
   TableRow,
 } from '@/shadcn/components/ui/table';
 import { ScrollArea } from './scroll-area';
+import { useState } from 'react';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -50,10 +53,17 @@ export function DataTableScrollable<TData, TValue>({
   data,
   className,
 }: DataTableProps<TData, TValue>) {
+  const [sorting, setSorting] = useState<SortingState>([]);
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    state: {
+      sorting,
+    },
   });
 
   return (

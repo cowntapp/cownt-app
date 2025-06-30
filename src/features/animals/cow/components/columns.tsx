@@ -2,7 +2,7 @@ import type { ColumnDef } from '@tanstack/react-table';
 
 import type { CowRaw } from '../interfaces/cow';
 import { ABSENCE, ORIGIN, SEX } from '../../consts/animal.consts';
-import { Check } from 'lucide-react';
+import { ArrowDown, ArrowUp, ArrowUpDown, Check } from 'lucide-react';
 import type { Breed } from '../../breeds/interface/breed';
 import type { Characteristic } from '../../characteristics/interface/characteristic';
 import { LOCALE } from '@/config/consts/configConsts';
@@ -34,7 +34,21 @@ export const cowCowlumns = ({
   },
   {
     accessorKey: 'shortCode',
-    header: () => <div className="text-center">Codi curt</div>,
+    header: ({ column }) => (
+      <Button
+        variant={column.getIsSorted() ? 'outline' : 'ghost'}
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Codi curt
+        {column.getIsSorted() === false ? (
+          <ArrowUpDown className="size-3" />
+        ) : column.getIsSorted() === 'asc' ? (
+          <ArrowUp className="size-3" />
+        ) : (
+          <ArrowDown className="size-3" />
+        )}
+      </Button>
+    ),
     cell: ({ row }) => {
       const { id, longCode, shortCode } = row.original;
       return (
@@ -65,11 +79,39 @@ export const cowCowlumns = ({
   },
   {
     accessorKey: 'children',
-    header: 'Parts',
+    sortingFn: (cowA, cowB) => {
+      const aIsMale = cowA.original.sex === SEX.M;
+      const bIsMale = cowB.original.sex === SEX.M;
+
+      if (aIsMale && bIsMale) return 1;
+      if (aIsMale) return -1;
+      if (bIsMale) return 1;
+
+      return cowA.original.children.length - cowB.original.children.length;
+    },
+    header: ({ column }) => (
+      <Button
+        variant={column.getIsSorted() ? 'outline' : 'ghost'}
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Parts
+        {column.getIsSorted() === false ? (
+          <ArrowUpDown className="size-3" />
+        ) : column.getIsSorted() === 'asc' ? (
+          <ArrowUp className="size-3" />
+        ) : (
+          <ArrowDown className="size-3" />
+        )}
+      </Button>
+    ),
     cell: ({ row }) => {
       const { children, sex } = row.original;
 
-      return sex === SEX.M ? '-' : children.length;
+      return (
+        <div className="text-center">
+          {sex === SEX.M ? '-' : children.length}
+        </div>
+      );
     },
   },
   {
@@ -95,7 +137,21 @@ export const cowCowlumns = ({
   },
   {
     accessorKey: 'birthDate',
-    header: 'Naixament',
+    header: ({ column }) => (
+      <Button
+        variant={column.getIsSorted() ? 'outline' : 'ghost'}
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Naixament
+        {column.getIsSorted() === false ? (
+          <ArrowUpDown className="size-3" />
+        ) : column.getIsSorted() === 'asc' ? (
+          <ArrowUp className="size-3" />
+        ) : (
+          <ArrowDown className="size-3" />
+        )}
+      </Button>
+    ),
     cell: ({ row }) => {
       const { birthDate } = row.original;
       if (!birthDate) return '-';
@@ -105,12 +161,26 @@ export const cowCowlumns = ({
         year: 'numeric',
       }).format(new Date(Number(birthDate)));
 
-      return formattedDate;
+      return <div className="text-center">{formattedDate}</div>;
     },
   },
   {
     accessorKey: 'buyPrice',
-    header: () => <div className="text-right">€ Compra</div>,
+    header: ({ column }) => (
+      <Button
+        variant={column.getIsSorted() ? 'outline' : 'ghost'}
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        € Compra
+        {column.getIsSorted() === false ? (
+          <ArrowUpDown className="size-3" />
+        ) : column.getIsSorted() === 'asc' ? (
+          <ArrowUp className="size-3" />
+        ) : (
+          <ArrowDown className="size-3" />
+        )}
+      </Button>
+    ),
     cell: ({ row }) => {
       const { buyPrice } = row.original;
       if (!buyPrice) return <div className="text-right">-</div>;
@@ -119,21 +189,35 @@ export const cowCowlumns = ({
         style: 'currency',
         currency: 'EUR',
       }).format(buyPrice);
-      return <div className="text-right">{formatted}</div>;
+      return <div className="text-right px-2">{formatted}</div>;
     },
   },
   {
     accessorKey: 'salePrice',
-    header: () => <div className="text-right">€ Venta</div>,
+    header: ({ column }) => (
+      <Button
+        variant={column.getIsSorted() ? 'outline' : 'ghost'}
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        € Venta
+        {column.getIsSorted() === false ? (
+          <ArrowUpDown className="size-3" />
+        ) : column.getIsSorted() === 'asc' ? (
+          <ArrowUp className="size-3" />
+        ) : (
+          <ArrowDown className="size-3" />
+        )}
+      </Button>
+    ),
     cell: ({ row }) => {
       const { salePrice } = row.original;
-      if (!salePrice) return <div className="text-right">-</div>;
+      if (!salePrice) return <div className="text-right px-2">-</div>;
 
       const formatted = new Intl.NumberFormat(LOCALE, {
         style: 'currency',
         currency: 'EUR',
       }).format(salePrice);
-      return <div className="text-right">{formatted}</div>;
+      return <div className="text-right px-2">{formatted}</div>;
     },
   },
   {
