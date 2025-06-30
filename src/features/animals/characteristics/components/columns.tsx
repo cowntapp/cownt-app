@@ -11,7 +11,6 @@ import {
 } from '@/shadcn/components/ui/dropdown-menu';
 import { Button } from '@/shadcn/components/ui/button';
 import { MoreHorizontal } from 'lucide-react';
-import { toast } from 'sonner';
 import { Link } from 'react-router';
 import { Skeleton } from '@/shadcn/components/ui/skeleton';
 
@@ -76,15 +75,8 @@ export const characteristicColumns: ColumnDef<Characteristic>[] = [
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Accions</DropdownMenuLabel>
-              <DropdownMenuItem
-                onClick={() => {
-                  navigator.clipboard.writeText(characteristic.value);
-                  toast.success(`"${characteristic.value}" copiat!`);
-                }}
-              >
-                Copiar text
-              </DropdownMenuItem>
               <DropdownMenuSeparator />
+              <DropdownMenuLabel>({characteristic.value})</DropdownMenuLabel>
               <DropdownMenuItem asChild>
                 <Link to={`./${characteristic.id}/edit`}>Edita</Link>
               </DropdownMenuItem>

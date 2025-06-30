@@ -76,12 +76,11 @@ export const breedColumns: ColumnDef<Breed>[] = [
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Accions</DropdownMenuLabel>
               <DropdownMenuSeparator />
+              <DropdownMenuLabel>({breed.value})</DropdownMenuLabel>
               <DropdownMenuItem asChild>
-                <Link to={`./${breed.id}/edit`}>Edita raça</Link>
+                <Link to={`./${breed.id}/edit`}>Edita</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem variant="destructive">
-                Elimina raça
-              </DropdownMenuItem>
+              <DropdownMenuItem variant="destructive">Elimina</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
