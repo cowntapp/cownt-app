@@ -12,7 +12,8 @@ export const Register = () => {
 
   useEffect(() => {
     if (userAuthQuery.data) {
-      navigate('/dashboard', { replace: true });
+      // TODO: make it to redirect to landing (/) (when implemented)
+      navigate('/cows', { replace: true });
     }
   }, [userAuthQuery, navigate]);
 
