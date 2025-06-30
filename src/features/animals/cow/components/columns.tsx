@@ -13,11 +13,24 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/shadcn/components/ui/tooltip';
+import { Skeleton } from '@/shadcn/components/ui/skeleton';
 
 interface CowColumnsProps {
   breeds: Breed[];
   characteristics: Characteristic[];
 }
+
+export const loadingCowsColumns: ColumnDef<CowRaw>[] = [
+  {
+    accessorKey: 'longCode',
+    header: () => {
+      return <Skeleton className="h-8 max-w-sm" />;
+    },
+    cell: () => {
+      return <Skeleton className="h-8 max-w-xs" />;
+    },
+  },
+];
 
 export const cowCowlumns = ({
   breeds,

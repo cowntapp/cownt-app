@@ -1,6 +1,9 @@
 import { useBreeds } from '@/features/animals/breeds/hooks/useBreeds';
 import { useCharacteristics } from '@/features/animals/characteristics/hooks/useCharacteristics';
-import { cowCowlumns } from '@/features/animals/cow/components/columns';
+import {
+  cowCowlumns,
+  loadingCowsColumns,
+} from '@/features/animals/cow/components/columns';
 import { useCows } from '@/features/animals/cow/hooks/useCows';
 import { TypoH1 } from '@/shadcn/components/typography/TypoH1';
 import { DataTableScrollable } from '@/shadcn/components/ui/data-table';
@@ -18,7 +21,17 @@ export const Cows = () => {
     <div className="w-full overflow-x-auto">
       <TypoH1>Vaques</TypoH1>
 
-      <QueryBoundary query={cowsQuery}>
+      <QueryBoundary
+        query={cowsQuery}
+        loaderComponent={
+          <DataTableScrollable
+            filterColumnId="longCode"
+            filterInputPlaceholder="Carregant..."
+            columns={loadingCowsColumns}
+            data={new Array(3)}
+          />
+        }
+      >
         {({ cows }) => (
           <DataTableScrollable
             filterColumnId="longCode"
