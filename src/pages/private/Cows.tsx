@@ -21,6 +21,8 @@ export const Cows = () => {
       <QueryBoundary query={cowsQuery}>
         {({ cows }) => (
           <DataTableScrollable
+            filterColumnId="longCode"
+            filterInputPlaceholder="Filtra per codi..."
             columns={cowCowlumns({ breeds, characteristics })}
             data={cows}
           />

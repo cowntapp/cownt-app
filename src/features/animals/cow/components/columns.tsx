@@ -33,6 +33,13 @@ export const cowCowlumns = ({
     },
   },
   {
+    accessorKey: 'longCode',
+    header: () => null,
+    enableHiding: false,
+    meta: { hidden: true },
+    cell: () => null,
+  },
+  {
     accessorKey: 'shortCode',
     header: ({ column }) => (
       <Button

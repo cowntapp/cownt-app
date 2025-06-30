@@ -1,7 +1,9 @@
 import {
   type ColumnDef,
+  type ColumnFiltersState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getSortedRowModel,
   type SortingState,
   type Table as TableType,
@@ -18,11 +20,17 @@ import {
 } from '@/shadcn/components/ui/table';
 import { ScrollArea } from './scroll-area';
 import { useState } from 'react';
+import { Input } from './input';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   className?: string;
+}
+interface DataTableScrollableProps<TData, TValue>
+  extends DataTableProps<TData, TValue> {
+  filterColumnId: string;
+  filterInputPlaceholder: string;
 }
 
 export function DataTable<TData, TValue>({
@@ -51,9 +59,12 @@ export function DataTable<TData, TValue>({
 export function DataTableScrollable<TData, TValue>({
   columns,
   data,
+  filterColumnId,
+  filterInputPlaceholder,
   className,
-}: DataTableProps<TData, TValue>) {
+}: DataTableScrollableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const table = useReactTable({
     data,
@@ -61,22 +72,39 @@ export function DataTableScrollable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting,
+      columnFilters,
     },
   });
 
   return (
-    <div className={`rounded-md border my-4 overflow-hidden ${className}`}>
-      <Table>
-        <ScrollArea className="h-[405px] w-full">
-          <TableContent
-            table={table}
-            columns={columns}
-          />
-        </ScrollArea>
-      </Table>
-    </div>
+    <>
+      <div className="flex items-center py-2 mt-4">
+        <Input
+          className="max-w-sm"
+          placeholder={filterInputPlaceholder}
+          value={
+            (table.getColumn(filterColumnId)?.getFilterValue() as string) ?? ''
+          }
+          onChange={(e) =>
+            table.getColumn(filterColumnId)?.setFilterValue(e.target.value)
+          }
+        />
+      </div>
+      <div className={`rounded-md border my-2 overflow-hidden ${className}`}>
+        <Table>
+          <ScrollArea className="h-[405px] w-full">
+            <TableContent
+              table={table}
+              columns={columns}
+            />
+          </ScrollArea>
+        </Table>
+      </div>
+    </>
   );
 }
 
