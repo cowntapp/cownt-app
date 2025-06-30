@@ -58,7 +58,6 @@ function MainContent() {
         !isMobile
           ? {
               maxWidth: `calc(100vw - ${sidebarWidth} - 16px)`,
-              // marginLeft: sidebarWidth,
             }
           : {}
       }

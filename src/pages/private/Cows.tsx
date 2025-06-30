@@ -18,7 +18,7 @@ export const Cows = () => {
   const { characteristics = [] } = characteristicsQuery;
 
   return (
-    <div className="w-full overflow-x-auto">
+    <div className="w-full">
       <TypoH1>Vaques</TypoH1>
 
       <QueryBoundary

@@ -19,7 +19,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/shadcn/components/ui/table';
-import { ScrollArea } from './scroll-area';
 import { useState } from 'react';
 import { Input } from './input';
 import {
@@ -33,6 +32,7 @@ import {
   i18n_cowProps,
   type CowRawKeys,
 } from '@/shared/translations/translations';
+import { FilterX, Menu } from 'lucide-react';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -100,7 +100,7 @@ export function DataTableScrollable<TData, TValue>({
 
   return (
     <>
-      <div className="flex items-center py-2 mt-4">
+      <div className="flex items-center gap-x-4 py-2 mt-4">
         <Input
           className="max-w-sm"
           placeholder={filterInputPlaceholder}
@@ -111,55 +111,53 @@ export function DataTableScrollable<TData, TValue>({
             table.getColumn(filterColumnId)?.setFilterValue(e.target.value)
           }
         />
-        {isTableFilteredOrSorted && (
-          <Button
-            className="ml-auto"
-            onClick={() => {
-              table.resetSorting();
-              table.resetColumnFilters();
-            }}
-          >
-            Esborra Filtres
-          </Button>
-        )}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+        <div className="ml-auto flex gap-x-4">
+          {isTableFilteredOrSorted && (
             <Button
-              variant="outline"
-              className="ml-auto"
+              onClick={() => {
+                table.resetSorting();
+                table.resetColumnFilters();
+              }}
             >
-              Columnes
+              <span className="sr-only sm:not-sr-only">Esborra Filtres</span>
+              <FilterX className="block sm:hidden" />
             </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {i18n_cowProps[column.id as CowRawKeys]}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+          )}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                <span className="sr-only sm:not-sr-only">Columnes</span>
+                <Menu className="block sm:hidden" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className="capitalize"
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) =>
+                        column.toggleVisibility(!!value)
+                      }
+                    >
+                      {i18n_cowProps[column.id as CowRawKeys]}
+                    </DropdownMenuCheckboxItem>
+                  );
+                })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
-      <div className={`rounded-md border my-2 overflow-hidden ${className}`}>
-        <Table>
-          <ScrollArea className="h-[405px] w-full">
-            <TableContent
-              table={table}
-              columns={columns}
-            />
-          </ScrollArea>
+      <div className={`rounded-md border my-2 ${className}`}>
+        <Table containerClassName="max-h-[500px]">
+          <TableContent
+            table={table}
+            columns={columns}
+          />
         </Table>
       </div>
     </>

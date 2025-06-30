@@ -6,6 +6,7 @@ import {
   ArrowDown,
   ArrowUp,
   ArrowUpDown,
+  ArrowUpRightFromSquare,
   Check,
   ChevronDown,
 } from 'lucide-react';
@@ -27,7 +28,9 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
 } from '@/shadcn/components/ui/dropdown-menu';
+import { Badge } from '@/shadcn/components/ui/badge';
 
 interface CowColumnsProps {
   breeds: Breed[];
@@ -130,14 +133,22 @@ export const cowCowlumns = ({
         <div className="flex flex-col w-full">
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button
+              <Badge
                 asChild
-                size={'sm'}
+                className="font-mono mx-auto"
               >
-                <Link to={`./${id}`}>{shortCode}</Link>
-              </Button>
+                <Link to={`./${id}`}>
+                  {shortCode}
+                  <ArrowUpRightFromSquare className="text-muted size-3" />
+                </Link>
+              </Badge>
             </TooltipTrigger>
-            <TooltipContent side="right">{longCode}</TooltipContent>
+            <TooltipContent
+              side="right"
+              className="font-mono font-semibold text-sm"
+            >
+              {longCode}
+            </TooltipContent>
           </Tooltip>
         </div>
       );
@@ -255,6 +266,7 @@ export const cowCowlumns = ({
                 Desc
               </DropdownMenuCheckboxItem>
             </DropdownMenuGroup>
+            <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuLabel>Filtre</DropdownMenuLabel>
               <DropdownMenuCheckboxItem
@@ -280,21 +292,6 @@ export const cowCowlumns = ({
         </DropdownMenu>
       );
     },
-    // header: ({ column }) => (
-    //   <Button
-    //     variant={column.getIsSorted() ? 'outline' : 'ghost'}
-    //     onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-    //   >
-    //     Parts
-    //     {column.getIsSorted() === false ? (
-    //       <ArrowUpDown className="size-3" />
-    //     ) : column.getIsSorted() === 'asc' ? (
-    //       <ArrowUp className="size-3" />
-    //     ) : (
-    //       <ArrowDown className="size-3" />
-    //     )}
-    //   </Button>
-    // ),
     cell: ({ row }) => {
       const { children, sex } = row.original;
 
@@ -335,6 +332,7 @@ export const cowCowlumns = ({
           <DropdownMenuContent>
             {breeds.map((breed) => (
               <DropdownMenuCheckboxItem
+                key={`table-cows-breed-filter-${breed.id}`}
                 checked={filterValue?.includes(breed.id)}
                 onCheckedChange={() => handleToggle(breed.id)}
               >
@@ -395,11 +393,16 @@ export const cowCowlumns = ({
     },
     cell: ({ row }) => {
       const { characteristics: cowChars } = row.original;
-
       return characteristics
         .filter((char) => cowChars.includes(char.id))
-        .map((char) => char.value)
-        .join(', ');
+        .map((char) => (
+          <Badge
+            variant={'outline'}
+            className="mr-1"
+          >
+            {char.value}
+          </Badge>
+        ));
     },
   },
   {
