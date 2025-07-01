@@ -9,17 +9,13 @@ import {
   ArrowUpRightFromSquare,
   Check,
   ChevronDown,
+  Info,
 } from 'lucide-react';
 import type { Breed } from '../../breeds/interface/breed';
 import type { Characteristic } from '../../characteristics/interface/characteristic';
 import { LOCALE } from '@/config/consts/configConsts';
 import { Button } from '@/shadcn/components/ui/button';
 import { Link } from 'react-router';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/shadcn/components/ui/tooltip';
 import { Skeleton } from '@/shadcn/components/ui/skeleton';
 import {
   DropdownMenu,
@@ -31,6 +27,7 @@ import {
   DropdownMenuSeparator,
 } from '@/shadcn/components/ui/dropdown-menu';
 import { Badge } from '@/shadcn/components/ui/badge';
+import { ResponsiveTooltip } from '@/shadcn/components/ui/responsive-tooltip';
 
 interface CowColumnsProps {
   breeds: Breed[];
@@ -130,26 +127,28 @@ export const cowCowlumns = ({
     cell: ({ row }) => {
       const { id, longCode, shortCode } = row.original;
       return (
-        <div className="flex flex-col w-full">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Badge
-                asChild
-                className="font-mono mx-auto"
-              >
-                <Link to={`./${id}`}>
-                  {shortCode}
-                  <ArrowUpRightFromSquare className="text-muted size-3" />
-                </Link>
-              </Badge>
-            </TooltipTrigger>
-            <TooltipContent
-              side="right"
-              className="font-mono font-semibold text-sm"
+        <div className="flex items-center w-full">
+          <ResponsiveTooltip
+            content={longCode}
+            contentClassName="font-mono uppercase text-sm font-semibold"
+            side="left"
+          >
+            <Button
+              size={'icon'}
+              variant={'ghost'}
             >
-              {longCode}
-            </TooltipContent>
-          </Tooltip>
+              <Info className="h-4 w-4 text-muted-foreground" />
+            </Button>
+          </ResponsiveTooltip>
+          <Badge
+            asChild
+            className="font-mono mx-auto"
+          >
+            <Link to={`./${id}`}>
+              {shortCode}
+              <ArrowUpRightFromSquare className="text-muted size-3" />
+            </Link>
+          </Badge>
         </div>
       );
     },
