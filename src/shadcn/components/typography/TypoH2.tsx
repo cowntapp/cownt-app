@@ -2,23 +2,23 @@ import type { ReactNode } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import * as React from 'react';
 
-interface TypoH1Props {
+interface TypographyH2Props {
   className?: string;
   children: ReactNode;
   asChild?: boolean;
 }
 
-export const TypoH1 = ({
-  children,
+export function TypoH2({
   className,
+  children,
   asChild = false,
   ...props
-}: TypoH1Props & React.ComponentProps<'h1'>) => {
-  const Comp = asChild ? Slot : 'h1';
+}: TypographyH2Props & React.ComponentProps<'h2'>) {
+  const Comp = asChild ? Slot : 'h2';
 
   return (
     <Comp
-      className={`scroll-m-20 text-4xl font-extrabold tracking-tight text-balance ${
+      className={`scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 ${
         className || ''
       }`}
       {...props}
@@ -26,4 +26,4 @@ export const TypoH1 = ({
       {children}
     </Comp>
   );
-};
+}
