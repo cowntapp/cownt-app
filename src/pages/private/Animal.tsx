@@ -131,6 +131,7 @@ export const Animal = () => {
                   <div>
                     <TypoMuted>Benefici</TypoMuted>
                     <TypoLead className="font-semibold">
+                      {/* TODO: could be = Preu venta + preu venta fills - preu compra */}
                       {getFormattedPriceString(-832)}
                     </TypoLead>
                   </div>
