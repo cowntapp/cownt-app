@@ -12,3 +12,8 @@ export enum ABSENCE {
   DEAD = 'dead',
   SOLD = 'sold',
 }
+
+export enum ANIMALS_ROUTE {
+  COWS = 'cows',
+  SHEEPS = 'sheeps',
+}

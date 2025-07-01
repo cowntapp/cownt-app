@@ -9,6 +9,7 @@ import { TypoH1 } from '@/shadcn/components/typography/TypoH1';
 import { DataTableScrollable } from '@/shadcn/components/ui/data-table';
 import { QueryBoundary } from '@/shared/components/QueryBoundary';
 
+// TODO: Abstract into animals component and reuse for sheeps
 export const Cows = () => {
   const { cowsQuery } = useCows();
   const { breedsQuery } = useBreeds('cows');

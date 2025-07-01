@@ -28,6 +28,7 @@ import {
 } from '@/shadcn/components/ui/dropdown-menu';
 import { Badge } from '@/shadcn/components/ui/badge';
 import { ResponsiveTooltip } from '@/shadcn/components/ui/responsive-tooltip';
+import { formatDate } from '@/shared/utils/formatDate';
 
 interface CowColumnsProps {
   breeds: Breed[];
@@ -424,12 +425,7 @@ export const cowCowlumns = ({
     ),
     cell: ({ row }) => {
       const { birthDate } = row.original;
-      if (!birthDate) return '-';
-      const formattedDate = Intl.DateTimeFormat(LOCALE, {
-        month: '2-digit',
-        day: '2-digit',
-        year: 'numeric',
-      }).format(new Date(Number(birthDate)));
+      const formattedDate = formatDate(birthDate) ?? '-';
 
       return <div className="text-center">{formattedDate}</div>;
     },

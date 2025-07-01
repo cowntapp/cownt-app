@@ -164,6 +164,15 @@ const AppRoutes = () => {
         {/* NOT_FOUND REDIRECT */}
         <Route
           path="*"
+          element={
+            <Navigate
+              to={'/not-found'}
+              replace
+            />
+          }
+        />
+        <Route
+          path="not-found"
           element={<div>Not found</div>}
         />
       </Route>

@@ -77,6 +77,7 @@ function BreadcrumbComponent({ pathnames }: { pathnames: string[] }) {
           return (
             <Fragment key={to}>
               {/* TODO: fix buggy view in small viewport width */}
+              {/* TODO: fix ugly ids */}
               {idx !== 0 && <BreadcrumbSeparator className="hidden md:block" />}
               <BreadcrumbItem>
                 {isLast ? (
