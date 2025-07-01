@@ -33,8 +33,8 @@ const errorHandling = async (error: any) => {
     try {
       // Attempt to refresh the access token
       await REFRESH_API_CLIENT.get('/auth/refresh');
-      // Retry the original request with the new token
-      return REFRESH_API_CLIENT(error.config);
+      // Retry the original request with the new token using API client
+      return API(error.config);
     } catch (refreshError) {
       // Refresh failed: clear cache and redirect to login (unless already there)
       console.error(refreshError);
@@ -60,8 +60,8 @@ REFRESH_API_CLIENT.interceptors.response.use((response) => response.data);
 
 // API: Handles normal responses and errors, including token refresh logic
 API.interceptors.response.use(
-  // On success, unwrap the response data
-  (response) => response.data,
+  // On success, return full response (no data destructuring)
+  (response) => response,
   // On error, handle authentication and refresh logic
   errorHandling
 );
