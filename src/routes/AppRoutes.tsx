@@ -20,6 +20,7 @@ import { Characteristics } from '@/pages/private/Characteristics';
 import { Cows } from '@/pages/private/Cows';
 import { Sheeps } from '@/pages/private/Sheeps';
 import { useRouterParams } from '@/shared/hooks/useRouterParams';
+import { Animal } from '@/pages/private/Animal';
 
 const Landing = () =>
   HAS_LANDING ? (
@@ -98,7 +99,7 @@ const AppRoutes = () => {
               />
               <Route
                 path=":id"
-                element={<div>This is the animal page</div>}
+                element={<Animal />}
               />
               <Route path="breeds">
                 <Route
