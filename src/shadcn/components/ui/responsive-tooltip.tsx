@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useIsMobile } from '@/shadcn/hooks/use-mobile';
 import {
   Tooltip,
   TooltipContent,
@@ -10,6 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/shadcn/components/ui/popover';
+import { useSidebar } from './sidebar';
 
 interface ResponsiveTooltipProps {
   children: React.ReactNode;
@@ -26,7 +26,7 @@ export function ResponsiveTooltip({
   className,
   contentClassName,
 }: ResponsiveTooltipProps) {
-  const isMobile = useIsMobile();
+  const { isMobile } = useSidebar();
   const [isOpen, setIsOpen] = React.useState(false);
 
   const handleKeyDown = React.useCallback(
