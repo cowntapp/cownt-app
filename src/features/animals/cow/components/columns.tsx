@@ -397,6 +397,7 @@ export const cowCowlumns = ({
         .filter((char) => cowChars.includes(char.id))
         .map((char) => (
           <Badge
+            key={char.id}
             variant={'outline'}
             className="mr-1"
           >
