@@ -6,7 +6,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from '@/shadcn/components/ui/sidebar';
 import type { MenuItem } from '@/config/interfaces/configInterfaces';
 import { SimpleSidebarItem } from './simple-sidebar-item';
@@ -16,8 +15,6 @@ interface NavProjectsProps {
 }
 
 export function NavProjects({ projects }: NavProjectsProps) {
-  const { isMobile } = useSidebar();
-
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Projects</SidebarGroupLabel>
@@ -26,7 +23,6 @@ export function NavProjects({ projects }: NavProjectsProps) {
           <SimpleSidebarItem
             key={item.title}
             item={item}
-            isMobile={isMobile}
           />
         ))}
         <SidebarMenuItem>
