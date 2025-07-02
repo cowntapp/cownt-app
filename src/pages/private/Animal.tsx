@@ -15,6 +15,7 @@ import {
 } from '@/features/animals/components';
 import { getBreedName } from '@/features/animals/helpers/breedHelpers';
 import { calculateAnimalProfit } from '@/features/animals/helpers/financialHelpers';
+import { QueryBoundary } from '@/shared/components/QueryBoundary';
 // import { SEX, ORIGIN } from '@/features/animals/consts/animal.consts';
 
 export const Animal = () => {
@@ -28,66 +29,66 @@ export const Animal = () => {
     return <Navigate to={'/not-found'} />;
   }
 
-  const { animal } = animalQuery;
-
-  if (!animal) return null;
-
   return (
-    <div>
-      <AnimalHeader
-        workspace={workspace}
-        animalCode={animal.shortCode}
-      />
-      <main>
-        <TypoH1 className="my-2">
-          Detalls de la {i18n_entities[workspace.slice(0, -1) as EntityKey]}{' '}
-          {animal.shortCode}
-        </TypoH1>
-        <div className="container grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="col-span-1 lg:col-span-2 flex flex-col gap-y-6">
-            <BasicInfoCard
-              longCode={animal.longCode}
-              breed={animal.breed}
-              birthDate={animal.birthDate}
-              sex={animal.sex}
-              origin={animal.origin}
-              weight={animal.weight}
-            />
-            <FinancialInfoCard
-              purchasePrice={animal.buyPrice}
-              salePrice={animal.salePrice}
-              profit={calculateAnimalProfit(
-                animal.buyPrice,
-                animal.salePrice,
-                animal.children
-              )}
-            />
-            <CharacteristicsCard
-              characteristics={animal.characteristics}
-              workspace={workspace}
-            />
-          </div>
+    <QueryBoundary query={animalQuery}>
+      {(animal) => (
+        <div>
+          <AnimalHeader
+            workspace={workspace}
+            animalCode={animal.shortCode}
+          />
+          <main>
+            <TypoH1 className="my-2">
+              Detalls de la {i18n_entities[workspace.slice(0, -1) as EntityKey]}{' '}
+              {animal.shortCode}
+            </TypoH1>
+            <div className="container grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="col-span-1 lg:col-span-2 flex flex-col gap-y-6">
+                <BasicInfoCard
+                  longCode={animal.longCode}
+                  breed={animal.breed}
+                  birthDate={animal.birthDate}
+                  sex={animal.sex}
+                  origin={animal.origin}
+                  weight={animal.weight}
+                />
+                <FinancialInfoCard
+                  purchasePrice={animal.buyPrice}
+                  salePrice={animal.salePrice}
+                  profit={calculateAnimalProfit(
+                    animal.buyPrice,
+                    animal.salePrice,
+                    animal.children
+                  )}
+                />
+                <CharacteristicsCard
+                  characteristics={animal.characteristics}
+                  workspace={workspace}
+                />
+              </div>
 
-          <div className="col-span-1 flex flex-col gap-y-6">
-            {animal.mother && (
-              <MotherCard
-                workspace={workspace}
-                mother={animal.mother}
-                motherBreedName={getBreedName(
-                  animal.mother.breed,
-                  breedsQuery.breeds
+              <div className="col-span-1 flex flex-col gap-y-6">
+                {animal.mother && (
+                  <MotherCard
+                    workspace={workspace}
+                    mother={animal.mother}
+                    motherBreedName={getBreedName(
+                      animal.mother.breed,
+                      breedsQuery.breeds
+                    )}
+                  />
                 )}
-              />
-            )}
-            {animal.children.length > 0 && (
-              <ChildrenCard
-                workspace={workspace}
-                children={animal.children}
-              />
-            )}
-          </div>
+                {animal.children.length > 0 && (
+                  <ChildrenCard
+                    workspace={workspace}
+                    children={animal.children}
+                  />
+                )}
+              </div>
+            </div>
+          </main>
         </div>
-      </main>
-    </div>
+      )}
+    </QueryBoundary>
   );
 };

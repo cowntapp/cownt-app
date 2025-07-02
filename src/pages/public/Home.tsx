@@ -1,8 +1,16 @@
-import { ALLOW_REGISTER } from '@/config/consts/configConsts';
+import { ALLOW_REGISTER, HAS_LANDING } from '@/config/consts/configConsts';
 import { Button } from '@/shadcn/components/ui/button';
-import { Link } from 'react-router';
+import { Link, Navigate } from 'react-router';
 
 export const Home = () => {
+  if (!HAS_LANDING)
+    return (
+      <Navigate
+        to={'/login'}
+        replace
+      />
+    );
+
   return (
     <>
       Optional Landing Page

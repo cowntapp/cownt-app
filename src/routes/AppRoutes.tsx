@@ -1,4 +1,4 @@
-import { ALLOW_REGISTER, HAS_LANDING } from '@/config/consts/configConsts';
+import { ALLOW_REGISTER } from '@/config/consts/configConsts';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import { PublicLayout } from '@/layouts/PublicLayout';
 import { RootLayout } from '@/layouts/RootLayout';
@@ -17,32 +17,8 @@ import { SettingsLayout } from '@/layouts/SettingsLayout';
 import { WorkspaceDashboard } from '@/pages/private/WorkspaceDashboard';
 import { Breeds } from '@/pages/private/Breeds';
 import { Characteristics } from '@/pages/private/Characteristics';
-import { Cows } from '@/pages/private/Cows';
-import { Sheeps } from '@/pages/private/Sheeps';
-import { useRouterParams } from '@/shared/hooks/useRouterParams';
 import { Animal } from '@/pages/private/Animal';
-
-const Landing = () =>
-  HAS_LANDING ? (
-    <Home />
-  ) : (
-    <Navigate
-      to={'/login'}
-      replace
-    />
-  );
-
-const WorkspaceAnimalsIndex = () => {
-  const { workspace } = useRouterParams('workspace');
-  if (workspace === 'cows') return <Cows />;
-  if (workspace === 'sheeps') return <Sheeps />;
-  return (
-    <Navigate
-      to={'/not-found'}
-      replace
-    />
-  );
-};
+import { Animals } from '@/pages/private/Animals';
 
 const AppRoutes = () => {
   const navigate = useNavigate();
@@ -55,7 +31,7 @@ const AppRoutes = () => {
         <Route element={<PublicLayout />}>
           <Route
             index
-            element={<Landing />}
+            element={<Home />}
           />
           <Route
             path="login"
@@ -95,7 +71,7 @@ const AppRoutes = () => {
               />
               <Route
                 index
-                element={<WorkspaceAnimalsIndex />}
+                element={<Animals />}
               />
               <Route
                 path=":id"
