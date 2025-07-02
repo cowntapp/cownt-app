@@ -5,6 +5,3 @@ export const HAS_LANDING = true;
 export const HAS_WORKSPACES = !!menuData.workspaces?.length;
 export const ALLOW_REGISTER = false;
 export const LOCALE = 'ca-ES';
-// TODO: review
-// export const LOCALE =
-//   typeof window !== 'undefined' ? navigator.language || 'es-ES' : 'es-ES';
