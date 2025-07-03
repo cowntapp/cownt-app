@@ -1,6 +1,6 @@
 import type { EntityKey } from '@/config/interfaces/configInterfaces';
 import { ABSENCE, ORIGIN, SEX } from '@/features/animals/consts/animal.consts';
-import type { CowRaw } from '@/features/animals/cow/interfaces/cow';
+import type { CowRaw } from '@/features/animals/z_todelete_cow/interfaces/cow';
 
 export const i18n_originLabels: Record<ORIGIN, string> = {
   [ORIGIN.BOUGHT]: 'Comprada',
