@@ -12,7 +12,6 @@ export const Login = () => {
   useEffect(() => {
     if (userAuthQuery.data && userAuthQuery.isSuccess) {
       // If already authenticated, always redirect to dashboard
-      // TODO: make it to redirect to landing (/) (when implemented)
       navigate('/cows', { replace: true });
     }
   }, [userAuthQuery, navigate]);

@@ -4,9 +4,9 @@ export const VerifyEmailInfo = () => {
   return (
     <div className="my-auto">
       <AppMessage
-        title="Verify your email"
-        description="Check your email to find your Verification Link and follow further instructions."
-        linkLabel="Login"
+        title="Verifica el teu email"
+        description="Consulta el teu email per trobar l'Enllaç de Verificació i segueix les instruccions."
+        linkLabel="Inicia sessió"
         linkPath="/login"
       />
     </div>

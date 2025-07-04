@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 export const ForgotPasswordFooter = () => {
   return (
     <TypoMuted className="text-center">
-      Go back to
+      Ves a
       <Button
         asChild
         variant={'link'}
@@ -15,12 +15,12 @@ export const ForgotPasswordFooter = () => {
           to={'/login'}
           replace
         >
-          Login
+          Inicia sessió
         </Link>
       </Button>
       {ALLOW_REGISTER && (
         <>
-          or
+          o
           <Button
             asChild
             variant={'link'}
@@ -29,7 +29,7 @@ export const ForgotPasswordFooter = () => {
               to={'/register'}
               replace
             >
-              Register
+              Registra&apos;t
             </Link>
           </Button>
         </>

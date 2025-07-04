@@ -4,12 +4,12 @@ import { Link } from 'react-router';
 export const RegisterFooter = () => {
   return (
     <div className="text-center text-sm">
-      Already have an account?{' '}
+      Ja tens un compte?{' '}
       <Link
         to="/login"
         className={buttonVariants({ variant: 'link' })}
       >
-        Login
+        Inicia sessió
       </Link>
     </div>
   );

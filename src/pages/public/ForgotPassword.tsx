@@ -3,6 +3,7 @@ import { sendPasswordResetEmail } from '@/features/user/forgotPassword/actions/s
 import { ForgotPasswordForm } from '@/features/user/forgotPassword/components/ForgotPasswordForm';
 import type { ForgotPasswordRequest } from '@/features/user/interfaces/Auth';
 import { AppMessage } from '@/shared/components/AppMessage';
+import { i18n_errors } from '@/shared/translations/translations';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
@@ -15,9 +16,7 @@ export const ForgotPassword = () => {
     mutationFn: sendPasswordResetEmail,
     onError: (error: ApiError) => {
       const message =
-        error.status && error.status !== 500
-          ? error.message
-          : 'Something went wrong';
+        error.status && error.status !== 500 ? error.message : i18n_errors[500];
       toast.error(message);
     },
   });
@@ -33,8 +32,10 @@ export const ForgotPassword = () => {
 
       {forgotPasswordMutation.isSuccess && (
         <AppMessage
-          title="Email sent!"
-          description="Check your inbox for further instructions."
+          title="Email enviat!"
+          description="Consulta la safata d'entrada i segueix les instruccions."
+          linkLabel="Inicia sessió"
+          linkPath="/login"
         />
       )}
     </div>

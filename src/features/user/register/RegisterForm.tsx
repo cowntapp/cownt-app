@@ -67,7 +67,7 @@ export const RegisterForm = ({
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="m@example.com"
+                        placeholder="correu@exemple.com"
                         {...field}
                       />
                     </FormControl>
@@ -81,11 +81,11 @@ export const RegisterForm = ({
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>Contrasenya</FormLabel>
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="$welcome123!"
+                        placeholder="Cownt123!"
                         {...field}
                       />
                     </FormControl>
@@ -99,11 +99,11 @@ export const RegisterForm = ({
                 name="confirmPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Confirm Password</FormLabel>
+                    <FormLabel>Confirma Contrasenya</FormLabel>
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="$welcome123!"
+                        placeholder="Cownt123!"
                         {...field}
                       />
                     </FormControl>
@@ -119,7 +119,7 @@ export const RegisterForm = ({
                 className={`w-full ${isPending && 'hidden'}`}
                 disabled={isSubmitButtonDisabled}
               >
-                Register
+                Registra&apos;t
               </Button>
             </div>
             <RegisterFooter />

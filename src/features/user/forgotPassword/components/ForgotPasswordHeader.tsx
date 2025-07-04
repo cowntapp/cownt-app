@@ -17,8 +17,8 @@ export const ForgotPasswordHeader = () => {
         <span>{APP_NAME}</span>
       </Link>
       <div className="py-4 flex flex-col gap-y-4 text-center">
-        <TypoH1>Forgot your password?</TypoH1>
-        <TypoMuted>Send a reset password link to your email</TypoMuted>
+        <TypoH1>Has oblidat la contrasenya?</TypoH1>
+        <TypoMuted>Envia un Enllaç de recuperació al teu email.</TypoMuted>
       </div>
     </div>
   );

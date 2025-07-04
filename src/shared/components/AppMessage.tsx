@@ -25,7 +25,7 @@ export const AppMessage = ({
 
       {linkPath && (
         <TypoMuted>
-          Go to{' '}
+          Ves a{' '}
           <Button
             asChild
             variant={'link'}

@@ -16,14 +16,14 @@ export const Home = () => {
       Optional Landing Page
       <div className="flex gap-2">
         <Button asChild>
-          <Link to={'/login'}>Login</Link>
+          <Link to={'/login'}>Inicia sessió</Link>
         </Button>
         {ALLOW_REGISTER && (
           <Button
             asChild
             variant={'outline'}
           >
-            <Link to={'register'}>Register</Link>
+            <Link to={'register'}>Registra&apos;t</Link>
           </Button>
         )}
       </div>

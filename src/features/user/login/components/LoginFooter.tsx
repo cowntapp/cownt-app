@@ -9,16 +9,16 @@ export const LoginFooter = () => {
         to={'/password/forgot'}
         className={buttonVariants({ variant: 'link', size: 'default' })}
       >
-        Forgot password?
+        Has oblidat la contrasenya?
       </Link>
       {ALLOW_REGISTER && (
         <div className="text-center text-sm">
-          Don&apos;t have an account?{' '}
+          No tens un compte?{' '}
           <Link
             to="/register"
             className={buttonVariants({ variant: 'link' })}
           >
-            Register
+            Registra&apos;t
           </Link>
         </div>
       )}

@@ -59,11 +59,11 @@ export const ResetPasswordForm = ({
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>Contrasenya</FormLabel>
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="pass123"
+                        placeholder="Cownt123!"
                         {...field}
                       />
                     </FormControl>
@@ -76,11 +76,11 @@ export const ResetPasswordForm = ({
                 name="confirmPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Confirm Password</FormLabel>
+                    <FormLabel>Confirma Contrasenya</FormLabel>
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="pass123"
+                        placeholder="Cownt123!"
                         {...field}
                       />
                     </FormControl>
@@ -96,7 +96,7 @@ export const ResetPasswordForm = ({
                 className={`w-full ${isPending && 'hidden'}`}
                 disabled={isSubmitButtonDisabled}
               >
-                Reset password
+                Canvia contrasenya
               </Button>
             </div>
 

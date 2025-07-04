@@ -19,9 +19,9 @@ export const LoginHeader = () => {
       <TypoH1 className="py-4">
         {/* TODO: delete or abstract */}
         {/* Inicia sessió / Accedeix */}
-        Log in
+        Inicia sessió
       </TypoH1>
-      <TypoMuted>Sign in into your account.</TypoMuted>
+      <TypoMuted>Accedeix al teu compte.</TypoMuted>
     </div>
   );
 };

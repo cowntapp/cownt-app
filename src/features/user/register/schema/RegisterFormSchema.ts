@@ -9,7 +9,7 @@ const registerFormSchema = z
     confirmPassword: passwordSchema,
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
+    message: 'Les contrasenyes no coincideixen',
     path: ['confirmPassword'],
   });
 

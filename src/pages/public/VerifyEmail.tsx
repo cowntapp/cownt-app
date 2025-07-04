@@ -17,25 +17,36 @@ export const VerifyEmail = () => {
   });
 
   return (
-    <div className="w-full max-w-sm mx-auto my-auto flex flex-col gap-y-8">
+    <div className="w-full max-w-md mx-auto my-auto flex flex-col gap-y-8">
       {isPending && <Loader />}
-      {isSuccess && <AppMessage title="Email verified!" />}
+      {isSuccess && <AppMessage title="Email verificat!" />}
       {isError && (
         <ErrorMessage
-          title="Invalid link"
-          description="The link is either invalid or expired."
-          linkLabel={ALLOW_REGISTER ? 'Register again' : undefined}
+          title="Enllaç no vàlid"
+          description="L'Enllaç és incorrecte o ha expirat."
+          linkLabel={ALLOW_REGISTER ? `Registra't de nou` : undefined}
           linkPath={ALLOW_REGISTER ? '/register' : undefined}
         />
       )}
 
-      {(isError || isSuccess) && (
+      {isError && (
         <Button asChild>
           <Link
             to="/"
             replace
           >
-            Back Home
+            Torna a l'Inici
+          </Link>
+        </Button>
+      )}
+
+      {isSuccess && (
+        <Button asChild>
+          <Link
+            to="/login"
+            replace
+          >
+            Inicia sessió
           </Link>
         </Button>
       )}

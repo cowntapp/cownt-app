@@ -62,7 +62,7 @@ export const ForgotPasswordForm = ({
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="m@example.com"
+                        placeholder="correu@exemple.com"
                         {...field}
                       />
                     </FormControl>
@@ -78,7 +78,7 @@ export const ForgotPasswordForm = ({
                 className={`w-full ${isPending && 'hidden'}`}
                 disabled={isSubmitButtonDisabled}
               >
-                Reset password
+                Envia Enllaç
               </Button>
             </div>
 

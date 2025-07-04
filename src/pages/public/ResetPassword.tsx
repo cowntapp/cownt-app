@@ -3,6 +3,7 @@ import { resetPassword } from '@/features/user/resetPassword/actions/resetPasswo
 import { ResetPasswordForm } from '@/features/user/resetPassword/ResetPasswordForm';
 import type { ResetPasswordFormSchema } from '@/features/user/resetPassword/schema/resetPasswordFormSchema';
 import { AppMessage } from '@/shared/components/AppMessage';
+import { i18n_errors } from '@/shared/translations/translations';
 import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
@@ -24,9 +25,7 @@ export const ResetPassword = () => {
     mutationFn: resetPassword,
     onError: (error: ApiError) => {
       const message =
-        error.status && error.status !== 500
-          ? error.message
-          : 'Something went wrong';
+        error.status && error.status !== 500 ? error.message : i18n_errors[500];
       toast.error(message);
     },
   });
@@ -48,8 +47,8 @@ export const ResetPassword = () => {
       )}
       {resetPasswordMutation.isSuccess && (
         <AppMessage
-          title="Password reset successful!"
-          linkLabel="Login"
+          title="Contrasenya canviada correctament!"
+          linkLabel="Inicia sessió"
           linkPath="/login"
         />
       )}

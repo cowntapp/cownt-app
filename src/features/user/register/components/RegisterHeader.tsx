@@ -16,8 +16,8 @@ export const RegisterHeader = () => {
         </div>
         <span>{APP_NAME}</span>
       </Link>
-      <TypoH1 className="py-4">Register</TypoH1>
-      <TypoMuted>Sign up for {APP_NAME}</TypoMuted>
+      <TypoH1 className="py-4">Registra&apos;t</TypoH1>
+      <TypoMuted>Crea un compte nou.</TypoMuted>
     </div>
   );
 };

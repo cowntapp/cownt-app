@@ -63,7 +63,7 @@ export const LoginForm = ({
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="m@example.com"
+                        placeholder="correu@exemple.com"
                         {...field}
                       />
                     </FormControl>
@@ -76,11 +76,11 @@ export const LoginForm = ({
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>Contrasenya</FormLabel>
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="$welcome123!"
+                        placeholder="Cownt123!"
                         {...field}
                       />
                     </FormControl>
@@ -96,7 +96,7 @@ export const LoginForm = ({
                 className={`w-full ${isPending && 'hidden'}`}
                 disabled={isSubmitButtonDisabled}
               >
-                Log in
+                Inicia sessió
               </Button>
 
               <LoginFooter />
