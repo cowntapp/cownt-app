@@ -5,7 +5,7 @@ import { useAnimalWorkspace } from '@/features/animals/hooks/useAnimalWorkspace'
 import {
   animalColumns,
   loadingAnimalsColumns,
-} from '@/features/animals/components/animalColumns';
+} from '@/features/animals/components/columns';
 import { TypoH1 } from '@/shadcn/components/typography/TypoH1';
 import { DataTableScrollable } from '@/shadcn/components/ui/data-table';
 import { QueryBoundary } from '@/shared/components/QueryBoundary';
@@ -56,7 +56,11 @@ export const Animals = () => {
             <DataTableScrollable
               filterColumnId="longCode"
               filterInputPlaceholder="Filtra per codi..."
-              columns={animalColumns({ breeds, characteristics, workspace })}
+              columns={animalColumns({
+                breeds,
+                characteristics,
+                workspace,
+              })}
               data={data}
             />
           );
