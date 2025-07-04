@@ -34,6 +34,6 @@ export const createChildrenColumn = (): AnimalColumnConfig => ({
     const { children, sex } = row.original;
     if (sex === SEX.M) return null;
 
-    return <div className="text-center">{children.length}</div>;
+    return <div>{children.length}</div>;
   },
 });
