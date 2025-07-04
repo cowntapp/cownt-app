@@ -19,6 +19,7 @@ import { Breeds } from '@/pages/private/Breeds';
 import { Characteristics } from '@/pages/private/Characteristics';
 import { Animal } from '@/pages/private/Animal';
 import { Animals } from '@/pages/private/Animals';
+import { NotFound } from '@/pages/public/NotFound';
 
 const AppRoutes = () => {
   const navigate = useNavigate();
@@ -130,10 +131,10 @@ const AppRoutes = () => {
               path="sessions"
               element={<Sessions />}
             />
-            <Route
+            {/* <Route
               path="settings"
               element={<div>Here you find some settings</div>}
-            />
+            /> */}
           </Route>
         </Route>
 
@@ -149,7 +150,7 @@ const AppRoutes = () => {
         />
         <Route
           path="not-found"
-          element={<div>Not found</div>}
+          element={<NotFound />}
         />
       </Route>
     </Routes>

@@ -40,17 +40,20 @@ export const ErrorMessage = ({
         {description && <TypoMuted>{description}</TypoMuted>}
 
         {linkPath && linkLabel && (
-          <Button
-            variant={'link'}
-            asChild
-          >
-            <Link
-              to={linkPath}
-              replace={linkReplace}
+          <span>
+            Ves a
+            <Button
+              variant={'link'}
+              asChild
             >
-              {linkLabel}
-            </Link>
-          </Button>
+              <Link
+                to={linkPath}
+                replace={linkReplace}
+              >
+                {linkLabel}
+              </Link>
+            </Button>
+          </span>
         )}
       </div>
     </div>

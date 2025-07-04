@@ -8,7 +8,7 @@ import {
   // Bell,
   // CreditCard,
   LogOut,
-  Settings2,
+  // Settings2,
 } from 'lucide-react';
 import type { MenuData, UserMenuItem } from '../interfaces/configInterfaces';
 import { i18n_entities } from '@/shared/translations/translations';
@@ -56,12 +56,12 @@ export const menuData: MenuData = {
   ],
 };
 export const userMenuItems: UserMenuItem[] = [
-  {
-    title: 'Some Main Settings',
-    icon: Settings2,
-    url: '/settings',
-    group: 'main',
-  },
+  // {
+  //   title: 'Some Main Settings',
+  //   icon: Settings2,
+  //   url: '/settings',
+  //   group: 'main',
+  // },
   {
     title: 'Sessions',
     icon: BadgeCheck,
@@ -70,7 +70,7 @@ export const userMenuItems: UserMenuItem[] = [
   },
   // DO NOT EDIT (only title or icon)
   {
-    title: 'Log out',
+    title: 'Tanca sessió',
     icon: LogOut,
     url: undefined,
     group: 'logout',

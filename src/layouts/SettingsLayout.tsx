@@ -14,7 +14,7 @@ export const SettingsLayout = () => {
   return (
     <div>
       <header className="flex h-16 px-6 shrink-0 items-center gap-2">
-        <Link to={backPath}>&larr; Back</Link>
+        <Link to={backPath}>&larr; Torna</Link>
       </header>
       <div className="px-6 py-4">
         <Outlet />
