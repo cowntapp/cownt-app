@@ -12,7 +12,7 @@ export const Home = () => {
     );
 
   return (
-    <>
+    <div className="my-auto flex flex-col items-center gap-y-4">
       Optional Landing Page
       <div className="flex gap-2">
         <Button asChild>
@@ -27,6 +27,6 @@ export const Home = () => {
           </Button>
         )}
       </div>
-    </>
+    </div>
   );
 };
