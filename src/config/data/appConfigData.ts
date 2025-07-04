@@ -1,6 +1,4 @@
 import {
-  AudioWaveform,
-  GalleryVerticalEnd,
   BadgeCheck,
   // Bell,
   // CreditCard,
@@ -13,19 +11,21 @@ import {
 } from 'lucide-react';
 import type { MenuData, UserMenuItem } from '../interfaces/configInterfaces';
 import { i18n_entities } from '@/shared/translations/translations';
+import { CowIcon } from '@/features/animals/components/icons/CowIcon';
+import { SheepIcon } from '@/features/animals/components/icons/SheepIcon';
 
-export const AppLogo = GalleryVerticalEnd;
+export const AppLogo = CowIcon;
 
 export const menuData: MenuData = {
   workspaces: [
     {
       name: i18n_entities.cows,
-      logo: GalleryVerticalEnd,
+      logo: CowIcon,
       url: '/cows',
     },
     {
       name: i18n_entities.sheeps,
-      logo: AudioWaveform,
+      logo: SheepIcon,
       url: '/sheeps',
     },
   ],

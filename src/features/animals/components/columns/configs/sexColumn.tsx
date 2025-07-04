@@ -2,8 +2,16 @@ import { SEX } from '@/features/animals/consts/animal.consts';
 import { MultiSelectFilter } from '../shared/headers';
 import { createMultiselectFilter } from '../shared/filters';
 import type { AnimalColumnConfig } from '../types';
+import type { AnimalPath } from '@/features/animals/interfaces/animalType';
+import { AnimalIcon } from '../../icons/AnimalIcon';
 
-export const createSexColumn = (): AnimalColumnConfig => ({
+interface SexColumnProps {
+  workspace: AnimalPath;
+}
+
+export const createSexColumn = ({
+  workspace,
+}: SexColumnProps): AnimalColumnConfig => ({
   accessorKey: 'sex',
   filterFn: createMultiselectFilter(),
   header: ({ column }) => (
@@ -18,6 +26,12 @@ export const createSexColumn = (): AnimalColumnConfig => ({
   ),
   cell: ({ row }) => {
     const { sex } = row.original;
-    return sex === SEX.F ? 'Femella' : 'Mascle';
+    return (
+      <AnimalIcon
+        className="bg-white/5 p-1 size-8 rounded-full m-1 ml-2"
+        type={workspace}
+        sex={sex}
+      />
+    );
   },
 });

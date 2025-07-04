@@ -41,7 +41,7 @@ export const animalColumns = ({
   characteristics,
   workspace,
 }: AnimalColumnsProps): AnimalColumnConfig[] => [
-  createSexColumn(),
+  createSexColumn({ workspace }),
   createLongCodeColumn(),
   createShortCodeColumn({ workspace }),
   createBreedColumn({ breeds }),

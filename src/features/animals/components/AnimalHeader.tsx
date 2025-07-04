@@ -21,7 +21,7 @@ export const AnimalHeader = ({ workspace, animalCode }: AnimalHeaderProps) => {
       >
         <Link to={`/${workspace}`}>
           <ArrowLeft />
-          <span>Tronar a la llista</span>
+          <span>Tornar a la llista</span>
         </Link>
       </Button>
       <Separator

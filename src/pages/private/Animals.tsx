@@ -54,6 +54,7 @@ export const Animals = () => {
         {(data) => {
           return (
             <DataTableScrollable
+              key={`${workspace}-list-table`}
               filterColumnId="longCode"
               filterInputPlaceholder="Filtra per codi..."
               columns={animalColumns({
