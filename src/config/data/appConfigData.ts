@@ -1,13 +1,14 @@
 import {
   AudioWaveform,
-  BookOpen,
-  Bot,
   GalleryVerticalEnd,
-  SquareTerminal,
   BadgeCheck,
   // Bell,
   // CreditCard,
   LogOut,
+  ChartColumn,
+  ListOrdered,
+  Tags,
+  Shapes,
   // Settings2,
 } from 'lucide-react';
 import type { MenuData, UserMenuItem } from '../interfaces/configInterfaces';
@@ -32,26 +33,22 @@ export const menuData: MenuData = {
     {
       title: i18n_entities.statistics,
       url: '/:animal/statistics',
-      icon: SquareTerminal,
+      icon: ChartColumn,
     },
     {
       title: 'Llista',
       url: '/:animal',
-      icon: Bot,
+      icon: ListOrdered,
     },
     {
-      title: 'Opcions',
-      icon: BookOpen,
-      items: [
-        {
-          title: i18n_entities.breeds,
-          url: '/:animal/breeds',
-        },
-        {
-          title: i18n_entities.characteristics,
-          url: '/:animal/characteristics',
-        },
-      ],
+      title: i18n_entities.breeds,
+      url: '/:animal/breeds',
+      icon: Shapes,
+    },
+    {
+      title: i18n_entities.characteristics,
+      url: '/:animal/characteristics',
+      icon: Tags,
     },
   ],
 };
