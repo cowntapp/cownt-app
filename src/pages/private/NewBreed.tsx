@@ -12,7 +12,13 @@ import { Link, Navigate } from 'react-router';
 export const NewBreed = () => {
   const { workspace } = useRouterParams('workspace');
   const isValidWorkspace = isAnimalPath(workspace);
-  if (!isValidWorkspace) return <Navigate to={'/not-found'} />;
+  if (!isValidWorkspace)
+    return (
+      <Navigate
+        to={'/not-found'}
+        replace
+      />
+    );
 
   return (
     <div className="flex flex-col gap-y-8">
