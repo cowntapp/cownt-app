@@ -23,6 +23,7 @@ import { NotFound } from '@/pages/public/NotFound';
 import { NewBreed } from '@/pages/private/NewBreed';
 import { EditBreed } from '@/pages/private/EditBreed';
 import { NewCharacteristic } from '@/pages/private/NewCharacteristic';
+import { EditCharacteristic } from '@/pages/private/EditCharacteristic';
 
 const AppRoutes = () => {
   const navigate = useNavigate();
@@ -122,7 +123,7 @@ const AppRoutes = () => {
                 />
                 <Route
                   path=":id/edit"
-                  element={<div>Here you will update the char</div>}
+                  element={<EditCharacteristic />}
                 />
                 <Route
                   path="*"

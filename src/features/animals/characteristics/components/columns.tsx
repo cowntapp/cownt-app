@@ -96,7 +96,12 @@ export const characteristicColumns = ({
                 <DropdownMenuSeparator />
                 <DropdownMenuLabel>({characteristic.value})</DropdownMenuLabel>
                 <DropdownMenuItem asChild>
-                  <Link to={`./${characteristic.id}/edit`}>Edita</Link>
+                  <Link
+                    to={`./${characteristic.id}/edit`}
+                    state={{ characteristic }}
+                  >
+                    Edita
+                  </Link>
                 </DropdownMenuItem>
                 <DialogTrigger asChild>
                   <DropdownMenuItem variant="destructive">
