@@ -122,7 +122,7 @@ export const breedColumns = ({
                   asChild
                 >
                   <DialogDescription>
-                    Si queden animals amb aquesta Raça no podràs eliminarla.
+                    Si queden animals amb aquesta Raça no podràs eliminar-la.
                   </DialogDescription>
                 </TypoLead>
               </DialogHeader>
