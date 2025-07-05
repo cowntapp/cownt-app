@@ -14,10 +14,10 @@ export const useCreateBreed = (animalPath: AnimalPath) => {
   const createBreedMutation = useMutation({
     mutationFn: (data: BreedFormData) => createBreed(animalPath, data),
     onError: (error: ApiError) => {
-      if (error.status && error.status === 500) {
-        toast.error(i18n_errors[500]);
-      } else {
+      if (error.status && error.status !== 500) {
         toast.error(error.message);
+      } else {
+        toast.error(i18n_errors[500]);
       }
     },
     onSuccess: () => {
