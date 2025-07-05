@@ -29,9 +29,7 @@ export const AnimalHeader = ({ workspace, animalCode }: AnimalHeaderProps) => {
         className="data-[orientation=vertical]:h-6"
       />
       <Badge className="font-mono">{animalCode}</Badge>
-      <TypoLead asChild>
-        <h1>{i18n_entities[workspace.slice(0, -1) as EntityKey]}</h1>
-      </TypoLead>
+      <TypoLead>{i18n_entities[workspace.slice(0, -1) as EntityKey]}</TypoLead>
     </header>
   );
 };
