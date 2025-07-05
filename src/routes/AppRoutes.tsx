@@ -22,6 +22,7 @@ import { Animals } from '@/pages/private/Animals';
 import { NotFound } from '@/pages/public/NotFound';
 import { NewBreed } from '@/pages/private/NewBreed';
 import { EditBreed } from '@/pages/private/EditBreed';
+import { NewCharacteristic } from '@/pages/private/NewCharacteristic';
 
 const AppRoutes = () => {
   const navigate = useNavigate();
@@ -117,7 +118,7 @@ const AppRoutes = () => {
                 />
                 <Route
                   path="new"
-                  element={<div>Here you can add a new char</div>}
+                  element={<NewCharacteristic />}
                 />
                 <Route
                   path=":id/edit"
