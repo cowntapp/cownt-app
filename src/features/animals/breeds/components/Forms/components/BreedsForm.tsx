@@ -47,7 +47,7 @@ export const BreedsForm = ({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleOnSubmit)}
-        className="max-w-lg space-y-4"
+        className="space-y-4"
       >
         <FormField
           control={form.control}
