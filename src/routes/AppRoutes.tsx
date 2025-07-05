@@ -20,6 +20,7 @@ import { Characteristics } from '@/pages/private/Characteristics';
 import { Animal } from '@/pages/private/Animal';
 import { Animals } from '@/pages/private/Animals';
 import { NotFound } from '@/pages/public/NotFound';
+import { NewBreed } from '@/pages/private/NewBreed';
 
 const AppRoutes = () => {
   const navigate = useNavigate();
@@ -66,10 +67,13 @@ const AppRoutes = () => {
         <Route element={<AuthGuard />}>
           <Route element={<DashboardLayout />}>
             <Route path=":workspace">
+              {/* STATISTICS */}
               <Route
                 path="statistics"
                 element={<WorkspaceDashboard />}
               />
+
+              {/* ANIMALS */}
               <Route
                 index
                 element={<Animals />}
@@ -78,6 +82,8 @@ const AppRoutes = () => {
                 path=":id"
                 element={<Animal />}
               />
+
+              {/* BREEDS */}
               <Route path="breeds">
                 <Route
                   index
@@ -85,7 +91,7 @@ const AppRoutes = () => {
                 />
                 <Route
                   path="new"
-                  element={<div>Here you can add a new breed</div>}
+                  element={<NewBreed />}
                 />
                 <Route
                   path=":id/edit"
@@ -101,6 +107,8 @@ const AppRoutes = () => {
                   }
                 />
               </Route>
+
+              {/* CHARACTERISTICS */}
               <Route path="characteristics">
                 <Route
                   index
@@ -126,6 +134,8 @@ const AppRoutes = () => {
               </Route>
             </Route>
           </Route>
+
+          {/* SETTINGS */}
           <Route element={<SettingsLayout />}>
             <Route
               path="sessions"

@@ -29,6 +29,12 @@ export const Animals = () => {
     return <Navigate to={'/not-found'} />;
   }
 
+  // TODO: refactorizar para quitar esto tan feo!
+  // Se hace un componente intermedio: AnimalsTable.
+  // A este se le pasa por prop un workspace valido: animalType: AnimalPath
+  // Aquí se hace la validación del workspace sin el hook feo useAnimalWorkspace. Simplemente se coge workspace de params, y si no es un workspace valido se retorna Navigate (a otro sitio).
+  // Ver NewBreed.tsx y BreedsForm.tsx
+
   const { breeds = [] } = breedsQuery;
   const { characteristics = [] } = characteristicsQuery;
 

@@ -8,5 +8,7 @@ export const useBreeds = (animalPath: AnimalPath) => {
     queryFn: () => getBreeds(animalPath),
   });
 
-  return { breedsQuery: { ...breedsQuery, breeds: breedsQuery.data?.breeds } };
+  return {
+    breedsQuery: { ...breedsQuery, breeds: breedsQuery.data?.breeds },
+  };
 };
