@@ -110,13 +110,16 @@ export const breedColumns = ({
                 <DialogTitle>Eliminar {breed.value}?</DialogTitle>
                 <DialogDescription>
                   Estas segur? Aquesta acció no es pot desfer.
-                  <TypoLead
-                    variant="destructive"
-                    className="py-4"
-                  >
-                    TOTES les vaques amb aquesta raça QUEDARAN SENSE RAÇA!
-                  </TypoLead>
                 </DialogDescription>
+                <TypoLead
+                  variant="destructive"
+                  className="py-4"
+                  asChild
+                >
+                  <DialogDescription>
+                    Si queden animals amb aquesta Raça no podràs eliminarla.
+                  </DialogDescription>
+                </TypoLead>
               </DialogHeader>
               <DialogFooter>
                 <div className="flex w-full justify-between">
