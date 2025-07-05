@@ -21,6 +21,7 @@ import { Animal } from '@/pages/private/Animal';
 import { Animals } from '@/pages/private/Animals';
 import { NotFound } from '@/pages/public/NotFound';
 import { NewBreed } from '@/pages/private/NewBreed';
+import { EditBreed } from '@/pages/private/EditBreed';
 
 const AppRoutes = () => {
   const navigate = useNavigate();
@@ -95,7 +96,7 @@ const AppRoutes = () => {
                 />
                 <Route
                   path=":id/edit"
-                  element={<div>Here you will update the breed</div>}
+                  element={<EditBreed />}
                 />
                 <Route
                   path="*"

@@ -96,7 +96,12 @@ export const breedColumns = ({
                 <DropdownMenuSeparator />
                 <DropdownMenuLabel>({breed.value})</DropdownMenuLabel>
                 <DropdownMenuItem asChild>
-                  <Link to={`./${breed.id}/edit`}>Edita</Link>
+                  <Link
+                    to={`./${breed.id}/edit`}
+                    state={{ breed }}
+                  >
+                    Edita
+                  </Link>
                 </DropdownMenuItem>
                 <DialogTrigger asChild>
                   <DropdownMenuItem variant="destructive">
