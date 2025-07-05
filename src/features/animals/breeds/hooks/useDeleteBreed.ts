@@ -5,11 +5,16 @@ import type { ApiError } from '@/api/lib/ApiError';
 import { toast } from 'sonner';
 import { i18n_errors } from '@/shared/translations/translations';
 
+interface MutationVariables {
+  breedId: string;
+}
+
 export const useDeleteBreed = (animalType: AnimalPath) => {
   const queryClient = useQueryClient();
 
   const deleteBreedMutation = useMutation({
-    mutationFn: (breedId: string) => deleteBreed(animalType, breedId),
+    mutationFn: ({ breedId }: MutationVariables) =>
+      deleteBreed(animalType, breedId),
     onError: (error: ApiError) => {
       if (error.status && error.status !== 500) {
         toast.error(error.message);

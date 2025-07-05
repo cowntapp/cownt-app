@@ -22,7 +22,7 @@ export const Breeds = () => {
 
   const onRefetch = () => breedsQuery.refetch();
   const onBreedDelete = (breedId: string) => {
-    deleteBreedMutation.deleteBreed(breedId);
+    deleteBreedMutation.deleteBreed({ breedId });
   };
 
   return (
