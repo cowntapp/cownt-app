@@ -28,7 +28,7 @@ export const QueryBoundary = <T,>({
     }
   }, [query.isError, errorText, errorType]);
 
-  if (query.isLoading) return loaderComponent ?? <Loader className="my-8" />;
+  if (query.isLoading) return loaderComponent ?? <Loader className="my-18" />;
   if (query.isError && errorType === 'component')
     return (
       errorComponent ?? (
