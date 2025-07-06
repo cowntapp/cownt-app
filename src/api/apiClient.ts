@@ -32,13 +32,17 @@ const errorHandling = async (error: any) => {
   // If access token is invalid, try to refresh it
   if (status === 401 && data?.errorCode === 'InvalidAccessToken') {
     try {
-      // Attempt to refresh the access token
-      await REFRESH_API_CLIENT.get('/auth/refresh');
-      // Retry the original request with the new token using API client
+      console.log('🔄 Attempting refresh...');
+      const refreshResponse = await REFRESH_API_CLIENT.get('/auth/refresh');
+      console.log('✅ Refresh response:', refreshResponse);
+
+      // Verificar si hay cookies después del refresh
+      console.log('🍪 Cookies after refresh:', document.cookie);
+
       return API(error.config);
     } catch (refreshError) {
       // Refresh failed: clear cache and redirect to login (unless already there)
-      console.error(refreshError);
+      console.log('❌ Refresh failed:', refreshError);
 
       queryClient.setQueriesData({ queryKey: [AUTH] }, null);
       queryClient.removeQueries({ queryKey: [AUTH] });
