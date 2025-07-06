@@ -1,7 +1,7 @@
 import type { AnimalColumnConfig } from '../types';
 import { createNullableFilter } from '../shared/filters';
 import { ABSENCE } from '@/features/animals/consts/animal.consts';
-import { Check, Info } from 'lucide-react';
+import { Check, DollarSign, Info, X } from 'lucide-react';
 import { MultiSelectWithNullableHeader } from '../shared/headers';
 import { ChipWithNullCell } from '../shared/cells';
 import { i18n_absenceLabels } from '@/shared/translations/translations';
@@ -34,11 +34,13 @@ export const createAbsenceColumn = (): AnimalColumnConfig => ({
         valueConfig={{
           [ABSENCE.SOLD]: {
             label: i18n_absenceLabels[ABSENCE.SOLD],
+            icon: DollarSign,
             className:
               'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100',
           },
           [ABSENCE.DEAD]: {
             label: i18n_absenceLabels[ABSENCE.DEAD],
+            icon: X,
             className:
               'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100',
           },
