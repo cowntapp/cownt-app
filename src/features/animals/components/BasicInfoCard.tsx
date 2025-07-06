@@ -12,6 +12,10 @@ import type { Breed } from '../breeds/interface/breed';
 import type { SEX, ORIGIN } from '../consts/animal.consts';
 import { formatDate } from '@/shared/utils/formatDate';
 import { formatWeight } from '@/shared/utils/formatWeight';
+import {
+  i18n_originLabels,
+  i18n_sexLabels,
+} from '@/shared/translations/translations';
 
 interface BasicInfoCardProps {
   longCode: string;
@@ -38,7 +42,7 @@ export const BasicInfoCard = ({
           <TypoH2>Informació bàsica</TypoH2>
         </CardTitle>
       </CardHeader>
-      <CardContent className="grid grid-cols-1 sm:grid-cols-2">
+      <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-y-4">
         <div className="flex flex-col gap-y-4">
           <div>
             <TypoMuted>Codi llarg</TypoMuted>
@@ -60,14 +64,12 @@ export const BasicInfoCard = ({
         <div className="flex flex-col gap-y-4">
           <div>
             <TypoMuted>Sexe</TypoMuted>
-            <TypoLead className="font-semibold">
-              {sex === 'f' ? 'Femella' : 'Mascle'}
-            </TypoLead>
+            <TypoLead className="font-semibold">{i18n_sexLabels[sex]}</TypoLead>
           </div>
           <div>
             <TypoMuted>Origen</TypoMuted>
             <TypoLead className="font-semibold">
-              {origin === 'born' ? 'Nascuda' : 'Comprada'}
+              {i18n_originLabels[origin]}
             </TypoLead>
           </div>
           <div>
