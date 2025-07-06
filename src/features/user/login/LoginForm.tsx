@@ -18,6 +18,8 @@ import {
 } from '@/shadcn/components/ui/form';
 import { Loader } from '@/shadcn/components/Loader/Loader';
 import { LoginFooter } from './components/LoginFooter';
+import { Eye, EyeOff } from 'lucide-react';
+import { useState } from 'react';
 
 interface LoginFormProps {
   isPending: boolean;
@@ -30,6 +32,8 @@ export const LoginForm = ({
   className,
   ...props
 }: LoginFormProps & React.ComponentProps<'div'>) => {
+  const [showPassword, setShowPassword] = useState(false);
+
   const form = useForm<LoginFormSchema>({
     mode: 'onTouched',
     resolver: zodResolver(loginFormSchema),
@@ -42,6 +46,10 @@ export const LoginForm = ({
 
   const onSubmit = (loginUser: LoginFormSchema) => {
     onUserSubmit(loginUser);
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -78,11 +86,24 @@ export const LoginForm = ({
                   <FormItem>
                     <FormLabel>Contrasenya</FormLabel>
                     <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="Cownt123!"
-                        {...field}
-                      />
+                      <div className="relative">
+                        <Input
+                          type={showPassword ? 'text' : 'password'}
+                          placeholder="Cownt123!"
+                          {...field}
+                        />
+                        <button
+                          type="button"
+                          className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                          onClick={togglePasswordVisibility}
+                        >
+                          {showPassword ? (
+                            <EyeOff className="h-4 w-4 text-gray-500" />
+                          ) : (
+                            <Eye className="h-4 w-4 text-gray-500" />
+                          )}
+                        </button>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

@@ -18,6 +18,8 @@ import {
 } from '@/shadcn/components/ui/form';
 import { Loader } from '@/shadcn/components/Loader/Loader';
 import { RegisterFooter } from './components/RegisterFooter';
+import { Eye, EyeOff } from 'lucide-react';
+import { useState } from 'react';
 
 interface RegisterFormProps {
   isPending: boolean;
@@ -31,6 +33,9 @@ export const RegisterForm = ({
   className,
   ...props
 }: RegisterFormProps & React.ComponentProps<'div'>) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const form = useForm<RegisterFormSchema>({
     mode: 'onTouched',
     resolver: zodResolver(registerFormSchema),
@@ -44,6 +49,14 @@ export const RegisterForm = ({
 
   const onSubmit = (registerUser: RegisterFormSchema) => {
     onUserSubmit(registerUser);
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
   return (
@@ -83,11 +96,24 @@ export const RegisterForm = ({
                   <FormItem>
                     <FormLabel>Contrasenya</FormLabel>
                     <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="Cownt123!"
-                        {...field}
-                      />
+                      <div className="relative">
+                        <Input
+                          type={showPassword ? 'text' : 'password'}
+                          placeholder="Cownt123!"
+                          {...field}
+                        />
+                        <button
+                          type="button"
+                          className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                          onClick={togglePasswordVisibility}
+                        >
+                          {showPassword ? (
+                            <EyeOff className="h-4 w-4 text-gray-500" />
+                          ) : (
+                            <Eye className="h-4 w-4 text-gray-500" />
+                          )}
+                        </button>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -101,11 +127,24 @@ export const RegisterForm = ({
                   <FormItem>
                     <FormLabel>Confirma Contrasenya</FormLabel>
                     <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="Cownt123!"
-                        {...field}
-                      />
+                      <div className="relative">
+                        <Input
+                          type={showConfirmPassword ? 'text' : 'password'}
+                          placeholder="Cownt123!"
+                          {...field}
+                        />
+                        <button
+                          type="button"
+                          className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                          onClick={toggleConfirmPasswordVisibility}
+                        >
+                          {showConfirmPassword ? (
+                            <EyeOff className="h-4 w-4 text-gray-500" />
+                          ) : (
+                            <Eye className="h-4 w-4 text-gray-500" />
+                          )}
+                        </button>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
