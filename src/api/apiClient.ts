@@ -3,6 +3,7 @@ import axios, { type CreateAxiosDefaults } from 'axios';
 import { queryClient } from '@/providers/query/config/queryClient';
 import { navigate } from '@/shared/utils/navigation';
 import { ALLOW_REGISTER } from '@/config/consts/configConsts';
+import { AUTH } from '@/features/user/auth/hooks/useAuth';
 
 // --- Axios Configuration ---
 const options: CreateAxiosDefaults = {
@@ -38,6 +39,10 @@ const errorHandling = async (error: any) => {
     } catch (refreshError) {
       // Refresh failed: clear cache and redirect to login (unless already there)
       console.error(refreshError);
+
+      queryClient.setQueriesData({ queryKey: [AUTH] }, null);
+      queryClient.removeQueries({ queryKey: [AUTH] });
+
       queryClient.clear();
       if (
         window.location.pathname !== '/login' &&
