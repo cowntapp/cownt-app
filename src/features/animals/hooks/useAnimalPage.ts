@@ -1,20 +1,10 @@
 import { useRouterParams } from '@/shared/hooks/useRouterParams';
 import { useAnimal } from './useAnimal';
-import { isAnimalPath, type AnimalPath } from '../interfaces/animalType';
+import { isAnimalPath } from '../interfaces/animalType';
 import { ANIMALS_ROUTE } from '../consts/animal.consts';
-import type { AnimalPopulated } from '../interfaces/animal';
-import type { UseQueryResult } from '@tanstack/react-query';
+import { useDeleteAnimal } from './useDeleteAnimal';
 
-interface UseAnimalPageResult {
-  isValidWorkspace: boolean;
-  workspace: AnimalPath | null;
-  id: string;
-  animalQuery: UseQueryResult<AnimalPopulated, Error> & {
-    animal: AnimalPopulated | undefined;
-  };
-}
-
-export const useAnimalPage = (): UseAnimalPageResult => {
+export const useAnimalPage = () => {
   const { workspace, id } = useRouterParams('workspace', 'id');
 
   const isValidWorkspace = isAnimalPath(workspace);
@@ -23,11 +13,13 @@ export const useAnimalPage = (): UseAnimalPageResult => {
 
   // Siempre llamamos al hook, pero solo usaremos los datos si el workspace es válido
   const { animalQuery } = useAnimal(validWorkspace, id);
+  const { deleteAnimalMutation } = useDeleteAnimal(validWorkspace);
 
   return {
     isValidWorkspace,
     workspace: isValidWorkspace ? workspace : null,
     id,
     animalQuery,
+    deleteAnimalMutation,
   };
 };

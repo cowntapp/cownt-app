@@ -16,10 +16,11 @@ import {
 import { getBreedName } from '@/features/animals/helpers/breedHelpers';
 import { calculateAnimalProfit } from '@/features/animals/helpers/financialHelpers';
 import { QueryBoundary } from '@/shared/components/QueryBoundary';
-// import { SEX, ORIGIN } from '@/features/animals/consts/animal.consts';
+import { DeleteAnimalCard } from '@/features/animals/components/DeleteAnimalCard';
 
 export const Animal = () => {
-  const { isValidWorkspace, workspace, animalQuery } = useAnimalPage();
+  const { isValidWorkspace, workspace, animalQuery, deleteAnimalMutation } =
+    useAnimalPage();
 
   // Get breeds for resolving breed names
   const { breedsQuery } = useBreeds(workspace as AnimalPath);
@@ -84,6 +85,15 @@ export const Animal = () => {
                     children={animal.children}
                   />
                 )}
+              </div>
+              <div className="col-span-1 lg:col-span-2">
+                <DeleteAnimalCard
+                  longCode={animal.longCode}
+                  onDeleteAnimal={() =>
+                    deleteAnimalMutation.deleteAnimal({ animalId: animal.id })
+                  }
+                  isPending={deleteAnimalMutation.isPending}
+                />
               </div>
             </div>
           </main>
