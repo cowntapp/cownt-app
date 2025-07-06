@@ -8,14 +8,23 @@ import { useEffect } from 'react';
 export const Register = () => {
   const navigate = useNavigate();
   const { registerMutation } = useRegister();
-  const { userAuthQuery } = useAuth();
+
+  // Use defensive useAuth configuration to avoid API calls and infinite loops
+  const { userAuthQuery } = useAuth({
+    enabled: false, // Never make API calls
+    staleTime: Infinity, // Never consider cache stale
+    retry: false, // Don't retry on errors
+  });
 
   useEffect(() => {
-    if (userAuthQuery.data) {
-      // TODO: make it to redirect to landing (/) (when implemented)
+    // Only redirect if we have cached user data, never trigger new API calls
+    if (userAuthQuery.data && !userAuthQuery.isLoading) {
+      console.log(
+        '🔄 [Register] User already authenticated, redirecting to dashboard...'
+      );
       navigate('/cows', { replace: true });
     }
-  }, [userAuthQuery, navigate]);
+  }, [userAuthQuery.data, userAuthQuery.isLoading, navigate]);
 
   const handleSubmit = (user: RegisterUserRequest) => {
     registerMutation.mutate(user);

@@ -7,14 +7,32 @@ import { useEffect } from 'react';
 
 export const Login = () => {
   const navigate = useNavigate();
-  const { userAuthQuery } = useAuth();
+
+  // Use defensive useAuth configuration to avoid API calls and infinite loops
+  const { userAuthQuery } = useAuth({
+    enabled: false, // Never make API calls
+    staleTime: Infinity, // Never consider cache stale
+    retry: false, // Don't retry on errors
+  });
 
   useEffect(() => {
-    if (userAuthQuery.data && userAuthQuery.isSuccess) {
-      // If already authenticated, always redirect to dashboard
+    // Only redirect if we have cached user data, never trigger new API calls
+    if (
+      userAuthQuery.data &&
+      userAuthQuery.isSuccess &&
+      !userAuthQuery.isLoading
+    ) {
+      console.log(
+        '🔄 [Login] User already authenticated, redirecting to dashboard...'
+      );
       navigate('/cows', { replace: true });
     }
-  }, [userAuthQuery, navigate]);
+  }, [
+    userAuthQuery.data,
+    userAuthQuery.isSuccess,
+    userAuthQuery.isLoading,
+    navigate,
+  ]);
 
   const { loginMutation } = useLogin();
 
