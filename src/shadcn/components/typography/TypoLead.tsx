@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import * as React from 'react';
+import { cn } from '@/shadcn/lib/utils';
 
 interface TypoLeadProps {
   className?: string;
@@ -10,7 +11,7 @@ interface TypoLeadProps {
 }
 
 export function TypoLead({
-  className,
+  className = '',
   children,
   variant,
   asChild = false,
@@ -22,9 +23,11 @@ export function TypoLead({
     variant === 'accent' ? 'text-accent-foreground' : 'text-destructive';
   return (
     <Comp
-      className={`${variant ? variantStyle : 'text-muted-foreground'} text-xl ${
-        className || ''
-      }`}
+      className={cn(
+        variant ? variantStyle : 'text-muted-foreground',
+        `text-xl`,
+        className
+      )}
       {...props}
     >
       {children}
