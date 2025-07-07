@@ -40,8 +40,9 @@ const clearAuthAndRedirect = () => {
 // ✅ Función para verificar si tenemos accessToken (verificación real)
 const hasAccessToken = async () => {
   try {
-    // Hacer una petición simple que requiera autenticación
-    const response = await REFRESH_CLIENT.get('/user');
+    // ✅ Crear nueva instancia para forzar nueva negociación de cookies
+    const freshClient = axios.create(options);
+    const response = await freshClient.get('/user');
     console.log('✅ AccessToken verified via API call');
     return response.status === 200;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
