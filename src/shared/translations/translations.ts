@@ -1,6 +1,6 @@
 import type { EntityKey } from '@/config/interfaces/configInterfaces';
 import { ABSENCE, ORIGIN, SEX } from '@/features/animals/consts/animal.consts';
-import type { CowRaw } from '@/features/animals/z_todelete_cow/interfaces/cow';
+import type { AnimalRaw } from '@/features/animals/interfaces/animal';
 
 export const i18n_originLabels: Record<ORIGIN, string> = {
   [ORIGIN.BOUGHT]: 'Comprada',
@@ -41,9 +41,9 @@ export const i18n_errors: Record<number | string, string> = {
   500: 'Alguna cosa ha fallat',
 };
 
-export type CowRawKeys = keyof CowRaw;
+export type AnimalRawKeys = keyof AnimalRaw;
 
-export const i18n_cowProps: Partial<Record<CowRawKeys, string>> = {
+export const i18n_animalProps: Partial<Record<AnimalRawKeys, string>> = {
   sex: 'Sexe',
   shortCode: 'Codi curt',
   origin: 'Origen',

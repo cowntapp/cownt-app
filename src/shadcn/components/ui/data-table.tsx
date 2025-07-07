@@ -29,8 +29,8 @@ import {
 } from './dropdown-menu';
 import { Button } from './button';
 import {
-  i18n_cowProps,
-  type CowRawKeys,
+  i18n_animalProps,
+  type AnimalRawKeys,
 } from '@/shared/translations/translations';
 import { FilterX, Menu } from 'lucide-react';
 
@@ -144,7 +144,7 @@ export function DataTableScrollable<TData, TValue>({
                         column.toggleVisibility(!!value)
                       }
                     >
-                      {i18n_cowProps[column.id as CowRawKeys]}
+                      {i18n_animalProps[column.id as AnimalRawKeys]}
                     </DropdownMenuCheckboxItem>
                   );
                 })}
