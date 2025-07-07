@@ -14,6 +14,9 @@ const options: CreateAxiosDefaults = {
 const API = axios.create(options);
 const ANIMAL_API = axios.create(options);
 
+// ✅ Cliente especial para refresh (SIN interceptor)
+const REFRESH_CLIENT = axios.create(options);
+
 // ✅ Control de refresh - UNA SOLA PETICIÓN A LA VEZ
 let isRefreshing = false;
 
@@ -34,11 +37,27 @@ const clearAuthAndRedirect = () => {
   }
 };
 
-// ✅ Función para verificar si tenemos accessToken
+// ✅ Función para verificar si tenemos accessToken (mejorada)
 const hasAccessToken = () => {
-  // Verificar si tenemos accessToken en las cookies
-  const cookies = document.cookie.split(';');
-  return cookies.some((cookie) => cookie.trim().startsWith('accessToken='));
+  const cookies = document.cookie;
+  console.log('🍪 All cookies:', cookies);
+
+  if (!cookies) {
+    console.log('❌ No cookies found');
+    return false;
+  }
+
+  const cookieArray = cookies.split(';');
+  const hasToken = cookieArray.some((cookie) => {
+    const trimmed = cookie.trim();
+    return (
+      trimmed.startsWith('accessToken=') &&
+      trimmed.length > 'accessToken='.length
+    );
+  });
+
+  console.log('🔍 Has accessToken:', hasToken);
+  return hasToken;
 };
 
 // --- Error Handling Simplificado ---
@@ -79,13 +98,14 @@ const errorHandling = async (error: any) => {
     isRefreshing = true;
 
     try {
-      const refreshResponse = await API.get('/auth/refresh');
+      // ✅ Usar cliente especial para refresh
+      const refreshResponse = await REFRESH_CLIENT.get('/auth/refresh');
       console.log('✅ Refresh response:', refreshResponse.status);
 
       // ✅ Caso 2: Refresh exitoso - Verificar accessToken
       if (refreshResponse.status === 200) {
         // Esperar un poco para que las cookies se establezcan
-        await new Promise((resolve) => setTimeout(resolve, 200));
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
         // Verificar si tenemos accessToken
         if (hasAccessToken()) {
@@ -101,6 +121,7 @@ const errorHandling = async (error: any) => {
           });
         }
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (refreshError: any) {
       console.log('❌ Refresh failed:', refreshError?.response?.status);
 
