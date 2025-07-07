@@ -12,39 +12,36 @@ const options: CreateAxiosDefaults = {
 
 // --- API Clients ---
 const API = axios.create(options);
-const REFRESH_API_CLIENT = axios.create(options);
 const ANIMAL_API = axios.create(options);
 
 // ✅ Control de refresh - UNA SOLA PETICIÓN A LA VEZ
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-let refreshPromise: Promise<any> | null = null;
 let isRefreshing = false;
 
-// ✅ Función para hacer refresh de forma serializada
-const performRefresh = async () => {
-  if (isRefreshing && refreshPromise) {
-    console.log('🔄 Refresh already in progress, waiting...');
-    return refreshPromise;
-  }
+// ✅ Función para limpiar cache y redirigir
+const clearAuthAndRedirect = () => {
+  console.log('🧹 Clearing auth cache and redirecting...');
+  queryClient.setQueriesData({ queryKey: [AUTH] }, null);
+  queryClient.removeQueries({ queryKey: [AUTH] });
+  queryClient.clear();
 
-  console.log('🔄 Starting new refresh...');
-  isRefreshing = true;
-
-  try {
-    refreshPromise = REFRESH_API_CLIENT.get('/auth/refresh');
-    const result = await refreshPromise;
-    console.log('✅ Refresh successful:', result);
-    return result;
-  } catch (error) {
-    console.error('❌ Refresh failed:', error);
-    throw error;
-  } finally {
-    isRefreshing = false;
-    refreshPromise = null;
+  if (
+    window.location.pathname !== '/login' &&
+    (ALLOW_REGISTER ? window.location.pathname !== '/register' : true)
+  ) {
+    navigate('/login', {
+      state: { from: window.location.pathname },
+    });
   }
 };
 
-// --- Error Handling ---
+// ✅ Función para verificar si tenemos accessToken
+const hasAccessToken = () => {
+  // Verificar si tenemos accessToken en las cookies
+  const cookies = document.cookie.split(';');
+  return cookies.some((cookie) => cookie.trim().startsWith('accessToken='));
+};
+
+// --- Error Handling Simplificado ---
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const errorHandling = async (error: any) => {
   if (!error) {
@@ -54,49 +51,92 @@ const errorHandling = async (error: any) => {
   const status: number = (error.response && error.response.status) ?? 500;
   const data: Record<string, string> = error.response?.data ?? {};
 
-  // If access token is invalid, try to refresh it
+  // ✅ Caso 1: InvalidAccessToken - Intentar refresh
   if (status === 401 && data?.errorCode === 'InvalidAccessToken') {
+    // Evitar múltiples refreshes simultáneos
+    if (isRefreshing) {
+      console.log('🔄 Refresh already in progress, waiting...');
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Verificar si ahora tenemos accessToken
+      if (hasAccessToken()) {
+        console.log(
+          '✅ AccessToken now available, retrying original request...'
+        );
+        return API(error.config);
+      } else {
+        console.log('❌ Still no accessToken after waiting');
+        clearAuthAndRedirect();
+        return Promise.reject({
+          status: 401,
+          message: 'Authentication failed',
+          isAuthError: true,
+        });
+      }
+    }
+
+    console.log('🔄 Attempting refresh...');
+    isRefreshing = true;
+
     try {
-      // ✅ Usar refresh serializado
-      await performRefresh();
+      const refreshResponse = await API.get('/auth/refresh');
+      console.log('✅ Refresh response:', refreshResponse.status);
 
-      // ✅ Esperar un momento para que las cookies se establezcan
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      // ✅ Caso 2: Refresh exitoso - Verificar accessToken
+      if (refreshResponse.status === 200) {
+        // Esperar un poco para que las cookies se establezcan
+        await new Promise((resolve) => setTimeout(resolve, 200));
 
-      console.log('🔁 Retrying original request...');
-      return API(error.config);
-    } catch (refreshError) {
-      console.log('❌ Refresh failed, redirecting to login...', refreshError);
+        // Verificar si tenemos accessToken
+        if (hasAccessToken()) {
+          console.log('✅ AccessToken verified, retrying original request...');
+          return API(error.config);
+        } else {
+          console.log('❌ No accessToken after successful refresh');
+          clearAuthAndRedirect();
+          return Promise.reject({
+            status: 401,
+            message: 'Authentication failed',
+            isAuthError: true,
+          });
+        }
+      }
+    } catch (refreshError: any) {
+      console.log('❌ Refresh failed:', refreshError?.response?.status);
 
-      queryClient.setQueriesData({ queryKey: [AUTH] }, null);
-      queryClient.removeQueries({ queryKey: [AUTH] });
-      queryClient.clear();
-
+      // ✅ Caso 3: InvalidRefreshToken - Limpiar y redirigir
       if (
-        window.location.pathname !== '/login' &&
-        (ALLOW_REGISTER ? window.location.pathname !== '/register' : true)
+        refreshError?.response?.status === 401 &&
+        refreshError?.response?.data?.errorCode === 'InvalidRefreshToken'
       ) {
-        navigate('/login', {
-          state: { from: window.location.pathname },
+        console.log('🚨 Invalid refresh token, clearing cache...');
+        clearAuthAndRedirect();
+        return Promise.reject({
+          status: 401,
+          message: 'Authentication failed',
+          isAuthError: true,
         });
       }
 
+      // Cualquier otro error de refresh
+      console.log('🚨 Unexpected refresh error, clearing cache...');
+      clearAuthAndRedirect();
       return Promise.reject({
         status: 401,
         message: 'Authentication failed',
         isAuthError: true,
       });
+    } finally {
+      isRefreshing = false;
     }
   }
 
+  // Para cualquier otro error, rechazar normalmente
   return Promise.reject({ status, ...data });
 };
 
 // --- Interceptors ---
-REFRESH_API_CLIENT.interceptors.response.use((response) => response);
-
 API.interceptors.response.use((response) => response, errorHandling);
-
 ANIMAL_API.interceptors.response.use((response) => response, errorHandling);
 
 export { ANIMAL_API };
