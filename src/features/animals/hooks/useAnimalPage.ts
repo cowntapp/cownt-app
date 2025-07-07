@@ -3,6 +3,7 @@ import { useAnimal } from './useAnimal';
 import { isAnimalPath } from '../interfaces/animalType';
 import { ANIMALS_ROUTE } from '../consts/animal.consts';
 import { useDeleteAnimal } from './useDeleteAnimal';
+import { useEditAnimal } from './useEditAnimal';
 
 export const useAnimalPage = () => {
   const { workspace, id } = useRouterParams('workspace', 'id');
@@ -14,6 +15,7 @@ export const useAnimalPage = () => {
   // Siempre llamamos al hook, pero solo usaremos los datos si el workspace es válido
   const { animalQuery } = useAnimal(validWorkspace, id);
   const { deleteAnimalMutation } = useDeleteAnimal(validWorkspace);
+  const { editAnimalMutation } = useEditAnimal(validWorkspace);
 
   return {
     isValidWorkspace,
@@ -21,5 +23,6 @@ export const useAnimalPage = () => {
     id,
     animalQuery,
     deleteAnimalMutation,
+    editAnimalMutation,
   };
 };

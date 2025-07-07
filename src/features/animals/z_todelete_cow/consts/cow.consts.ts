@@ -1,1 +1,0 @@
-export const COW_SHORT_CODE_LAST_CHARS_NUM = 4;

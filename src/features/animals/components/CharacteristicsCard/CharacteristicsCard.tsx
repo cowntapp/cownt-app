@@ -1,6 +1,4 @@
 import { TypoH2 } from '@/shadcn/components/typography/TypoH2';
-import { TypoMuted } from '@/shadcn/components/typography/TypoMuted';
-import { Badge } from '@/shadcn/components/ui/badge';
 import {
   Card,
   CardAction,
@@ -10,16 +8,22 @@ import {
 } from '@/shadcn/components/ui/card';
 import { ArrowUpRightFromSquare, Tag } from 'lucide-react';
 import { Link } from 'react-router';
-import type { Characteristic } from '../characteristics/interface/characteristic';
+import type { Characteristic } from '../../characteristics/interface/characteristic';
+import type { AnimalPath } from '../../interfaces/animalType';
+import { CharacteristicsSection } from './components/CharacteristicsSection';
 
 interface CharacteristicsCardProps {
   characteristics: Characteristic[];
-  workspace: string;
+  workspace: AnimalPath;
+  onEditCharacteristics?: (characteristics: string[]) => void;
+  isEditingCharacteristics?: boolean;
 }
 
 export const CharacteristicsCard = ({
   characteristics,
   workspace,
+  onEditCharacteristics,
+  isEditingCharacteristics,
 }: CharacteristicsCardProps) => {
   return (
     <Card>
@@ -39,20 +43,12 @@ export const CharacteristicsCard = ({
         </CardAction>
       </CardHeader>
       <CardContent>
-        <div className="flex flex-wrap gap-2">
-          {characteristics.length > 0 ? (
-            characteristics.map((char) => (
-              <Badge
-                key={char.id}
-                variant={'secondary'}
-              >
-                {char.value}
-              </Badge>
-            ))
-          ) : (
-            <TypoMuted>Sense característiques</TypoMuted>
-          )}
-        </div>
+        <CharacteristicsSection
+          characteristics={characteristics}
+          workspace={workspace}
+          onEditCharacteristics={onEditCharacteristics}
+          isEditingCharacteristics={isEditingCharacteristics}
+        />
       </CardContent>
     </Card>
   );

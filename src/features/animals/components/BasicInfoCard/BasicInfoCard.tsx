@@ -8,14 +8,14 @@ import {
   CardTitle,
 } from '@/shadcn/components/ui/card';
 import { Calendar, Info } from 'lucide-react';
-import type { Breed } from '../breeds/interface/breed';
-import type { SEX, ORIGIN } from '../consts/animal.consts';
+import type { Breed } from '../../breeds/interface/breed';
+import type { SEX, ORIGIN } from '../../consts/animal.consts';
 import { formatDate } from '@/shared/utils/formatDate';
-import { formatWeight } from '@/shared/utils/formatWeight';
 import {
   i18n_originLabels,
   i18n_sexLabels,
 } from '@/shared/translations/translations';
+import { WeightSection } from './components';
 
 interface BasicInfoCardProps {
   longCode: string;
@@ -24,6 +24,8 @@ interface BasicInfoCardProps {
   sex: SEX;
   origin: ORIGIN;
   weight: string | null;
+  onEditWeight?: (weight: string | null) => void;
+  isEditingWeight?: boolean;
 }
 
 export const BasicInfoCard = ({
@@ -33,6 +35,8 @@ export const BasicInfoCard = ({
   sex,
   origin,
   weight,
+  onEditWeight,
+  isEditingWeight,
 }: BasicInfoCardProps) => {
   return (
     <Card>
@@ -72,12 +76,11 @@ export const BasicInfoCard = ({
               {i18n_originLabels[origin]}
             </TypoLead>
           </div>
-          <div>
-            <TypoMuted>Pes</TypoMuted>
-            <TypoLead className="font-semibold">
-              {formatWeight(weight) ?? '-'}
-            </TypoLead>
-          </div>
+          <WeightSection
+            weight={weight}
+            onEditWeight={onEditWeight}
+            isEditingWeight={isEditingWeight}
+          />
         </div>
       </CardContent>
     </Card>

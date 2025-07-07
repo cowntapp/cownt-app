@@ -9,17 +9,26 @@ import {
 } from '@/shadcn/components/ui/card';
 import { getFormattedPriceStringIntl } from '@/shared/utils/formatPrice';
 import { Euro } from 'lucide-react';
+import { PriceSection } from './components';
 
 interface FinancialInfoCardProps {
   purchasePrice: number | null;
   salePrice: number | null;
   profit: number | null;
+  onEditPurchasePrice?: (purchasePrice: number | null) => void;
+  onEditSalePrice?: (salePrice: number | null) => void;
+  isEditingPurchasePrice?: boolean;
+  isEditingSalePrice?: boolean;
 }
 
 export const FinancialInfoCard = ({
   purchasePrice,
   salePrice,
   profit,
+  onEditPurchasePrice,
+  onEditSalePrice,
+  isEditingPurchasePrice,
+  isEditingSalePrice,
 }: FinancialInfoCardProps) => {
   return (
     <Card>
@@ -31,18 +40,20 @@ export const FinancialInfoCard = ({
       </CardHeader>
       <CardContent className="grid grid-cols-1 sm:grid-cols-2">
         <div className="flex flex-col gap-y-4">
-          <div>
-            <TypoMuted>Preu de compra</TypoMuted>
-            <TypoLead className="font-semibold">
-              {getFormattedPriceStringIntl(purchasePrice) ?? '-'}
-            </TypoLead>
-          </div>
-          <div>
-            <TypoMuted>Preu de venda</TypoMuted>
-            <TypoLead className="font-semibold">
-              {getFormattedPriceStringIntl(salePrice) ?? '-'}
-            </TypoLead>
-          </div>
+          <PriceSection
+            label="Preu de compra"
+            price={purchasePrice}
+            onEditPrice={onEditPurchasePrice}
+            isEditingPrice={isEditingPurchasePrice}
+            placeholder="Preu en €"
+          />
+          <PriceSection
+            label="Preu de venda"
+            price={salePrice}
+            onEditPrice={onEditSalePrice}
+            isEditingPrice={isEditingSalePrice}
+            placeholder="Preu en €"
+          />
         </div>
         <div className="flex flex-col gap-y-4">
           <div>

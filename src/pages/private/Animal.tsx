@@ -12,6 +12,7 @@ import {
   CharacteristicsCard,
   MotherCard,
   ChildrenCard,
+  StatusCard,
 } from '@/features/animals/components';
 import { getBreedName } from '@/features/animals/helpers/breedHelpers';
 import { calculateAnimalProfit } from '@/features/animals/helpers/financialHelpers';
@@ -19,11 +20,30 @@ import { QueryBoundary } from '@/shared/components/QueryBoundary';
 import { DeleteAnimalCard } from '@/features/animals/components/DeleteAnimalCard';
 
 export const Animal = () => {
-  const { isValidWorkspace, workspace, animalQuery, deleteAnimalMutation } =
-    useAnimalPage();
+  const {
+    isValidWorkspace,
+    workspace,
+    animalQuery,
+    deleteAnimalMutation,
+    editAnimalMutation,
+  } = useAnimalPage();
 
   // Get breeds for resolving breed names
   const { breedsQuery } = useBreeds(workspace as AnimalPath);
+
+  // Función para editar un animal
+  const onEditAnimal = (
+    field: string,
+    value: string | number | string[] | null
+  ) => {
+    if (!animalQuery.data) return;
+
+    const payload = { [field]: value };
+    editAnimalMutation.editAnimal({
+      animalId: animalQuery.data.id,
+      payload,
+    });
+  };
 
   // Si el workspace no es válido, redirigir a 404
   if (!isValidWorkspace || !workspace) {
@@ -45,6 +65,11 @@ export const Animal = () => {
             </TypoH1>
             <div className="container grid grid-cols-1 lg:grid-cols-3 gap-6">
               <div className="col-span-1 lg:col-span-2 flex flex-col gap-y-6">
+                <StatusCard
+                  absence={animal.absence}
+                  onEditAbsence={(absence) => onEditAnimal('absence', absence)}
+                  isEditingAbsence={editAnimalMutation.isPending}
+                />
                 <BasicInfoCard
                   longCode={animal.longCode}
                   breed={animal.breed}
@@ -52,6 +77,8 @@ export const Animal = () => {
                   sex={animal.sex}
                   origin={animal.origin}
                   weight={animal.weight}
+                  onEditWeight={(weight) => onEditAnimal('weight', weight)}
+                  isEditingWeight={editAnimalMutation.isPending}
                 />
                 <FinancialInfoCard
                   purchasePrice={animal.buyPrice}
@@ -61,10 +88,22 @@ export const Animal = () => {
                     animal.salePrice,
                     animal.children
                   )}
+                  onEditPurchasePrice={(buyPrice) =>
+                    onEditAnimal('buyPrice', buyPrice)
+                  }
+                  onEditSalePrice={(salePrice) =>
+                    onEditAnimal('salePrice', salePrice)
+                  }
+                  isEditingPurchasePrice={editAnimalMutation.isPending}
+                  isEditingSalePrice={editAnimalMutation.isPending}
                 />
                 <CharacteristicsCard
                   characteristics={animal.characteristics}
                   workspace={workspace}
+                  onEditCharacteristics={(characteristics) =>
+                    onEditAnimal('characteristics', characteristics)
+                  }
+                  isEditingCharacteristics={editAnimalMutation.isPending}
                 />
               </div>
 
