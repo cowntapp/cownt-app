@@ -1,4 +1,3 @@
-// --- Imports ---
 import axios, { type CreateAxiosDefaults } from 'axios';
 import { queryClient } from '@/providers/query/config/queryClient';
 import { navigate } from '@/shared/utils/navigation';
@@ -12,17 +11,43 @@ const options: CreateAxiosDefaults = {
 };
 
 // --- API Clients ---
-// Main API client for general requests
 const API = axios.create(options);
-// Separate client for refresh token requests to avoid interceptor loops
 const REFRESH_API_CLIENT = axios.create(options);
 const ANIMAL_API = axios.create(options);
 
-// --- Api Error Handling ---
+// ✅ Control de refresh - UNA SOLA PETICIÓN A LA VEZ
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let refreshPromise: Promise<any> | null = null;
+let isRefreshing = false;
+
+// ✅ Función para hacer refresh de forma serializada
+const performRefresh = async () => {
+  if (isRefreshing && refreshPromise) {
+    console.log('🔄 Refresh already in progress, waiting...');
+    return refreshPromise;
+  }
+
+  console.log('🔄 Starting new refresh...');
+  isRefreshing = true;
+
+  try {
+    refreshPromise = REFRESH_API_CLIENT.get('/auth/refresh');
+    const result = await refreshPromise;
+    console.log('✅ Refresh successful:', result);
+    return result;
+  } catch (error) {
+    console.error('❌ Refresh failed:', error);
+    throw error;
+  } finally {
+    isRefreshing = false;
+    refreshPromise = null;
+  }
+};
+
+// --- Error Handling ---
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const errorHandling = async (error: any) => {
   if (!error) {
-    // Unknown error, reject with status 500
     return Promise.reject({ status: 500 });
   }
 
@@ -32,22 +57,21 @@ const errorHandling = async (error: any) => {
   // If access token is invalid, try to refresh it
   if (status === 401 && data?.errorCode === 'InvalidAccessToken') {
     try {
-      console.log('🔄 Attempting refresh...');
-      const refreshResponse = await REFRESH_API_CLIENT.get('/auth/refresh');
-      console.log('✅ Refresh response:', refreshResponse);
+      // ✅ Usar refresh serializado
+      await performRefresh();
 
-      // Verificar si hay cookies después del refresh
-      console.log('🍪 Cookies after refresh:', document.cookie);
+      // ✅ Esperar un momento para que las cookies se establezcan
+      await new Promise((resolve) => setTimeout(resolve, 100));
 
+      console.log('🔁 Retrying original request...');
       return API(error.config);
     } catch (refreshError) {
-      // Refresh failed: clear cache and redirect to login (unless already there)
-      console.log('❌ Refresh failed:', refreshError);
+      console.log('❌ Refresh failed, redirecting to login...', refreshError);
 
       queryClient.setQueriesData({ queryKey: [AUTH] }, null);
       queryClient.removeQueries({ queryKey: [AUTH] });
-
       queryClient.clear();
+
       if (
         window.location.pathname !== '/login' &&
         (ALLOW_REGISTER ? window.location.pathname !== '/register' : true)
@@ -56,32 +80,24 @@ const errorHandling = async (error: any) => {
           state: { from: window.location.pathname },
         });
       }
+
+      return Promise.reject({
+        status: 401,
+        message: 'Authentication failed',
+        isAuthError: true,
+      });
     }
   }
 
-  // For all other errors, reject with status and error data
   return Promise.reject({ status, ...data });
 };
 
 // --- Interceptors ---
-// REFRESH_API_CLIENT: Only unwraps the response data
 REFRESH_API_CLIENT.interceptors.response.use((response) => response.data);
 
-// API: Handles normal responses and errors, including token refresh logic
-API.interceptors.response.use(
-  // On success, return full response (no data destructuring)
-  (response) => response,
-  // On error, handle authentication and refresh logic
-  errorHandling
-);
+API.interceptors.response.use((response) => response, errorHandling);
 
-ANIMAL_API.interceptors.response.use(
-  (response) => response,
-  // On error, handle authentication and refresh logic
-  errorHandling
-);
+ANIMAL_API.interceptors.response.use((response) => response, errorHandling);
 
 export { ANIMAL_API };
-
-// --- Exported API Client ---
 export default API;
