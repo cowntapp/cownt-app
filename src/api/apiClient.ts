@@ -52,7 +52,9 @@ const hasAccessToken = async () => {
   }
 };
 
-// --- Error Handling Simplificado ---
+// --- Error Handling Avanzado ---
+// NOTA: Ahora con AuthGuard sin race condition, podemos usar el refresh avanzado
+// AuthGuard solo muestra loading en errores, el interceptor maneja toda la lógica de auth
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const errorHandling = async (error: any) => {
   if (!error) {
@@ -64,6 +66,10 @@ const errorHandling = async (error: any) => {
 
   // ✅ Caso 1: InvalidAccessToken - Intentar refresh
   if (status === 401 && data?.errorCode === 'InvalidAccessToken') {
+    console.log(
+      '🔄 [ADVANCED] InvalidAccessToken detected, attempting refresh...'
+    );
+
     // Evitar múltiples refreshes simultáneos
     if (isRefreshing) {
       console.log('🔄 Refresh already in progress, waiting...');
@@ -86,7 +92,7 @@ const errorHandling = async (error: any) => {
       }
     }
 
-    console.log('🔄 Attempting refresh...');
+    console.log('🔄 Starting refresh process...');
     isRefreshing = true;
 
     try {
@@ -99,8 +105,6 @@ const errorHandling = async (error: any) => {
         // Esperar un poco para que las cookies se establezcan
         await new Promise((resolve) => setTimeout(resolve, 500));
 
-        // ✅ Si el refresh fue exitoso, confiar en que las cookies están establecidas
-        // e intentar el request original directamente
         console.log(
           '✅ Refresh successful, retrying original request directly...'
         );
@@ -163,7 +167,8 @@ const errorHandling = async (error: any) => {
   return Promise.reject({ status, ...data });
 };
 
-// --- Interceptors ---
+// --- Interceptors Avanzados ---
+// NOTA: Ahora con AuthGuard sin race condition, podemos usar el refresh avanzado
 API.interceptors.response.use((response) => response, errorHandling);
 ANIMAL_API.interceptors.response.use((response) => response, errorHandling);
 

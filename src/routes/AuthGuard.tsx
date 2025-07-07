@@ -1,28 +1,29 @@
 import { Loader } from '@/shadcn/components/Loader/Loader';
 import { useAuth } from '@/features/user/auth/hooks/useAuth';
-import { Navigate, Outlet } from 'react-router';
+import { Outlet } from 'react-router';
 
 export const AuthGuard = () => {
   const { userAuthQuery } = useAuth();
 
-  const user = userAuthQuery.data;
+  // ✅ Solo manejar loading y success
+  // Dejar que el interceptor maneje TODOS los errores de auth
+  if (userAuthQuery.isPending) {
+    return (
+      <div className="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+        <Loader />
+      </div>
+    );
+  }
 
+  if (userAuthQuery.isSuccess && userAuthQuery.data) {
+    return <Outlet />;
+  }
+
+  // ✅ En cualquier error, mostrar loading
+  // El interceptor se encargará de la navegación
   return (
-    <>
-      {userAuthQuery.isPending && (
-        <div className="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
-          <Loader />
-        </div>
-      )}
-
-      {userAuthQuery.isSuccess && user && <Outlet />}
-
-      {userAuthQuery.isError && (
-        <Navigate
-          to={'/login'}
-          replace
-        />
-      )}
-    </>
+    <div className="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+      <Loader />
+    </div>
   );
 };
