@@ -20,6 +20,10 @@ const REFRESH_CLIENT = axios.create(options);
 // ✅ Control de refresh - UNA SOLA PETICIÓN A LA VEZ
 let isRefreshing = false;
 
+// ✅ Contador de intentos para evitar loops infinitos
+const MAX_REFRESH_ATTEMPTS = 3;
+let refreshAttempts = 0;
+
 // ✅ Función para limpiar cache y redirigir
 const clearAuthAndRedirect = () => {
   console.log('🧹 Clearing auth cache and redirecting...');
@@ -70,6 +74,18 @@ const errorHandling = async (error: any) => {
       '🔄 [ADVANCED] InvalidAccessToken detected, attempting refresh...'
     );
 
+    // ✅ Verificar si ya hemos excedido los intentos máximos
+    if (refreshAttempts >= MAX_REFRESH_ATTEMPTS) {
+      console.log('🚨 Max refresh attempts reached, clearing cache...');
+      refreshAttempts = 0; // Reset para próximas sesiones
+      clearAuthAndRedirect();
+      return Promise.reject({
+        status: 401,
+        message: 'Authentication failed - max attempts reached',
+        isAuthError: true,
+      });
+    }
+
     // Evitar múltiples refreshes simultáneos
     if (isRefreshing) {
       console.log('🔄 Refresh already in progress, waiting...');
@@ -80,6 +96,7 @@ const errorHandling = async (error: any) => {
         console.log(
           '✅ AccessToken now available, retrying original request...'
         );
+        refreshAttempts = 0; // Reset en caso de éxito
         return API(error.config);
       } else {
         console.log('❌ Still no accessToken after waiting');
@@ -92,8 +109,13 @@ const errorHandling = async (error: any) => {
       }
     }
 
-    console.log('🔄 Starting refresh process...');
+    console.log(
+      `🔄 Starting refresh process... (attempt ${
+        refreshAttempts + 1
+      }/${MAX_REFRESH_ATTEMPTS})`
+    );
     isRefreshing = true;
+    refreshAttempts++;
 
     try {
       // ✅ Usar cliente especial para refresh
@@ -111,7 +133,10 @@ const errorHandling = async (error: any) => {
         try {
           // Crear nueva instancia para el retry
           const retryClient = axios.create(options);
-          return retryClient(error.config);
+          const retryResponse = await retryClient(error.config);
+          console.log('✅ Retry successful, resetting attempts counter');
+          refreshAttempts = 0; // Reset en caso de éxito
+          return retryResponse;
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (retryError) {
           console.log(
@@ -120,9 +145,14 @@ const errorHandling = async (error: any) => {
           // Si el retry falla, entonces verificar con hasAccessToken
           if (await hasAccessToken()) {
             console.log('✅ AccessToken verified, retrying with API client...');
+            refreshAttempts = 0; // Reset en caso de éxito
             return API(error.config);
           } else {
             console.log('❌ No accessToken after successful refresh');
+            // No resetear attempts aquí, para que el siguiente intento pueda fallar rápido
+            console.log(
+              `🔄 Will retry... (${refreshAttempts}/${MAX_REFRESH_ATTEMPTS})`
+            );
             clearAuthAndRedirect();
             return Promise.reject({
               status: 401,
@@ -142,6 +172,7 @@ const errorHandling = async (error: any) => {
         refreshError?.response?.data?.errorCode === 'InvalidRefreshToken'
       ) {
         console.log('🚨 Invalid refresh token, clearing cache...');
+        refreshAttempts = 0; // Reset para próximas sesiones
         clearAuthAndRedirect();
         return Promise.reject({
           status: 401,
@@ -152,6 +183,7 @@ const errorHandling = async (error: any) => {
 
       // Cualquier otro error de refresh
       console.log('🚨 Unexpected refresh error, clearing cache...');
+      refreshAttempts = 0; // Reset para próximas sesiones
       clearAuthAndRedirect();
       return Promise.reject({
         status: 401,
