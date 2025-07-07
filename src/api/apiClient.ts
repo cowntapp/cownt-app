@@ -94,23 +94,38 @@ const errorHandling = async (error: any) => {
       const refreshResponse = await REFRESH_CLIENT.get('/auth/refresh');
       console.log('✅ Refresh response:', refreshResponse.status);
 
-      // ✅ Caso 2: Refresh exitoso - Verificar accessToken
+      // ✅ Caso 2: Refresh exitoso - Intentar request directamente
       if (refreshResponse.status === 200) {
         // Esperar un poco para que las cookies se establezcan
         await new Promise((resolve) => setTimeout(resolve, 500));
 
-        // Verificar si tenemos accessToken mediante API call
-        if (await hasAccessToken()) {
-          console.log('✅ AccessToken verified, retrying original request...');
-          return API(error.config);
-        } else {
-          console.log('❌ No accessToken after successful refresh');
-          clearAuthAndRedirect();
-          return Promise.reject({
-            status: 401,
-            message: 'Authentication failed',
-            isAuthError: true,
-          });
+        // ✅ Si el refresh fue exitoso, confiar en que las cookies están establecidas
+        // e intentar el request original directamente
+        console.log(
+          '✅ Refresh successful, retrying original request directly...'
+        );
+        try {
+          // Crear nueva instancia para el retry
+          const retryClient = axios.create(options);
+          return retryClient(error.config);
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (retryError) {
+          console.log(
+            '❌ Retry with fresh client failed, checking with hasAccessToken...'
+          );
+          // Si el retry falla, entonces verificar con hasAccessToken
+          if (await hasAccessToken()) {
+            console.log('✅ AccessToken verified, retrying with API client...');
+            return API(error.config);
+          } else {
+            console.log('❌ No accessToken after successful refresh');
+            clearAuthAndRedirect();
+            return Promise.reject({
+              status: 401,
+              message: 'Authentication failed',
+              isAuthError: true,
+            });
+          }
         }
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
