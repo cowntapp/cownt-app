@@ -93,7 +93,7 @@ const errorHandling = async (error: any) => {
 };
 
 // --- Interceptors ---
-REFRESH_API_CLIENT.interceptors.response.use((response) => response.data);
+REFRESH_API_CLIENT.interceptors.response.use((response) => response);
 
 API.interceptors.response.use((response) => response, errorHandling);
 
