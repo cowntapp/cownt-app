@@ -37,27 +37,18 @@ const clearAuthAndRedirect = () => {
   }
 };
 
-// ✅ Función para verificar si tenemos accessToken (mejorada)
-const hasAccessToken = () => {
-  const cookies = document.cookie;
-  console.log('🍪 All cookies:', cookies);
-
-  if (!cookies) {
-    console.log('❌ No cookies found');
+// ✅ Función para verificar si tenemos accessToken (verificación real)
+const hasAccessToken = async () => {
+  try {
+    // Hacer una petición simple que requiera autenticación
+    const response = await REFRESH_CLIENT.get('/user');
+    console.log('✅ AccessToken verified via API call');
+    return response.status === 200;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.log('❌ AccessToken verification failed:', error?.response?.status);
     return false;
   }
-
-  const cookieArray = cookies.split(';');
-  const hasToken = cookieArray.some((cookie) => {
-    const trimmed = cookie.trim();
-    return (
-      trimmed.startsWith('accessToken=') &&
-      trimmed.length > 'accessToken='.length
-    );
-  });
-
-  console.log('🔍 Has accessToken:', hasToken);
-  return hasToken;
 };
 
 // --- Error Handling Simplificado ---
@@ -78,7 +69,7 @@ const errorHandling = async (error: any) => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // Verificar si ahora tenemos accessToken
-      if (hasAccessToken()) {
+      if (await hasAccessToken()) {
         console.log(
           '✅ AccessToken now available, retrying original request...'
         );
@@ -107,8 +98,8 @@ const errorHandling = async (error: any) => {
         // Esperar un poco para que las cookies se establezcan
         await new Promise((resolve) => setTimeout(resolve, 500));
 
-        // Verificar si tenemos accessToken
-        if (hasAccessToken()) {
+        // Verificar si tenemos accessToken mediante API call
+        if (await hasAccessToken()) {
           console.log('✅ AccessToken verified, retrying original request...');
           return API(error.config);
         } else {
