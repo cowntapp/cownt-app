@@ -6,7 +6,7 @@ export const Home = () => {
   if (!HAS_LANDING)
     return (
       <Navigate
-        to={'/login'}
+        to={'/cows'}
         replace
       />
     );
