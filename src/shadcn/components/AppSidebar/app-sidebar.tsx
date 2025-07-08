@@ -15,6 +15,7 @@ import {
 import { useAuth } from '@/features/user/auth/hooks/useAuth';
 import { useLogout } from '@/features/user/logout/hooks/useLogout';
 import { menuData } from '@/config/data/appConfigData';
+import { QuickActions } from './components/quick-actions';
 
 // This is sample data.
 
@@ -27,7 +28,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     logoutMutation: { mutate: logout },
   } = useLogout();
 
-  const { isMobile, setOpenMobile } = useSidebar();
+  const { isMobile, setOpenMobile, open } = useSidebar();
   const location = useLocation();
 
   // Close the sidebar on mobile when navigating
@@ -52,6 +53,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={menuData.navMain} />
+        <QuickActions isOpen={open} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser
