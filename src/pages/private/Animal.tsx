@@ -69,7 +69,11 @@ export const Animal = () => {
                 asChild
                 className="hidden md:block"
               >
-                <Link to={`/${workspace}/new`}>Registra nou part</Link>
+                <Link
+                  to={`/${workspace}/new?origin=born&motherId=${animal.id}`}
+                >
+                  Registra nou part
+                </Link>
               </Button>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -78,7 +82,11 @@ export const Animal = () => {
                   className="block md:hidden text-center"
                   asChild
                 >
-                  <Link to={`/${workspace}/new`}>Registra nou part</Link>
+                  <Link
+                    to={`/${workspace}/new?origin=born&motherId=${animal.id}`}
+                  >
+                    Registra nou part
+                  </Link>
                 </Button>
                 <StatusCard
                   absence={animal.absence}

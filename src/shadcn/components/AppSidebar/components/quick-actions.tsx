@@ -25,7 +25,7 @@ export const QuickActions = ({ isOpen }: QuickActionsProps) => {
           className="w-full"
           size={isOpen ? 'default' : 'sm'}
         >
-          <Link to={`/${workspace}/new`}>
+          <Link to={`/${workspace}/new?origin=bought`}>
             {isOpen ? 'Nova Compra' : <DollarSign />}
           </Link>
         </Button>
