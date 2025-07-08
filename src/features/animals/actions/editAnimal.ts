@@ -1,6 +1,6 @@
 import { ANIMAL_API } from '@/api/apiClient';
-import type { AnimalRaw } from '../interfaces/animalGeneric';
 import type { AnimalPath } from '../interfaces/animalType';
+import type { AnimalRaw } from '../interfaces/animal';
 
 export interface EditAnimalPayload {
   weight?: string | null;
