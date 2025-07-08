@@ -1,7 +1,7 @@
 import type { EntityKey } from '@/config/interfaces/configInterfaces';
 import { TypoH1 } from '@/shadcn/components/typography/TypoH1';
 import { i18n_entities } from '@/shared/translations/translations';
-import { Navigate } from 'react-router';
+import { Link, Navigate } from 'react-router';
 import { useAnimalPage } from '@/features/animals/hooks/useAnimalPage';
 import { useBreeds } from '@/features/animals/breeds/hooks/useBreeds';
 import type { AnimalPath } from '@/features/animals/interfaces/animalType';
@@ -18,6 +18,7 @@ import { getBreedName } from '@/features/animals/helpers/breedHelpers';
 import { calculateAnimalProfit } from '@/features/animals/helpers/financialHelpers';
 import { QueryBoundary } from '@/shared/components/QueryBoundary';
 import { DeleteAnimalCard } from '@/features/animals/components/DeleteAnimalCard';
+import { Button } from '@/shadcn/components/ui/button';
 
 export const Animal = () => {
   const {
@@ -58,13 +59,27 @@ export const Animal = () => {
             workspace={workspace}
             animalCode={animal.shortCode}
           />
-          <main>
-            <TypoH1 className="my-2">
-              Detalls de la {i18n_entities[workspace.slice(0, -1) as EntityKey]}{' '}
-              {animal.shortCode}
-            </TypoH1>
-            <div className="container grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <main className="max-w-7xl">
+            <div className="flex items-start gap-x-4 justify-between mb-6 mt-2">
+              <TypoH1>
+                Detalls {i18n_entities[workspace.slice(0, -1) as EntityKey]}{' '}
+                {animal.shortCode}
+              </TypoH1>
+              <Button
+                asChild
+                className="hidden md:block"
+              >
+                <Link to={`/${workspace}/new`}>Registra nou part</Link>
+              </Button>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <div className="col-span-1 lg:col-span-2 flex flex-col gap-y-6">
+                <Button
+                  className="block md:hidden text-center"
+                  asChild
+                >
+                  <Link to={`/${workspace}/new`}>Registra nou part</Link>
+                </Button>
                 <StatusCard
                   absence={animal.absence}
                   onEditAbsence={(absence) => onEditAnimal('absence', absence)}
