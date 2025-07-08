@@ -82,6 +82,10 @@ const AppRoutes = () => {
                 element={<Animals />}
               />
               <Route
+                path="new"
+                element={<div>new animal</div>}
+              />
+              <Route
                 path=":id"
                 element={<Animal />}
               />
