@@ -44,6 +44,7 @@ import {
 import { format } from 'date-fns';
 import { Calendar } from '@/shadcn/components/ui/calendar';
 import { ca } from 'react-day-picker/locale';
+import { Separator } from '@/shadcn/components/ui/separator';
 
 interface NewAnimalFormProps {
   isPending: boolean;
@@ -162,6 +163,8 @@ export const NewAnimalForm = ({
                   )}
                 />
               </div>
+
+              <Separator />
 
               {/* Sección 1: Información Básica */}
               <div className="space-y-4">
@@ -407,6 +410,8 @@ export const NewAnimalForm = ({
                 />
               </div>
 
+              <Separator />
+
               {/* Sección 2: Información Financiera */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold">Informació Financera</h3>
@@ -459,6 +464,8 @@ export const NewAnimalForm = ({
                   )}
                 />
               </div>
+
+              <Separator />
 
               {/* Sección 3: Características */}
               <div className="space-y-4">
