@@ -49,7 +49,7 @@ interface NewAnimalFormProps {
   isPending: boolean;
   onAnimalSubmit: (animal: CreateAnimalPayload) => void;
   className?: string;
-  origin?: 'bought' | 'born' | null;
+  origin?: ORIGIN | null;
   motherId?: string | null;
   children?: ReactNode;
   breeds: Breed[];
@@ -80,12 +80,7 @@ export const NewAnimalForm = ({
       sex: undefined,
       birthDate: undefined,
       weight: undefined,
-      origin:
-        origin === 'bought'
-          ? ORIGIN.BOUGHT
-          : origin === 'born'
-          ? ORIGIN.BORN
-          : undefined,
+      origin: origin ?? undefined,
       buyPrice: undefined,
       salePrice: undefined,
       absence: null,

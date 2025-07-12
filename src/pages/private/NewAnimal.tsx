@@ -11,6 +11,7 @@ import { QueryBoundary } from '@/shared/components/QueryBoundary';
 import type { Breed } from '@/features/animals/breeds/interface/breed';
 import type { Characteristic } from '@/features/animals/characteristics/interface/characteristic';
 import type { UseQueryResult } from '@tanstack/react-query';
+import type { ORIGIN } from '@/features/animals/consts/animal.consts';
 
 type FormPreQueryData = {
   breeds: Breed[];
@@ -19,7 +20,7 @@ type FormPreQueryData = {
 
 export const NewAnimal = () => {
   const [searchParams] = useSearchParams();
-  const origin = searchParams.get('origin') as 'bought' | 'born' | null;
+  const origin = searchParams.get('origin') as ORIGIN | null;
   const motherId = searchParams.get('motherId');
 
   const workspace = useRouterParams('workspace').workspace as AnimalPath;
