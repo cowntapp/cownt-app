@@ -34,7 +34,16 @@ import type { ReactNode } from 'react';
 import type { Breed } from '../../breeds/interface/breed';
 import type { Characteristic } from '../../characteristics/interface/characteristic';
 import { i18n_absenceLabels } from '@/shared/translations/translations';
-import { ChevronDown } from 'lucide-react';
+import { CalendarIcon, ChevronDown, X } from 'lucide-react';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/shadcn/components/ui/popover';
+
+import { format } from 'date-fns';
+import { Calendar } from '@/shadcn/components/ui/calendar';
+import { ca } from 'react-day-picker/locale';
 
 interface NewAnimalFormProps {
   isPending: boolean;
@@ -268,7 +277,7 @@ export const NewAnimalForm = ({
                 />
 
                 {/* Birth Date */}
-                <FormField
+                {/* <FormField
                   control={form.control}
                   name="birthDate"
                   render={({ field }) => (
@@ -298,6 +307,76 @@ export const NewAnimalForm = ({
                           }}
                         />
                       </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                /> */}
+                <FormField
+                  control={form.control}
+                  name="birthDate"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        Data de Naixament {origin === 'born' ? '*' : ''}
+                      </FormLabel>
+                      <div className="flex gap-2">
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                variant={'outline'}
+                                className={cn(
+                                  'w-[240px] pl-3 text-left font-normal',
+                                  !field.value && 'text-muted-foreground'
+                                )}
+                              >
+                                {field.value ? (
+                                  format(new Date(Number(field.value)), 'PPP', {
+                                    locale: ca,
+                                  })
+                                ) : (
+                                  <span>Escull una data</span>
+                                )}
+                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent
+                            className="w-auto p-0"
+                            align="start"
+                          >
+                            <Calendar
+                              mode="single"
+                              locale={ca}
+                              selected={
+                                field.value
+                                  ? new Date(Number(field.value))
+                                  : undefined
+                              }
+                              onSelect={(date) => {
+                                if (date) {
+                                  const timestamp = date.getTime();
+                                  field.onChange(timestamp.toString());
+                                } else {
+                                  field.onChange(undefined);
+                                }
+                              }}
+                              captionLayout="dropdown"
+                            />
+                          </PopoverContent>
+                        </Popover>
+                        {field.value && (
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="icon"
+                            onClick={() => field.onChange(undefined)}
+                            className="shrink-0"
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        )}
+                      </div>
                       <FormMessage />
                     </FormItem>
                   )}
