@@ -19,13 +19,29 @@ export function parseUserAgent(userAgent: string) {
   else if (isIOS) os = 'iOS';
 
   let browser = 'Unknown';
-  if (/Chrome/i.test(userAgent) && !/Edg|OPR/.test(userAgent))
-    browser = 'Chrome';
-  else if (/Firefox/i.test(userAgent)) browser = 'Firefox';
-  else if (/Safari/i.test(userAgent) && !/Chrome|OPR/.test(userAgent))
-    browser = 'Safari';
-  else if (/Edg/i.test(userAgent)) browser = 'Edge';
-  else if (/OPR/i.test(userAgent)) browser = 'Opera';
+  let browserVersion = 'Unknown';
 
-  return { deviceType, os, browser };
+  if (/Chrome/i.test(userAgent) && !/Edg|OPR/.test(userAgent)) {
+    browser = 'Chrome';
+    const match = userAgent.match(/Chrome\/(\d+\.\d+)/i);
+    if (match) browserVersion = match[1];
+  } else if (/Firefox/i.test(userAgent)) {
+    browser = 'Firefox';
+    const match = userAgent.match(/Firefox\/(\d+\.\d+)/i);
+    if (match) browserVersion = match[1];
+  } else if (/Safari/i.test(userAgent) && !/Chrome|OPR/.test(userAgent)) {
+    browser = 'Safari';
+    const match = userAgent.match(/Version\/(\d+\.\d+)/i);
+    if (match) browserVersion = match[1];
+  } else if (/Edg/i.test(userAgent)) {
+    browser = 'Edge';
+    const match = userAgent.match(/Edg\/(\d+\.\d+)/i);
+    if (match) browserVersion = match[1];
+  } else if (/OPR/i.test(userAgent)) {
+    browser = 'Opera';
+    const match = userAgent.match(/OPR\/(\d+\.\d+)/i);
+    if (match) browserVersion = match[1];
+  }
+
+  return { deviceType, os, browser, browserVersion };
 }
