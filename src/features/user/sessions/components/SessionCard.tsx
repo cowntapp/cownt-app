@@ -18,7 +18,9 @@ interface SessionCardProps {
 }
 
 export const SessionCard = ({ session }: SessionCardProps) => {
-  const { deviceType, os, browser } = parseUserAgent(session.userAgent);
+  const { deviceType, os, browser, browserVersion } = parseUserAgent(
+    session.userAgent
+  );
   const { deleteSessionMutation } = useDeleteSession(session._id);
 
   return (
@@ -27,7 +29,7 @@ export const SessionCard = ({ session }: SessionCardProps) => {
         <CardTitle>{deviceType}</CardTitle>
 
         <CardDescription>
-          {os} | {browser}
+          {os} | {browser} {browserVersion}
         </CardDescription>
 
         <CardDescription>
