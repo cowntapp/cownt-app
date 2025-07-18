@@ -32,6 +32,7 @@ export const createAnimalSchema = z
     buyPrice: z.number().nonnegative().int().optional(),
     salePrice: z.number().nonnegative().int().optional(),
     absence: z.nativeEnum(ABSENCE).nullable(),
+    absenceDetail: z.string().min(1).max(255).optional(),
     characteristics: z.array(z.string()).optional(),
     mother: z.string().optional(),
     children: z.array(z.string()).optional(),

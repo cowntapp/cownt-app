@@ -85,6 +85,7 @@ export const NewAnimalForm = ({
       buyPrice: undefined,
       salePrice: undefined,
       absence: null,
+      absenceDetail: undefined,
       characteristics: undefined,
       mother: motherId || undefined,
     },
@@ -162,6 +163,26 @@ export const NewAnimalForm = ({
                     </FormItem>
                   )}
                 />
+
+                {/* Absence detail */}
+                {form.watch('absence') !== null && (
+                  <FormField
+                    control={form.control}
+                    name="absenceDetail"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Detall de l'estat</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Detall de venta o mort"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
               </div>
 
               <Separator />

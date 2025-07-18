@@ -14,6 +14,7 @@ export interface AnimalRaw {
   buyPrice: number | null;
   salePrice: number | null;
   absence: ABSENCE | null;
+  absenceDetail: string | null;
   characteristics: string[];
   mother: string | null;
   children: string[];

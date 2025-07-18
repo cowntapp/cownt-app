@@ -90,8 +90,13 @@ export const Animal = () => {
                 </Button>
                 <StatusCard
                   absence={animal.absence}
+                  absenceDetail={animal.absenceDetail}
                   onEditAbsence={(absence) => onEditAnimal('absence', absence)}
+                  onEditAbsenceDetail={(absenceDetail) =>
+                    onEditAnimal('absenceDetail', absenceDetail)
+                  }
                   isEditingAbsence={editAnimalMutation.isPending}
+                  isEditingAbsenceDetail={editAnimalMutation.isPending}
                 />
                 <BasicInfoCard
                   longCode={animal.longCode}

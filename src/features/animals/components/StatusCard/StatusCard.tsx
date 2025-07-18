@@ -8,18 +8,29 @@ import {
 import { BadgeCheck } from 'lucide-react';
 import { ABSENCE } from '../../consts/animal.consts';
 import { useState, useEffect, useCallback } from 'react';
-import { StatusDisplay, StatusEdit, StatusLoading } from './components';
+import {
+  StatusDisplay,
+  StatusEdit,
+  StatusLoading,
+  AbsenceDetailSection,
+} from './components';
 
 interface StatusCardProps {
   absence: ABSENCE | null;
+  absenceDetail: string | null;
   onEditAbsence?: (absence: ABSENCE | null) => void;
+  onEditAbsenceDetail?: (absenceDetail: string | null) => void;
   isEditingAbsence?: boolean;
+  isEditingAbsenceDetail?: boolean;
 }
 
 export const StatusCard = ({
   absence,
+  absenceDetail,
   onEditAbsence,
+  onEditAbsenceDetail,
   isEditingAbsence,
+  isEditingAbsenceDetail,
 }: StatusCardProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [tempValue, setTempValue] = useState<ABSENCE | null>(absence);
@@ -61,6 +72,7 @@ export const StatusCard = ({
   };
 
   const hasChanges = tempValue !== absence;
+  const shouldShowAbsenceDetail = absenceDetail !== null || absence !== null;
 
   return (
     <Card>
@@ -70,28 +82,42 @@ export const StatusCard = ({
           <TypoH2>Estat</TypoH2>
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="flex items-center gap-x-3">
-          {!isEditing ? (
-            <StatusDisplay
-              absence={absence}
-              onEdit={handleEdit}
-              isEditingAbsence={isEditingAbsence}
-            />
-          ) : (
-            <>
-              {isEditingAbsence ? (
-                <StatusLoading tempValue={tempValue} />
-              ) : (
-                <StatusEdit
-                  tempValue={tempValue}
-                  onValueChange={setTempValue}
-                  onConfirm={handleConfirm}
-                  onCancel={handleCancel}
-                  hasChanges={hasChanges}
+      <CardContent className="grid grid-cols-1 sm:grid-cols-2">
+        <div className="flex flex-col gap-y-4">
+          <div>
+            <div className="flex items-center gap-x-3">
+              {!isEditing ? (
+                <StatusDisplay
+                  absence={absence}
+                  onEdit={handleEdit}
+                  isEditingAbsence={isEditingAbsence}
                 />
+              ) : (
+                <>
+                  {isEditingAbsence ? (
+                    <StatusLoading tempValue={tempValue} />
+                  ) : (
+                    <StatusEdit
+                      tempValue={tempValue}
+                      onValueChange={setTempValue}
+                      onConfirm={handleConfirm}
+                      onCancel={handleCancel}
+                      hasChanges={hasChanges}
+                    />
+                  )}
+                </>
               )}
-            </>
+            </div>
+          </div>
+          {shouldShowAbsenceDetail && (
+            <AbsenceDetailSection
+              label="Detall de l'absència"
+              absenceDetail={absenceDetail}
+              absence={absence}
+              onEditAbsenceDetail={onEditAbsenceDetail}
+              isEditingAbsenceDetail={isEditingAbsenceDetail}
+              placeholder="Descriu motiu d'absència"
+            />
           )}
         </div>
       </CardContent>
