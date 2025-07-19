@@ -7,6 +7,7 @@ import {
   ListOrdered,
   Tags,
   Shapes,
+  ShieldUserIcon,
   // Settings2,
 } from 'lucide-react';
 import type { MenuData, UserMenuItem } from '../interfaces/configInterfaces';
@@ -49,6 +50,11 @@ export const menuData: MenuData = {
       title: i18n_entities.characteristics,
       url: '/:animal/characteristics',
       icon: Tags,
+    },
+    {
+      title: i18n_entities.owners,
+      url: '/:animal/owners',
+      icon: ShieldUserIcon,
     },
   ],
 };
