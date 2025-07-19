@@ -30,6 +30,8 @@ export const entityKeys = [
   'breed',
   'characteristics',
   'characteristic',
+  'owners',
+  'owner',
 ] as const;
 
 export type EntityKey = (typeof entityKeys)[number];

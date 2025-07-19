@@ -27,6 +27,8 @@ export const i18n_entities: Record<EntityKey, string> = {
   breed: 'Raça',
   characteristics: 'Característiques',
   characteristic: 'Característica',
+  owners: 'Propietaris',
+  owner: 'Propietari',
 };
 
 export type AppAction = 'new' | 'edit' | 'delete';
