@@ -16,8 +16,12 @@ import {
   i18n_sexLabels,
 } from '@/shared/translations/translations';
 import { WeightSection } from './components';
+import type { Owner } from '../../owners/interface/owner';
 
 interface BasicInfoCardProps {
+  owner: Owner;
+  onEditOwner?: (owner: string) => void;
+  isEditingOwner?: boolean;
   longCode: string;
   breed: Breed;
   birthDate: string | null;
@@ -29,6 +33,9 @@ interface BasicInfoCardProps {
 }
 
 export const BasicInfoCard = ({
+  owner,
+  onEditOwner,
+  isEditingOwner,
   longCode,
   breed,
   birthDate,
@@ -47,12 +54,14 @@ export const BasicInfoCard = ({
         </CardTitle>
       </CardHeader>
       <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-y-4">
+        <div className="col-span-1 sm:col-span-2">
+          <TypoMuted>Propietari</TypoMuted>
+          <TypoLead className="font-mono font-semibold">{owner.value}</TypoLead>
+        </div>
         <div className="flex flex-col gap-y-4">
           <div>
             <TypoMuted>Codi llarg</TypoMuted>
-            <TypoLead className="font-mono uppercase font-semibold">
-              {longCode}
-            </TypoLead>
+            <TypoLead className="font-mono font-semibold">{longCode}</TypoLead>
           </div>
           <div>
             <TypoMuted>Raça</TypoMuted>

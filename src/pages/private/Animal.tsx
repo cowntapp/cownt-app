@@ -99,6 +99,9 @@ export const Animal = () => {
                   isEditingAbsenceDetail={editAnimalMutation.isPending}
                 />
                 <BasicInfoCard
+                  owner={animal.owner}
+                  onEditOwner={(owner) => onEditAnimal('owner', owner)}
+                  isEditingOwner={editAnimalMutation.isPending}
                   longCode={animal.longCode}
                   breed={animal.breed}
                   birthDate={animal.birthDate}

@@ -1,6 +1,7 @@
 import type { Breed } from '../breeds/interface/breed';
 import type { Characteristic } from '../characteristics/interface/characteristic';
 import type { ABSENCE, ORIGIN, SEX } from '../consts/animal.consts';
+import type { Owner } from '../owners/interface/owner';
 
 export interface AnimalRaw {
   id: string;
@@ -22,9 +23,13 @@ export interface AnimalRaw {
 }
 
 export interface AnimalPopulated
-  extends Omit<AnimalRaw, 'breed' | 'characteristics' | 'mother' | 'children'> {
+  extends Omit<
+    AnimalRaw,
+    'breed' | 'characteristics' | 'owner' | 'mother' | 'children'
+  > {
   breed: Breed;
   characteristics: Characteristic[];
+  owner: Owner;
   mother: AnimalRaw | null;
   children: AnimalRaw[];
 }
