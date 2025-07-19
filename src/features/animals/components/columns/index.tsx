@@ -12,11 +12,13 @@ import {
   createChildrenColumn,
   createLongCodeColumn,
   createOriginColumn,
+  createOwnerColumn,
   createSalePriceColumn,
   createSexColumn,
   createShortCodeColumn,
 } from './configs';
 import type { AnimalColumnConfig } from './types';
+import type { Owner } from '../../owners/interface/owner';
 
 export const loadingAnimalsColumns: AnimalColumnConfig[] = [
   {
@@ -31,12 +33,14 @@ export const loadingAnimalsColumns: AnimalColumnConfig[] = [
 ];
 
 interface AnimalColumnsProps {
+  owners: Owner[];
   breeds: Breed[];
   characteristics: Characteristic[];
   workspace: AnimalPath;
 }
 
 export const animalColumns = ({
+  owners,
   breeds,
   characteristics,
   workspace,
@@ -44,6 +48,7 @@ export const animalColumns = ({
   createSexColumn({ workspace }),
   createLongCodeColumn(),
   createShortCodeColumn({ workspace }),
+  createOwnerColumn({ owners }),
   createBreedColumn({ breeds }),
   createBirthDateColumn(),
   createOriginColumn(),

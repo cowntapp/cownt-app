@@ -12,6 +12,7 @@ import { QueryBoundary } from '@/shared/components/QueryBoundary';
 import { i18n_entities } from '@/shared/translations/translations';
 import type { EntityKey } from '@/config/interfaces/configInterfaces';
 import { Navigate } from 'react-router';
+import { useOwners } from '@/features/animals/owners/hooks/useOwners';
 
 export const Animals = () => {
   const { workspace, isValidWorkspace } = useAnimalWorkspace();
@@ -23,6 +24,7 @@ export const Animals = () => {
   const { animalsQuery } = useAnimals(validWorkspace);
   const { breedsQuery } = useBreeds(validWorkspace);
   const { characteristicsQuery } = useCharacteristics(validWorkspace);
+  const { ownersQuery } = useOwners();
 
   // Si el workspace no es válido, redirigir a 404
   if (!isValidWorkspace || !workspace) {
@@ -37,6 +39,7 @@ export const Animals = () => {
 
   const { breeds = [] } = breedsQuery;
   const { characteristics = [] } = characteristicsQuery;
+  const { owners = [] } = ownersQuery;
 
   // Get the entity name for the title
   const entityKey = workspace as EntityKey;
@@ -64,6 +67,7 @@ export const Animals = () => {
               filterColumnId="longCode"
               filterInputPlaceholder="Filtra per codi..."
               columns={animalColumns({
+                owners,
                 breeds,
                 characteristics,
                 workspace,

@@ -45,6 +45,7 @@ import { format } from 'date-fns';
 import { Calendar } from '@/shadcn/components/ui/calendar';
 import { ca } from 'react-day-picker/locale';
 import { Separator } from '@/shadcn/components/ui/separator';
+import type { Owner } from '../../owners/interface/owner';
 
 interface NewAnimalFormProps {
   isPending: boolean;
@@ -55,8 +56,10 @@ interface NewAnimalFormProps {
   children?: ReactNode;
   breeds: Breed[];
   characteristics: Characteristic[];
+  owners: Owner[];
   isLoadingBreeds?: boolean;
   isLoadingCharacteristics?: boolean;
+  isLoadingOwners?: boolean;
 }
 
 export const NewAnimalForm = ({
@@ -68,8 +71,10 @@ export const NewAnimalForm = ({
   children,
   breeds,
   characteristics,
+  owners,
   isLoadingBreeds = false,
   isLoadingCharacteristics = false,
+  isLoadingOwners = false,
   ...props
 }: NewAnimalFormProps & React.ComponentProps<'div'>) => {
   const form = useForm<CreateAnimalSchema>({
@@ -82,6 +87,7 @@ export const NewAnimalForm = ({
       birthDate: undefined,
       weight: undefined,
       origin: origin ?? undefined,
+      owner: '',
       buyPrice: undefined,
       salePrice: undefined,
       absence: null,
@@ -202,8 +208,46 @@ export const NewAnimalForm = ({
                         <Input
                           placeholder="ES123456789012"
                           {...field}
+                          value={field.value}
+                          onChange={(e) => {
+                            const formattedValue = e.target.value.toUpperCase();
+                            field.onChange(formattedValue);
+                          }}
                         />
                       </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Owner */}
+                <FormField
+                  control={form.control}
+                  name="owner"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Propietari *</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        disabled={isLoadingOwners}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecciona un propietari" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {owners.map((owner) => (
+                            <SelectItem
+                              key={owner.id}
+                              value={owner.id}
+                            >
+                              {owner.value}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}

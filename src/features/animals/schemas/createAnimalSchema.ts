@@ -29,6 +29,7 @@ export const createAnimalSchema = z
         return !isNaN(num) && num > 0 && num <= 9999;
       }, 'Weight must be a positive number less than or equal to 9999'),
     origin: z.nativeEnum(ORIGIN),
+    owner: z.string(),
     buyPrice: z.number().nonnegative().int().optional(),
     salePrice: z.number().nonnegative().int().optional(),
     absence: z.nativeEnum(ABSENCE).nullable(),

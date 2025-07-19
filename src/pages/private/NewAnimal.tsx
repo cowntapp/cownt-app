@@ -12,10 +12,13 @@ import type { Breed } from '@/features/animals/breeds/interface/breed';
 import type { Characteristic } from '@/features/animals/characteristics/interface/characteristic';
 import type { UseQueryResult } from '@tanstack/react-query';
 import type { ORIGIN } from '@/features/animals/consts/animal.consts';
+import { useOwners } from '@/features/animals/owners/hooks/useOwners';
+import type { Owner } from '@/features/animals/owners/interface/owner';
 
 type FormPreQueryData = {
   breeds: Breed[];
   characteristics: Characteristic[];
+  owners: Owner[];
 };
 
 export const NewAnimal = () => {
@@ -27,6 +30,7 @@ export const NewAnimal = () => {
   const { createAnimalMutation } = useCreateAnimal(workspace);
   const { breedsQuery } = useBreeds(workspace);
   const { characteristicsQuery } = useCharacteristics(workspace);
+  const { ownersQuery } = useOwners();
 
   const handleAnimalSubmit = (animal: CreateAnimalPayload) => {
     createAnimalMutation.createAnimal({ payload: animal });
@@ -35,21 +39,34 @@ export const NewAnimal = () => {
   // Query sintética que combina ambas queries necesarias para el form
   const formDataQuery = {
     data:
-      breedsQuery.breeds && characteristicsQuery.characteristics
+      breedsQuery.breeds &&
+      characteristicsQuery.characteristics &&
+      ownersQuery.owners
         ? {
             breeds: breedsQuery.breeds,
             characteristics: characteristicsQuery.characteristics,
+            owners: ownersQuery.owners,
           }
         : undefined,
-    isLoading: breedsQuery.isLoading || characteristicsQuery.isLoading,
-    isError: breedsQuery.isError || characteristicsQuery.isError,
-    error: breedsQuery.error || characteristicsQuery.error || null,
+    isLoading:
+      breedsQuery.isLoading ||
+      characteristicsQuery.isLoading ||
+      ownersQuery.isLoading,
+    isError:
+      breedsQuery.isError ||
+      characteristicsQuery.isError ||
+      ownersQuery.isError,
+    error:
+      breedsQuery.error ||
+      characteristicsQuery.error ||
+      ownersQuery.error ||
+      null,
   } as unknown as UseQueryResult<FormPreQueryData, Error>;
 
   return (
     <div className="max-w-7xl">
       <QueryBoundary query={formDataQuery}>
-        {({ breeds, characteristics }) => (
+        {({ breeds, characteristics, owners }) => (
           <NewAnimalForm
             isPending={createAnimalMutation.isPending}
             onAnimalSubmit={handleAnimalSubmit}
@@ -57,6 +74,7 @@ export const NewAnimal = () => {
             motherId={motherId}
             breeds={breeds}
             characteristics={characteristics}
+            owners={owners}
           >
             <NewAnimalFormHeader origin={origin} />
           </NewAnimalForm>

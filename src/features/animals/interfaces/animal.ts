@@ -11,6 +11,7 @@ export interface AnimalRaw {
   birthDate: string | null;
   weight: string | null;
   origin: ORIGIN;
+  owner: string;
   buyPrice: number | null;
   salePrice: number | null;
   absence: ABSENCE | null;

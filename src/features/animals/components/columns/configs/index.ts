@@ -9,3 +9,4 @@ export * from './originColumn';
 export * from './salePriceColumn';
 export * from './sexColumn';
 export * from './shortCodeColumn';
+export * from './ownerColumn';
