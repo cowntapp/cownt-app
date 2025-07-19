@@ -15,7 +15,7 @@ import {
   i18n_originLabels,
   i18n_sexLabels,
 } from '@/shared/translations/translations';
-import { WeightSection } from './components';
+import { WeightSection, OwnerSection } from './components';
 import type { Owner } from '../../owners/interface/owner';
 
 interface BasicInfoCardProps {
@@ -56,7 +56,11 @@ export const BasicInfoCard = ({
       <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-y-4">
         <div className="col-span-1 sm:col-span-2">
           <TypoMuted>Propietari</TypoMuted>
-          <TypoLead className="font-mono font-semibold">{owner.value}</TypoLead>
+          <OwnerSection
+            owner={owner}
+            onEditOwner={onEditOwner}
+            isEditingOwner={isEditingOwner}
+          />
         </div>
         <div className="flex flex-col gap-y-4">
           <div>
