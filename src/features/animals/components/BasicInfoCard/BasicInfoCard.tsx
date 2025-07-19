@@ -17,6 +17,7 @@ import {
 } from '@/shared/translations/translations';
 import { WeightSection, OwnerSection } from './components';
 import type { Owner } from '../../owners/interface/owner';
+import { Separator } from '@/shadcn/components/ui/separator';
 
 interface BasicInfoCardProps {
   owner: Owner;
@@ -62,6 +63,7 @@ export const BasicInfoCard = ({
             isEditingOwner={isEditingOwner}
           />
         </div>
+        <Separator className="col-span-1 sm:col-span-2" />
         <div className="flex flex-col gap-y-4">
           <div>
             <TypoMuted>Codi llarg</TypoMuted>
