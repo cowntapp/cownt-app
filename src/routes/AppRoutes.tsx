@@ -27,6 +27,7 @@ import { EditCharacteristic } from '@/pages/private/EditCharacteristic';
 import { NewAnimal } from '@/pages/private/NewAnimal';
 import { Owners } from '@/pages/private/Owners';
 import { NewOwner } from '@/pages/private/NewOwner';
+import { EditOwner } from '@/pages/private/EditOwner';
 
 const AppRoutes = () => {
   const navigate = useNavigate();
@@ -155,7 +156,7 @@ const AppRoutes = () => {
                 />
                 <Route
                   path=":id/edit"
-                  element={<div>HEre goes edit owner</div>}
+                  element={<EditOwner />}
                 />
                 <Route
                   path="*"
