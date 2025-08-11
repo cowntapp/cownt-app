@@ -47,8 +47,6 @@ export const Animals = () => {
 
   return (
     <div className="w-full">
-      <TypoH1>{title}</TypoH1>
-
       <QueryBoundary
         query={animalsQuery}
         loaderComponent={
@@ -62,18 +60,24 @@ export const Animals = () => {
       >
         {(data) => {
           return (
-            <DataTableScrollable
-              key={`${workspace}-list-table`}
-              filterColumnId="longCode"
-              filterInputPlaceholder="Filtra per codi..."
-              columns={animalColumns({
-                owners,
-                breeds,
-                characteristics,
-                workspace,
-              })}
-              data={data}
-            />
+            <>
+              <TypoH1>
+                {title} ({data.length})
+              </TypoH1>
+
+              <DataTableScrollable
+                key={`${workspace}-list-table`}
+                filterColumnId="longCode"
+                filterInputPlaceholder="Filtra per codi..."
+                columns={animalColumns({
+                  owners,
+                  breeds,
+                  characteristics,
+                  workspace,
+                })}
+                data={data}
+              />
+            </>
           );
         }}
       </QueryBoundary>

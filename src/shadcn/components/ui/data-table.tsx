@@ -152,6 +152,13 @@ export function DataTableScrollable<TData, TValue>({
           </DropdownMenu>
         </div>
       </div>
+
+      {isTableFilteredOrSorted && (
+        <div className="text-sm text-muted-foreground py-2">
+          {table.getFilteredRowModel().rows.length} coincidències
+        </div>
+      )}
+
       <div className={`rounded-md border my-2 ${className}`}>
         <Table containerClassName="max-h-[500px]">
           <TableContent
