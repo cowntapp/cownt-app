@@ -13,6 +13,7 @@ import { i18n_entities } from '@/shared/translations/translations';
 import type { EntityKey } from '@/config/interfaces/configInterfaces';
 import { Navigate } from 'react-router';
 import { useOwners } from '@/features/animals/owners/hooks/useOwners';
+import { filterPresentAnimals } from '@/features/animals/helpers/animalHelpers';
 
 export const Animals = () => {
   const { workspace, isValidWorkspace } = useAnimalWorkspace();
@@ -62,7 +63,7 @@ export const Animals = () => {
           return (
             <>
               <TypoH1>
-                {title} ({data.length})
+                {title} ({filterPresentAnimals(data).length})
               </TypoH1>
 
               <DataTableScrollable
