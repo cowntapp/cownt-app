@@ -48,6 +48,7 @@ export type AnimalRawKeys = keyof AnimalRaw;
 export const i18n_animalProps: Partial<Record<AnimalRawKeys, string>> = {
   sex: 'Sexe',
   shortCode: 'Codi curt',
+  owner: 'Propietari',
   origin: 'Origen',
   children: 'Parts',
   breed: 'Raça',
