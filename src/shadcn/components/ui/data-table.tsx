@@ -38,6 +38,7 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   className?: string;
+  isLoading?: boolean;
 }
 interface DataTableScrollableProps<TData, TValue>
   extends DataTableProps<TData, TValue> {
@@ -74,6 +75,7 @@ export function DataTableScrollable<TData, TValue>({
   filterColumnId,
   filterInputPlaceholder,
   className,
+  isLoading = false,
 }: DataTableScrollableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -103,6 +105,7 @@ export function DataTableScrollable<TData, TValue>({
       <div className="flex items-center gap-x-4 py-2 mt-4">
         <Input
           className="max-w-sm"
+          disabled={isLoading}
           placeholder={filterInputPlaceholder}
           value={
             (table.getColumn(filterColumnId)?.getFilterValue() as string) ?? ''

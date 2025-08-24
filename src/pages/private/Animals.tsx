@@ -51,12 +51,16 @@ export const Animals = () => {
       <QueryBoundary
         query={animalsQuery}
         loaderComponent={
-          <DataTableScrollable
-            filterColumnId="longCode"
-            filterInputPlaceholder="Carregant..."
-            columns={loadingAnimalsColumns}
-            data={new Array(3)}
-          />
+          <>
+            <TypoH1>{title}</TypoH1>
+            <DataTableScrollable
+              filterColumnId="longCode"
+              filterInputPlaceholder="Carregant..."
+              columns={loadingAnimalsColumns}
+              data={new Array(3)}
+              isLoading={true}
+            />
+          </>
         }
       >
         {(data) => {
