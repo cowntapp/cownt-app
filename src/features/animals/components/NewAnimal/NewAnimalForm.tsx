@@ -53,6 +53,7 @@ interface NewAnimalFormProps {
   className?: string;
   origin?: ORIGIN | null;
   motherId?: string | null;
+  ownerId?: string | null;
   children?: ReactNode;
   breeds: Breed[];
   characteristics: Characteristic[];
@@ -68,6 +69,7 @@ export const NewAnimalForm = ({
   className,
   origin,
   motherId,
+  ownerId,
   children,
   breeds,
   characteristics,
@@ -87,10 +89,10 @@ export const NewAnimalForm = ({
       birthDate: undefined,
       weight: undefined,
       origin: origin ?? undefined,
-      owner: '',
+      owner: ownerId || '',
       buyPrice: undefined,
       salePrice: undefined,
-      absence: null,
+      absence: origin === 'born' ? ABSENCE.SOLD : null,
       absenceDetail: undefined,
       characteristics: undefined,
       mother: motherId || undefined,

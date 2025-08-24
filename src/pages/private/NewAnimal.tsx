@@ -25,6 +25,7 @@ export const NewAnimal = () => {
   const [searchParams] = useSearchParams();
   const origin = searchParams.get('origin') as ORIGIN | null;
   const motherId = searchParams.get('motherId');
+  const ownerId = searchParams.get('ownerId');
 
   const workspace = useRouterParams('workspace').workspace as AnimalPath;
   const { createAnimalMutation } = useCreateAnimal(workspace);
@@ -72,6 +73,7 @@ export const NewAnimal = () => {
             onAnimalSubmit={handleAnimalSubmit}
             origin={origin}
             motherId={motherId}
+            ownerId={ownerId}
             breeds={breeds}
             characteristics={characteristics}
             owners={owners}

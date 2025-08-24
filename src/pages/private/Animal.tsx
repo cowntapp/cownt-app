@@ -70,7 +70,7 @@ export const Animal = () => {
                 className="hidden md:block"
               >
                 <Link
-                  to={`/${workspace}/new?origin=born&motherId=${animal.id}`}
+                  to={`/${workspace}/new?origin=born&motherId=${animal.id}&ownerId=${animal.owner.id}`}
                 >
                   Registra nou part
                 </Link>
