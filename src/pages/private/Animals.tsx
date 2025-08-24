@@ -54,7 +54,7 @@ export const Animals = () => {
           <>
             <TypoH1>{title}</TypoH1>
             <DataTableScrollable
-              filterColumnId="longCode"
+              filterColumnId="shortCode"
               filterInputPlaceholder="Carregant..."
               columns={loadingAnimalsColumns}
               data={new Array(3)}
@@ -72,7 +72,7 @@ export const Animals = () => {
 
               <DataTableScrollable
                 key={`${workspace}-list-table`}
-                filterColumnId="longCode"
+                filterColumnId="shortCode"
                 filterInputPlaceholder="Filtra per codi..."
                 columns={animalColumns({
                   owners,
