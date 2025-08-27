@@ -79,7 +79,7 @@ export const BasicInfoCard = ({
 
         <Separator className="col-span-1 sm:col-span-2" />
 
-        <div className="flex flex-col gap-y-4">
+        <div className="col-span-1 flex flex-col gap-y-4">
           <div>
             <TypoMuted>Codi llarg</TypoMuted>
             <TypoLead className="font-mono font-semibold">{longCode}</TypoLead>
@@ -101,7 +101,7 @@ export const BasicInfoCard = ({
           />
         </div>
 
-        <div className="flex flex-col gap-y-4">
+        <div className="col-span-1 flex flex-col gap-y-4">
           <div>
             <TypoMuted>Sexe</TypoMuted>
             <TypoLead className="font-semibold">{i18n_sexLabels[sex]}</TypoLead>
@@ -123,7 +123,7 @@ export const BasicInfoCard = ({
 
         <Separator className="col-span-1 sm:col-span-2" />
 
-        <div className="col-span-2">
+        <div className="col-span-1 sm:col-span-2">
           <DetailsSection
             details={details}
             onEditDetails={onEditDetails}
