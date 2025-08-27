@@ -66,7 +66,6 @@ export const DeathDateSection = ({
   const handleConfirm = () => {
     // Validate before confirming
     const validation = validateDeathDate(tempValue);
-    console.log(tempValue);
     if (!validation.isValid) {
       setValidationError(validation.error || 'Error de validació');
       return;
@@ -74,7 +73,6 @@ export const DeathDateSection = ({
 
     if (onEditDeathDate) {
       const newDetails = tempValue.trim() === '' ? null : tempValue.trim();
-      console.log(newDetails);
       if (newDetails !== deathDate) {
         onEditDeathDate(newDetails);
       }

@@ -54,6 +54,7 @@ export const i18n_animalProps: Partial<Record<AnimalRawKeys, string>> = {
   breed: 'Raça',
   characteristics: 'Característiques',
   birthDate: 'Naixament',
+  deathDate: 'Mort',
   buyPrice: '€ Compra',
   salePrice: '€ Venta',
   absence: 'Present',

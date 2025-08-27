@@ -81,10 +81,7 @@ export const DetailsSection = ({
       return;
     }
 
-    console.log('c');
-
     if (onEditDetails) {
-      console.log('d');
       const newDetails = tempValue.trim() === '' ? null : tempValue.trim();
       if (newDetails !== details) {
         onEditDetails(newDetails);
