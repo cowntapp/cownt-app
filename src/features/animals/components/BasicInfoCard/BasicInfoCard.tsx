@@ -15,9 +15,10 @@ import {
   i18n_originLabels,
   i18n_sexLabels,
 } from '@/shared/translations/translations';
-import { WeightSection, OwnerSection } from './components';
+import { WeightSection, OwnerSection, DetailsSection } from './components';
 import type { Owner } from '../../owners/interface/owner';
 import { Separator } from '@/shadcn/components/ui/separator';
+import { DeathDateSection } from './components/DeathDateSection';
 
 interface BasicInfoCardProps {
   owner: Owner;
@@ -26,11 +27,17 @@ interface BasicInfoCardProps {
   longCode: string;
   breed: Breed;
   birthDate: string | null;
+  deathDate: string | null;
+  onEditDeathDate: (deathDate: string | null) => void;
+  isEditingDeathDate?: boolean;
   sex: SEX;
   origin: ORIGIN;
   weight: string | null;
   onEditWeight?: (weight: string | null) => void;
   isEditingWeight?: boolean;
+  details: string | null;
+  onEditDetails?: (details: string | null) => void;
+  isEditingDetials?: boolean;
 }
 
 export const BasicInfoCard = ({
@@ -40,11 +47,17 @@ export const BasicInfoCard = ({
   longCode,
   breed,
   birthDate,
+  deathDate,
+  onEditDeathDate,
+  isEditingDeathDate,
   sex,
   origin,
   weight,
   onEditWeight,
   isEditingWeight,
+  details,
+  onEditDetails,
+  isEditingDetials,
 }: BasicInfoCardProps) => {
   return (
     <Card>
@@ -63,7 +76,9 @@ export const BasicInfoCard = ({
             isEditingOwner={isEditingOwner}
           />
         </div>
+
         <Separator className="col-span-1 sm:col-span-2" />
+
         <div className="flex flex-col gap-y-4">
           <div>
             <TypoMuted>Codi llarg</TypoMuted>
@@ -79,7 +94,13 @@ export const BasicInfoCard = ({
               <Calendar size={18} /> {formatDate(birthDate) ?? '-'}
             </TypoLead>
           </div>
+          <WeightSection
+            weight={weight}
+            onEditWeight={onEditWeight}
+            isEditingWeight={isEditingWeight}
+          />
         </div>
+
         <div className="flex flex-col gap-y-4">
           <div>
             <TypoMuted>Sexe</TypoMuted>
@@ -91,10 +112,22 @@ export const BasicInfoCard = ({
               {i18n_originLabels[origin]}
             </TypoLead>
           </div>
-          <WeightSection
-            weight={weight}
-            onEditWeight={onEditWeight}
-            isEditingWeight={isEditingWeight}
+          <div>
+            <DeathDateSection
+              deathDate={deathDate}
+              onEditDeathDate={onEditDeathDate}
+              isEditingDeathDate={isEditingDeathDate}
+            />
+          </div>
+        </div>
+
+        <Separator className="col-span-1 sm:col-span-2" />
+
+        <div className="col-span-2">
+          <DetailsSection
+            details={details}
+            onEditDetails={onEditDetails}
+            isEditingDetails={isEditingDetials}
           />
         </div>
       </CardContent>

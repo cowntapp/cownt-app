@@ -105,11 +105,19 @@ export const Animal = () => {
                   longCode={animal.longCode}
                   breed={animal.breed}
                   birthDate={animal.birthDate}
+                  deathDate={animal.deathDate}
+                  onEditDeathDate={(deathDate) =>
+                    onEditAnimal('deathDate', deathDate)
+                  }
+                  isEditingDeathDate={editAnimalMutation.isPending}
                   sex={animal.sex}
                   origin={animal.origin}
                   weight={animal.weight}
                   onEditWeight={(weight) => onEditAnimal('weight', weight)}
                   isEditingWeight={editAnimalMutation.isPending}
+                  details={animal.details}
+                  onEditDetails={(detials) => onEditAnimal('details', detials)}
+                  isEditingDetials={editAnimalMutation.isPending}
                 />
                 <FinancialInfoCard
                   purchasePrice={animal.buyPrice}

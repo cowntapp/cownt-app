@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { SEX, ORIGIN, ABSENCE } from '../consts/animal.consts';
 
-function validateDate(val: string) {
+export function validateDate(val: string) {
   const ms = Number(val);
   return !isNaN(ms) && !isNaN(new Date(ms).getTime());
 }
@@ -20,6 +20,13 @@ export const createAnimalSchema = z
         (val) => val === undefined || validateDate(val),
         'birthDate must be a valid date timestamp in milliseconds'
       ),
+    deathDate: z
+      .string()
+      .optional()
+      .refine(
+        (val) => val === undefined || validateDate(val),
+        'deathDate must be a valid date timestamp in milliseconds'
+      ),
     weight: z
       .string()
       .optional()
@@ -30,6 +37,7 @@ export const createAnimalSchema = z
       }, 'Weight must be a positive number less than or equal to 9999'),
     origin: z.nativeEnum(ORIGIN),
     owner: z.string(),
+    details: z.string().min(1).max(255).optional(),
     buyPrice: z.number().nonnegative().int().optional(),
     salePrice: z.number().nonnegative().int().optional(),
     absence: z.nativeEnum(ABSENCE).nullable(),

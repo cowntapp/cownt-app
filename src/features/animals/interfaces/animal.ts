@@ -10,9 +10,11 @@ export interface AnimalRaw {
   breed: string;
   sex: SEX;
   birthDate: string | null;
+  deathDate: string | null;
   weight: string | null;
   origin: ORIGIN;
   owner: string;
+  details: string | null;
   buyPrice: number | null;
   salePrice: number | null;
   absence: ABSENCE | null;

@@ -1,5 +1,12 @@
-export { WeightDisplay } from './WeightDisplay';
-export { WeightEdit } from './WeightEdit';
-export { WeightLoading } from './WeightLoading';
-export { WeightSection } from './WeightSection';
-export { OwnerSection } from './owner';
+export * from './DetailsDisplay';
+export * from './DetailsEdit';
+export * from './DetailsLoading';
+export * from './DetailsSection';
+export * from './WeightDisplay';
+export * from './WeightEdit';
+export * from './WeightLoading';
+export * from './WeightSection';
+export * from './owner/OwnerDisplay';
+export * from './owner/OwnerEdit';
+export * from './owner/OwnerLoading';
+export * from './owner/OwnerSection';
