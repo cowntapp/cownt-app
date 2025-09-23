@@ -37,7 +37,7 @@ export interface AnimalPopulated
 }
 
 export interface AnimalsStatisticsResponse {
-  cows: AnimalWithStatistics[];
+  animals: AnimalWithStatistics[];
   averageOfAverages: number;
 }
 
