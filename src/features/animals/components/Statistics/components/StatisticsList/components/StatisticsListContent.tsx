@@ -76,7 +76,7 @@ export const StatisticsListContent = ({
       <div className="flex flex-col space-y-1">
         {sortedAnimals.map((animal) => (
           <div
-            key={animal.shortCode}
+            key={animal.id}
             className="grid grid-cols-4 gap-x-1 items-center hover:bg-secondary px-2 rounded-sm space-x-4 font-mono text-xs sm:text-sm"
           >
             <div className="flex items-center gap-1">
