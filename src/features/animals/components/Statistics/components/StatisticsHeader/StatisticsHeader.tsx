@@ -7,13 +7,13 @@ export interface StatisticsHeaderProps {
     averageOfAverages: number;
     olderZeroBirthAnimal: {
       birthDate: string | null;
-    };
+    } | null;
     higherAvgAnimal: {
       birthAverageDays: number | null;
-    };
+    } | null;
     maxLastBirthAnimal: {
       lastIntervalDays: number | null;
-    };
+    } | null;
     totalReproductiveAnimals: number;
     totalOnePlusBirthAnimals: number;
     totalZeroBirthAnimals: number;
