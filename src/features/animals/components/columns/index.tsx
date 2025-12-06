@@ -52,11 +52,11 @@ export const animalColumns = ({
   createOwnerColumn({ owners }),
   createBreedColumn({ breeds }),
   createBirthDateColumn(),
+  createAbsenceColumn(),
+  createChildrenColumn(),
   createDeathDateColumn(),
   createOriginColumn(),
-  createChildrenColumn(),
   createBuyPriceColumn(),
   createSalePriceColumn(),
   createCharacteristicsColumn({ characteristics }),
-  createAbsenceColumn(),
 ];
