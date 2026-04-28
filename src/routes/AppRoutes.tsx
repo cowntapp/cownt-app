@@ -1,33 +1,35 @@
+import { Navigate, Route, Routes, useNavigate } from 'react-router';
+
 import { ALLOW_REGISTER } from '@/config/consts/configConsts';
+import { Animal } from '@/pages/private/Animal';
+import { Animals } from '@/pages/private/Animals';
+import AnimalsList from '@/pages/private/AnimalsList';
+import { AuthGuard } from './AuthGuard';
+import { Breeds } from '@/pages/private/Breeds';
+import { Characteristics } from '@/pages/private/Characteristics';
 import DashboardLayout from '@/layouts/DashboardLayout';
-import { PublicLayout } from '@/layouts/PublicLayout';
-import { RootLayout } from '@/layouts/RootLayout';
+import { EditBreed } from '@/pages/private/EditBreed';
+import { EditCharacteristic } from '@/pages/private/EditCharacteristic';
+import { EditOwner } from '@/pages/private/EditOwner';
 import { ForgotPassword } from '@/pages/public/ForgotPassword';
 import { Home } from '@/pages/public/Home';
 import { Login } from '@/pages/public/Login';
+import { NewAnimal } from '@/pages/private/NewAnimal';
+import { NewBreed } from '@/pages/private/NewBreed';
+import { NewCharacteristic } from '@/pages/private/NewCharacteristic';
+import { NewOwner } from '@/pages/private/NewOwner';
+import { NotFound } from '@/pages/public/NotFound';
+import { Owners } from '@/pages/private/Owners';
+import { PublicLayout } from '@/layouts/PublicLayout';
 import { Register } from '@/pages/public/Register';
 import { ResetPassword } from '@/pages/public/ResetPassword';
-import { VerifyEmail } from '@/pages/public/VerifyEmail';
-import { Navigate, Route, Routes, useNavigate } from 'react-router';
-import { AuthGuard } from './AuthGuard';
-import { VerifyEmailInfo } from '@/pages/public/VerifyEmailInfo';
+import { RootLayout } from '@/layouts/RootLayout';
 import { Sessions } from '@/pages/private/Sessions';
-import { setNavigate } from '@/shared/utils/navigation';
 import { SettingsLayout } from '@/layouts/SettingsLayout';
+import { VerifyEmail } from '@/pages/public/VerifyEmail';
+import { VerifyEmailInfo } from '@/pages/public/VerifyEmailInfo';
 import { WorkspaceDashboard } from '@/pages/private/WorkspaceDashboard';
-import { Breeds } from '@/pages/private/Breeds';
-import { Characteristics } from '@/pages/private/Characteristics';
-import { Animal } from '@/pages/private/Animal';
-import { Animals } from '@/pages/private/Animals';
-import { NotFound } from '@/pages/public/NotFound';
-import { NewBreed } from '@/pages/private/NewBreed';
-import { EditBreed } from '@/pages/private/EditBreed';
-import { NewCharacteristic } from '@/pages/private/NewCharacteristic';
-import { EditCharacteristic } from '@/pages/private/EditCharacteristic';
-import { NewAnimal } from '@/pages/private/NewAnimal';
-import { Owners } from '@/pages/private/Owners';
-import { NewOwner } from '@/pages/private/NewOwner';
-import { EditOwner } from '@/pages/private/EditOwner';
+import { setNavigate } from '@/shared/utils/navigation';
 
 const AppRoutes = () => {
   const navigate = useNavigate();
@@ -84,6 +86,10 @@ const AppRoutes = () => {
               <Route
                 index
                 element={<Animals />}
+              />
+              <Route
+                path="list"
+                element={<AnimalsList />}
               />
               <Route
                 path="new"

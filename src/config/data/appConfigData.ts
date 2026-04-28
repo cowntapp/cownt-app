@@ -1,19 +1,17 @@
 import {
   BadgeCheck,
-  // Bell,
-  // CreditCard,
-  LogOut,
   ChartColumn,
   ListOrdered,
-  Tags,
+  LogOut,
   Shapes,
   ShieldUserIcon,
-  // Settings2,
+  Tags,
 } from 'lucide-react';
 import type { MenuData, UserMenuItem } from '../interfaces/configInterfaces';
-import { i18n_entities } from '@/shared/translations/translations';
+
 import { CowIcon } from '@/features/animals/components/icons/CowIcon';
 import { SheepIcon } from '@/features/animals/components/icons/SheepIcon';
+import { i18n_entities } from '@/shared/translations/translations';
 
 export const AppLogo = CowIcon;
 
