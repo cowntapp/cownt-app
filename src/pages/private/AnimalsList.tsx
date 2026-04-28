@@ -1,8 +1,11 @@
+import {
+  createAnimalsDocxFile,
+  createAnimalsPdfDoc,
+} from '@/shared/utils/exportAnimalsDocs';
+
 import type { AnimalPath } from '@/features/animals/interfaces/animalType';
 import { Button } from '@/shadcn/components/ui/button';
 import { QueryBoundary } from '@/shared/components/QueryBoundary';
-import { autoTable } from 'jspdf-autotable';
-import jsPDF from 'jspdf';
 import { useAnimalsList } from '@/features/animals/hooks/useAnimalsList';
 import { useRouterParams } from '@/shared/hooks/useRouterParams';
 
@@ -13,8 +16,20 @@ const AnimalsList = () => {
 
   const animalsList = animalsListQuery.animals ?? [];
 
-  const handleDownloadPdf = () => {
-    if (!animalsList.length) return;
+  const codes = animalsList
+    .map((animal) => animal.shortCode)
+    .filter((code): code is string => Boolean(code));
+
+  const columns = 4;
+
+  const handleCreatePdf = () => {
+    if (!codes.length) return;
+
+    const doc = createAnimalsPdfDoc({
+      title: animalTitle,
+      codes,
+      columns,
+    });
 
     const date = new Date();
     const year = date.getFullYear();
@@ -24,42 +39,26 @@ const AnimalsList = () => {
       .replace('.', '');
     const day = String(date.getDate()).padStart(2, '0');
 
-    const doc = new jsPDF({
-      orientation: 'portrait',
-      unit: 'pt',
-      format: 'a4',
-    });
-
-    doc.setFontSize(18);
-    doc.text(`${animalTitle} Presents a ${day}-${month}-${year}`, 40, 40);
-
-    autoTable(doc, {
-      startY: 60,
-      head: [['Codi Curt', 'Codi Llarg', 'Propietari']],
-      body: animalsList.map((animal) => [
-        animal.shortCode ?? '',
-        animal.longCode ?? '',
-        animal.owner ?? '',
-      ]),
-      styles: {
-        fontSize: 10,
-        cellPadding: 6,
-        valign: 'middle',
-      },
-      headStyles: {
-        fillColor: [240, 240, 240],
-        textColor: 20,
-        fontStyle: 'bold',
-      },
-      alternateRowStyles: {
-        fillColor: [250, 250, 250],
-      },
-      margin: { left: 40, right: 40 },
-    });
-
     doc.save(
       `${animalTitle.toLowerCase()}-presents-${year}-${month}-${day}.pdf`,
     );
+  };
+
+  const handleCreateDocx = async () => {
+    if (!codes.length) return;
+
+    const file = await createAnimalsDocxFile({
+      title: animalTitle,
+      codes,
+      columns,
+    });
+
+    const url = URL.createObjectURL(file);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = file.name;
+    link.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -68,12 +67,20 @@ const AnimalsList = () => {
         {animalTitle} Presents ({animalsList.length})
       </h1>
 
-      <Button
-        disabled={!animalsList.length}
-        onClick={handleDownloadPdf}
-      >
-        Descarregar Llista
-      </Button>
+      <div className="space-x-4 space-y-4">
+        <Button
+          disabled={!animalsList.length}
+          onClick={handleCreatePdf}
+        >
+          Descarregar Pdf
+        </Button>
+        <Button
+          disabled={!animalsList.length}
+          onClick={handleCreateDocx}
+        >
+          Descarregar Word
+        </Button>
+      </div>
 
       <QueryBoundary query={animalsListQuery}>
         {({ animalsList }) => (
