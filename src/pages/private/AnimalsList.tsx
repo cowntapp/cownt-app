@@ -16,6 +16,14 @@ const AnimalsList = () => {
   const handleDownloadPdf = () => {
     if (!animalsList.length) return;
 
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = new Intl.DateTimeFormat('ca', { month: 'short' })
+      .format(date)
+      .toLowerCase()
+      .replace('.', '');
+    const day = String(date.getDate()).padStart(2, '0');
+
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'pt',
@@ -23,7 +31,7 @@ const AnimalsList = () => {
     });
 
     doc.setFontSize(18);
-    doc.text(`${animalTitle} Presents`, 40, 40);
+    doc.text(`${animalTitle} Presents a ${day}-${month}-${year}`, 40, 40);
 
     autoTable(doc, {
       startY: 60,
@@ -48,14 +56,6 @@ const AnimalsList = () => {
       },
       margin: { left: 40, right: 40 },
     });
-
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = new Intl.DateTimeFormat('ca', { month: 'short' })
-      .format(date)
-      .toLowerCase()
-      .replace('.', '');
-    const day = String(date.getDate()).padStart(2, '0');
 
     doc.save(
       `${animalTitle.toLowerCase()}-presents-${year}-${month}-${day}.pdf`,
